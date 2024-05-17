@@ -18,6 +18,7 @@ export default [
       "no-console": "warn",
       "no-undef": "error",
     },
+    
   },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
