@@ -10,6 +10,7 @@ export default [
         ...globals.browser,
         process: "readonly",
       },
+      
     },
     rules: {
       "no-unused-vars": "error",
