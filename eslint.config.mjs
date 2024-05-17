@@ -24,3 +24,7 @@ export default [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
 ];
+
+
+// "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
+// 
