@@ -2,6 +2,8 @@ import { Schema, model, connect } from "mongoose";
 import { Gardians, LocalGardian, Student, UserName } from "./student.interface";
 
 
+
+//schema create
 const studentName = new Schema<UserName>({
     firstName: { type: String, required: true },
     middleName: { type: String, required: true },
@@ -43,3 +45,7 @@ const studentSchema = new Schema<Student>({
   profileImg: { type: String },
   isActive: ["active", "block"],
 });
+
+//model create
+
+const Student = model<Student>('Student', studentSchema)

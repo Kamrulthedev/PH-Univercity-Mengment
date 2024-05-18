@@ -5,9 +5,13 @@ const app: Application = express();
 app.use(express.json());
 app.use(cors());
 
-app.get("/", (req: Request, res: Response) => {
+
+const getRouter =  (req: Request, res: Response) => {
   const a = 19;
   res.send(a);
-});
+}
+
+
+app.get("/", getRouter);
 
 export default app;
