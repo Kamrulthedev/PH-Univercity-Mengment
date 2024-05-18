@@ -8,7 +8,7 @@ const createStudent = async(req :Request, res: Response) =>{
         const {student: studentData} = req.body;
         const result = await StudentService.createStudentInToDB(studentData);
 
-        res.status(2000).json({
+        res.status(200).json({
             success:true,
             message: "Student Created Successfully",
             data:result
