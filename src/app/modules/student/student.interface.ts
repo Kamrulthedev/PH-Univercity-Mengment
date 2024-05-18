@@ -7,10 +7,10 @@ export type Gardians = {
     fatherContectNo:string;
     fatherOccupation:string;
     fatherAddress:string;
-    MatherName:string;
-    MatherContectNo:string;
-    MatherOccupation:string;
-    MatherAddress:string;
+    matherName:string;
+    matherContectNo:string;
+    matherOccupation:string;
+    matherAddress:string;
 };
 
 export type UserName = {
@@ -22,7 +22,7 @@ export type UserName = {
 export type LocalGardian ={
     name:string;
     occupation:string;
-    ContectNO:string;
+    contectNO:string;
     address:string;   
 };
 
@@ -40,6 +40,6 @@ export type Student = {
     gardians:Gardians;
     localGardian:LocalGardian;
     profileImg?:string;
-    isActive:'active' | 'inactive'; 
+    isActive:'active' | 'block'; 
   }
   
