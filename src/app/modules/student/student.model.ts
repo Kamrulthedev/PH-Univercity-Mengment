@@ -29,7 +29,7 @@ const gardianSchema = new Schema<Gardians>({
     matherAddress: { type: String, required: true },
 });
 
-const studentSchema = new Schema<Student>({
+ const studentSchema = new Schema<Student>({
   id: { type: String },
   name:studentName,
   gender: { type: String, required: true },
@@ -48,4 +48,4 @@ const studentSchema = new Schema<Student>({
 
 //model create
 
-const Student = model<Student>('Student', studentSchema)
+export const StudentModel = model<Student>('Student', studentSchema)
