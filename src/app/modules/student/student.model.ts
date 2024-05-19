@@ -1,5 +1,6 @@
 import { Schema, model, connect } from "mongoose";
 import { Gardians, LocalGardian, Student, UserName } from "./student.interface";
+import validator from "validator";
 
 //schema create
 const userNameSchema = new Schema<UserName>({
@@ -8,16 +9,24 @@ const userNameSchema = new Schema<UserName>({
     required: [true, "First name is required"],
     maxlength: [20, "This Name is not find please 20 cheracotrs"],
     // trim: true,
-    validate:{
-      validator:function(value : any){
-        const firstNamevalue = value.charAt(0).toLocaleUpperCase() + value.slice(1)
+    validate: {
+      validator: function (value: any) {
+        const firstNamevalue =
+          value.charAt(0).toLocaleUpperCase() + value.slice(1);
         return firstNamevalue === value;
       },
-      message:'{VALUE} is not found'
+      message: "{VALUE} is not found",
     },
   },
   middleName: { type: String, required: [true, "Middle name is required"] },
-  lastName: { type: String, required: [true, "Last name is required"] },
+  lastName: {
+    type: String,
+    required: [true, "Last name is required"],
+    validate: {
+      validator: (value: string) => validator.isAlpha(value),
+      message: "{VALUE} is not courend value",
+    },
+  },
 });
 
 const localGuardianSchema = new Schema<LocalGardian>({

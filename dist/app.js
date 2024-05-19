@@ -10,7 +10,7 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 //application routes
-app.use('/api/v1/students', student_route_1.StudentRouts);
+app.use("/api/v1/students", student_route_1.StudentRouts);
 app.get("/", (req, res) => {
     const a = 19;
     res.send(a);
