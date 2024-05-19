@@ -10,11 +10,9 @@ app.use(cors());
 app.use('/api/v1/students', StudentRouts)
 
 
-const getRouter =  (req: Request, res: Response) => {
+app.get("/",(req: Request, res: Response) => {
   const a = 19;
   res.send(a);
-}
-
-app.get("/", getRouter);
+});
 
 export default app;
