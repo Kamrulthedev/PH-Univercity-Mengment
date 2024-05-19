@@ -8,10 +8,13 @@ const userNameSchema = new Schema<UserName>({
     required: [true, "First name is required"],
     maxlength: [20, "This Name is not find please 20 cheracotrs"],
     // trim: true,
-    validate:function(value : any){
-      const firstNamevalue = value.charAt(0).toLocaleUpperCase() + value.slice(1)
-      return firstNamevalue === value;
-    }
+    validate:{
+      validator:function(value : any){
+        const firstNamevalue = value.charAt(0).toLocaleUpperCase() + value.slice(1)
+        return firstNamevalue === value;
+      },
+      message:'{VALUE} is not found'
+    },
   },
   middleName: { type: String, required: [true, "Middle name is required"] },
   lastName: { type: String, required: [true, "Last name is required"] },
