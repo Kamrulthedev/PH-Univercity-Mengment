@@ -9,23 +9,23 @@ const userNameSchema = new Schema<UserName>({
     required: [true, "First name is required"],
     maxlength: [20, "This Name is not find please 20 cheracotrs"],
     // trim: true,
-    validate: {
-      validator: function (value: any) {
-        const firstNamevalue =
-          value.charAt(0).toLocaleUpperCase() + value.slice(1);
-        return firstNamevalue === value;
-      },
-      message: "{VALUE} is not found",
-    },
+    // validate: {
+    //   validator: function (value: any) {
+    //     const firstNamevalue =
+    //       value.charAt(0).toLocaleUpperCase() + value.slice(1);
+    //     return firstNamevalue === value;
+    //   },
+    //   message: "{VALUE} is not found",
+    // },
   },
   middleName: { type: String, required: [true, "Middle name is required"] },
   lastName: {
     type: String,
     required: [true, "Last name is required"],
-    validate: {
-      validator: (value: string) => validator.isAlpha(value),
-      message: "{VALUE} is not courend value",
-    },
+    // validate: {
+    //   validator: (value: string) => validator.isAlpha(value),
+    //   message: "{VALUE} is not courend value",
+    // },
   },
 });
 
@@ -85,10 +85,10 @@ const studentSchema = new Schema<Student>({
   dateOfBirth: { type: String, required: [true, "Date of birth is required"] },
   email: { type: String, 
     required: [true, "Email is required"],
-    validate:{
-      validator:(value:string)=>validator.isEmail(value),
-      message:'{VALUE} is not defind type'
-    }
+    // validate:{
+    //   validator:(value:string)=>validator.isEmail(value),
+    //   message:'{VALUE} is not defind type'
+    // }
   },
   contectNo: { type: String, required: [true, "Contact number is required"] },
   emargecyContectNo: {
