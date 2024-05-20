@@ -1,4 +1,4 @@
-import { Schema, model, connect, Model } from "mongoose";
+import { Model } from "mongoose";
 
 export type Gardians = {
   fatherName: string;
@@ -41,8 +41,20 @@ export type TStudent = {
   isActive: "active" | "block";
 };
 
-export type studentMethods = {
-  isUserExists(id: string): Promise<TStudent | null>;
+
+
+
+
+
+
+//for createing a statics
+export interface StudentModel extends Model<TStudent> {
+    isUserExists(id:string):Promise<TStudent | null>
 };
 
-export type StudentModelM = Model<TStudent, {}, studentMethods>;
+
+// export type studentMethods = {
+//   isUserExists(id: string): Promise<TStudent | null>;
+// };
+
+// export type StudentModelM = Model<TStudent, {}, studentMethods>;

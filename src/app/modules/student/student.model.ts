@@ -2,10 +2,9 @@ import { Schema, model, connect } from "mongoose";
 import {
   Gardians,
   LocalGardian,
+  StudentModel,
   TStudent,
-  StudentModelM,
   UserName,
-  studentMethods,
 } from "./student.interface";
 import validator from "validator";
 
@@ -81,7 +80,7 @@ const guardianSchema = new Schema<Gardians>({
   },
 });
 
-const studentSchema = new Schema<TStudent, StudentModelM, studentMethods>({
+const studentSchema = new Schema<TStudent, StudentModel>({
   id: { type: String },
   name: {
     type: userNameSchema,
@@ -133,10 +132,27 @@ const studentSchema = new Schema<TStudent, StudentModelM, studentMethods>({
   },
 });
 
-studentSchema.methods.isUserExists = async function (id: string) {
-  const isextingUser = await Student.findOne({ id });
-  return isextingUser;
+//pre save middlewere 
+studentSchema.pre('save', function(){
+  console.log(this, "pre hook we will seve data")
+});
+
+//post seve middlewere
+studentSchema.post('save', function(){
+  console.log(this, "post hook we will seved data")
+});
+
+
+//create a static 
+studentSchema.statics.isUserExists = async function(id:string){
+  const existingUser = await Student.findOne({id})
+  return existingUser;
 };
 
-//model create
-export const Student = model<TStudent, StudentModelM>("Student", studentSchema);
+// studentSchema.methods.isUserExists = async function (id: string) {
+//   const isextingUser = await Student.findOne({ id });
+//   return isextingUser;
+// };
+
+// //model create
+export const Student = model<TStudent>("Student", studentSchema);

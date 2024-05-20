@@ -1,15 +1,17 @@
 import { TStudent } from "./student.interface";
 import { Student } from "./student.model";
 
+
 const createStudentInToDB = async (studentMData: TStudent) => {
   const student = new Student(studentMData); //create in instance
 
-if(await student.isUserExists){
-  throw new Error("User alrady Exists!")
-};
 
-  const result = await student.save();
-  // const result = await StudentModel.create(student);
+
+// if(await student.isUserExists){
+//   throw new Error("User alrady Exists!")
+// };
+  // const result = await student.save();
+  const result = await Student.create(student);
   return result;
 };
 
