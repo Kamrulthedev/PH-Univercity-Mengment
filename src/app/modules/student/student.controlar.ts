@@ -6,7 +6,7 @@ import { ZodError } from "zod";
 const createStudent = async (req: Request, res: Response) => {
   try {
     const { student: studentData } = req.body;
-    
+
     //data validation Joi and using
     // const { error, value } = studentValidationSchema.validate(studentData);
 
@@ -46,8 +46,8 @@ const getStudents = async (req: Request, res: Response) => {
       message: "Student are retrieved Successfully",
       data: result,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.log(err);
   }
 };
 
@@ -60,8 +60,8 @@ const getASingleStudent = async (req: Request, res: Response) => {
       message: "A Single Student Get is Successfully",
       data: result,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.log(err);
   }
 };
 

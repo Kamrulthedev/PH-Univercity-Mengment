@@ -1,4 +1,4 @@
-import { Schema, model, connect } from "mongoose";
+import { Schema, model, connect, Model } from "mongoose";
 
 export type Gardians = {
   fatherName: string;
@@ -24,7 +24,7 @@ export type LocalGardian = {
   address: string;
 };
 
-export type Student = {
+export type TStudent = {
   id?: string;
   name: UserName;
   gender: string;
@@ -40,3 +40,9 @@ export type Student = {
   profileImg?: string | undefined;
   isActive: "active" | "block";
 };
+
+export type studentMethods = {
+  isUserExists(id: string): Promise<TStudent | null>;
+};
+
+export type StudentModelM = Model<TStudent, {}, studentMethods>;

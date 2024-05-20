@@ -1,5 +1,12 @@
 import { Schema, model, connect } from "mongoose";
-import { Gardians, LocalGardian, Student, UserName } from "./student.interface";
+import {
+  Gardians,
+  LocalGardian,
+  TStudent,
+  StudentModelM,
+  UserName,
+  studentMethods,
+} from "./student.interface";
 import validator from "validator";
 
 //schema create
@@ -74,7 +81,7 @@ const guardianSchema = new Schema<Gardians>({
   },
 });
 
-const studentSchema = new Schema<Student>({
+const studentSchema = new Schema<TStudent, StudentModelM, studentMethods>({
   id: { type: String },
   name: {
     type: userNameSchema,
@@ -126,5 +133,10 @@ const studentSchema = new Schema<Student>({
   },
 });
 
+studentSchema.methods.isUserExists = async function (id: string) {
+  const isextingUser = await Student.findOne({ id });
+  return isextingUser;
+};
+
 //model create
-export const StudentModel = model<Student>("Student", studentSchema);
+export const Student = model<TStudent, StudentModelM>("Student", studentSchema);
