@@ -38,6 +38,7 @@ const guardianvalidationSchema = z.object({
   // Student Schema
 const studentvalidationSchema = z.object({
     id: z.string().optional(),
+    password:z.string().max(20),
   name: userNamevalidationSchema,
   gender: z.string().min(1, { message: "Gender is required" }),
   dateOfBirth: z.string().min(1, { message: "Date of birth is required" }),

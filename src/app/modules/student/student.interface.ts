@@ -26,6 +26,7 @@ export type LocalGardian = {
 
 export type TStudent = {
   id?: string;
+  password:string;
   name: UserName;
   gender: string;
   dateOfBirth: string;

@@ -82,6 +82,7 @@ const guardianSchema = new Schema<Gardians>({
 
 const studentSchema = new Schema<TStudent, StudentModel>({
   id: { type: String },
+  password: { type: String, required: true, max: 20, unique: true },
   name: {
     type: userNameSchema,
     required: [true, "Student name is required"],
@@ -132,20 +133,19 @@ const studentSchema = new Schema<TStudent, StudentModel>({
   },
 });
 
-//pre save middlewere 
-studentSchema.pre('save', function(){
-  console.log(this, "pre hook we will seve data")
+//pre save middlewere
+studentSchema.pre("save", function () {
+  console.log(this, "pre hook we will seve data");
 });
 
 //post seve middlewere
-studentSchema.post('save', function(){
-  console.log(this, "post hook we will seved data")
+studentSchema.post("save", function () {
+  console.log(this, "post hook we will seved data");
 });
 
-
-//create a static 
-studentSchema.statics.isUserExists = async function(id:string){
-  const existingUser = await Student.findOne({id})
+//create a static
+studentSchema.statics.isUserExists = async function (id: string) {
+  const existingUser = await Student.findOne({ id });
   return existingUser;
 };
 
