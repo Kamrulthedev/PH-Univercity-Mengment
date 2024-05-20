@@ -13,7 +13,7 @@ export type Gardians = {
 
 export type UserName = {
   firstName: string;
-  middleName: string;
+  middleName?: string;
   lastName: string;
 };
 
@@ -25,7 +25,7 @@ export type LocalGardian = {
 };
 
 export type Student = {
-  id: string;
+  id?: string;
   name: UserName;
   gender: string;
   dateOfBirth: string;
@@ -37,6 +37,6 @@ export type Student = {
   permenantAddress: string;
   gardians: Gardians;
   localGardian: LocalGardian;
-  profileImg?: string;
+  profileImg?: string | undefined;
   isActive: "active" | "block";
 };

@@ -1,38 +1,41 @@
 import { Request, Response } from "express";
 import { StudentService } from "./student.service";
-import studentValidationSchema from "./student.validation.Joi";
-import zod from "zod";
+import studentvalidationSchema from "./student.validation";
+import { ZodError } from "zod";
 
 const createStudent = async (req: Request, res: Response) => {
   try {
-    const studentValidationZod = zod.object({
-      id: zod.string(),
-      name:zod.object({
-        firstName:zod.string()
-           .max(20, {
-            message:'First Name can be must be give us'
-           })
-      })
-    });
-
     const { student: studentData } = req.body;
+    
     //data validation Joi and using
-    const { error, value } = studentValidationSchema.validate(studentData);
+    // const { error, value } = studentValidationSchema.validate(studentData);
 
-    const result = await StudentService.createStudentInToDB(value);
-    if (error) {
-      res.status(500).json({
-        success: false,
-        message: "someting was wrong student error to Joi",
-        error: error.details,
-      });
-    }
+    //data validation Zod and using
+    const zodParesData = studentvalidationSchema.parse(studentData);
+
+    const result = await StudentService.createStudentInToDB(zodParesData);
+    // if (error) {
+    //   res.status(500).json({
+    //     success: false,
+    //     message: "someting was wrong student error to Joi",
+    //     error: error.details,
+    //   });
+    // }
     res.status(200).json({
       success: true,
       message: "Student Created Successfully",
       data: result,
     });
-  } catch (err) {}
+  } catch (err) {
+    if (err instanceof ZodError) {
+      // Handle Zod validation error
+      res.status(400).json({
+        success: false,
+        message: "Validation error",
+        errors: err.errors,
+        name:"ZODERROR"
+      });
+    }}
 };
 
 const getStudents = async (req: Request, res: Response) => {
