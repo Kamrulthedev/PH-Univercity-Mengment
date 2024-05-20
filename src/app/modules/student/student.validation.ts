@@ -113,5 +113,4 @@ const studentValidationSchema = Joi.object({
   }),
 });
 
-
 export default studentValidationSchema;

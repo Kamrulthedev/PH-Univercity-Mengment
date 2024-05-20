@@ -83,7 +83,8 @@ const studentSchema = new Schema<Student>({
   },
   gender: { type: String, required: [true, "Gender is required"] },
   dateOfBirth: { type: String, required: [true, "Date of birth is required"] },
-  email: { type: String, 
+  email: {
+    type: String,
     required: [true, "Email is required"],
     // validate:{
     //   validator:(value:string)=>validator.isEmail(value),

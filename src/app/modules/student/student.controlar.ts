@@ -1,11 +1,25 @@
 import { Request, Response } from "express";
 import { StudentService } from "./student.service";
 import studentValidationSchema from "./student.validation";
+import zod from "zod";
 
 const createStudent = async (req: Request, res: Response) => {
   try {
+    const studentValidationZod = zod.object({
+      id: zod.string(),
+      name:zod.object({
+        firstName:zod.string()
+           .max(20, {
+            message:'First Name can be must be give us'
+           })
+      })
+    });
+
     const { student: studentData } = req.body;
+    //data validation Joi and using
     const { error, value } = studentValidationSchema.validate(studentData);
+
+    const result = await StudentService.createStudentInToDB(value);
     if (error) {
       res.status(500).json({
         success: false,
@@ -13,9 +27,6 @@ const createStudent = async (req: Request, res: Response) => {
         error: error.details,
       });
     }
-
-    const result = await StudentService.createStudentInToDB(studentData);
-
     res.status(200).json({
       success: true,
       message: "Student Created Successfully",
