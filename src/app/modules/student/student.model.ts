@@ -7,6 +7,8 @@ import {
   UserName,
 } from "./student.interface";
 import validator from "validator";
+import bcrypt from "bcrypt";
+import config from "../../config";
 
 //schema create
 const userNameSchema = new Schema<UserName>({
@@ -82,7 +84,12 @@ const guardianSchema = new Schema<Gardians>({
 
 const studentSchema = new Schema<TStudent, StudentModel>({
   id: { type: String },
-  password: { type: String, required: true, max: 20, unique: true },
+  password: {
+    type: String,
+    required: true,
+    max: [20, "Password must be 20 charctur"],
+    unique: true,
+  },
   name: {
     type: userNameSchema,
     required: [true, "Student name is required"],
@@ -134,9 +141,15 @@ const studentSchema = new Schema<TStudent, StudentModel>({
 });
 
 //pre save middlewere
-studentSchema.pre("save", function () {
-  console.log(this, "pre hook we will seve data");
+studentSchema.pre("save", async function(){
+  const user = this;
+  //hashing password and save init DB
+  user.password = await bcrypt.hash(
+    user.password,
+    Number(config.data_salt_rounds)
+  );
 });
+
 
 //post seve middlewere
 studentSchema.post("save", function () {

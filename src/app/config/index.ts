@@ -6,4 +6,5 @@ dotenv.config({ path: path.join((process.cwd(), ".env")) });
 export default {
   prot: process.env.USER_PROT,
   database_url: process.env.DATABASE_URL,
+  data_salt_rounds : process.env.DATA_SALT_ROUNDS
 };
