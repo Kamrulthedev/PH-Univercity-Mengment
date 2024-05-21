@@ -2,25 +2,25 @@
 ## useing language and Tools :-
 ### ______TypeScript, JavaScript,,,,Mongoose, Mongodb, cors, dotenv, eslint, Prettier. 
 ## create a vs code file.
-# 1.npm init --y   //tarminal--(json file create)
-# 2.npm install mongoose //---Mongoose install(mongoose databse)
-# 3.npm install -D typescript //---typescript install(typescript programing language)
-# 4.npm install express //---express install(server create)
-# 5.npm i cors //---cors install(server tool)
-# 6.npm i dotenv //---dotenv install(.env file)
-# 7.npm i ts-node-dev //---ts-node-dev install(ts code run)
-# 8.tsc --init//---create a tsconfig.json
-# 9.npm i mongodb //install mongodb(mongodb install)
-# 10.setup rootDir("rootDir": "./src") and outDir("outDir": "./dist").. //tsconfig file
-# 11.folder structure..create 2 file ..src and dist
-# 12.src >[app > (config > index.ts) |
- # {modules > student >( student.interface.ts | student.model.ts | 
- # student.controler.ts | student.route.ts | student.service.ts) | 
- # admin}] > server.ts and app.ts
-# 13. server.ts >..
- #   import mongoose from "mongoose";
-  #  import config from "./app/config";
-  #  import app from "./app";
+#### 1.npm init --y   //tarminal--(json file create)
+#### 2.npm install mongoose //---Mongoose install(mongoose databse)
+#### 3.npm install -D typescript //---typescript install(typescript programing language)
+#### 4.npm install express //---express install(server create)
+#### 5.npm i cors //---cors install(server tool)
+#### 6.npm i dotenv //---dotenv install(.env file)
+#### 7.npm i ts-node-dev //---ts-node-dev install(ts code run)
+#### 8.tsc --init//---create a tsconfig.json
+#### 9.npm i mongodb //install mongodb(mongodb install)
+#### 10.setup rootDir("rootDir": "./src") and outDir("outDir": "./dist").. //tsconfig file
+#### 11.folder structure..create 2 file ..src and dist
+#### 12.src >[app > (config > index.ts) |
+ #### {modules > student >( student.interface.ts | student.model.ts | 
+ #### student.controler.ts | student.route.ts | student.service.ts) | 
+ #### admin}] > server.ts and app.ts
+#### 13. server.ts >..
+ ####   import mongoose from "mongoose";
+  #### 3   import config from "./app/config";
+  ####  import app from "./app";
 
 #  async function main() {
  #  try {
