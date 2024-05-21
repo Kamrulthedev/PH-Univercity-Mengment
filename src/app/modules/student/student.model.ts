@@ -152,8 +152,6 @@ studentSchema.virtual('full Name').get(function (){
   return `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`
 });
 
-
-
 //pre save middlewere
 studentSchema.pre("save", async function (next) {
   const user = this;
