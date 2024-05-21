@@ -46,11 +46,16 @@ const getStudents = async (req: Request, res: Response) => {
       message: "Student are retrieved Successfully",
       data: result,
     });
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err:any) {
+    // Handle Zod validation error
+    res.status(400).json({
+      success: false,
+      message: "someting is worng",
+      errors: err.errors,
+      name:"error"
+    });
 };
-
+};
 const getASingleStudent = async (req: Request, res: Response) => {
   try {
     const { studentId } = req.params;
@@ -60,10 +65,16 @@ const getASingleStudent = async (req: Request, res: Response) => {
       message: "A Single Student Get is Successfully",
       data: result,
     });
-  } catch (err) {
-    console.log(err);
+  } catch (err:any) {
+    // Handle Zod validation error
+    res.status(400).json({
+      success: false,
+      message: "smoneting si worng",
+      errors: err.errors,
+      name:"error"
+    })
   }
-};
+}
 
 export const studentControllar = {
   createStudent,

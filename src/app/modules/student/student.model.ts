@@ -10,6 +10,7 @@ import validator from "validator";
 import bcrypt from "bcrypt";
 import config from "../../config";
 
+
 //schema create
 const userNameSchema = new Schema<UserName>({
   firstName: {
@@ -87,8 +88,7 @@ const studentSchema = new Schema<TStudent, StudentModel>({
   password: {
     type: String,
     required: true,
-    max: [20, "Password must be 20 charctur"],
-    unique: true,
+    max: [20, "Password must be 20 charctur"]
   },
   name: {
     type: userNameSchema,
@@ -138,22 +138,32 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     default: "active",
     required: [true, "Active status is required"],
   },
+  isDeleted:{
+    type:Boolean,
+    default:false
+  },
 });
 
 //pre save middlewere
-studentSchema.pre("save", async function(){
+studentSchema.pre("save", async function (next) {
   const user = this;
   //hashing password and save init DB
   user.password = await bcrypt.hash(
     user.password,
     Number(config.data_salt_rounds)
   );
+  next();
 });
 
+//quary Middlewer
+studentSchema.pre('find', function(next){
+  
+})
 
 //post seve middlewere
-studentSchema.post("save", function () {
-  console.log(this, "post hook we will seved data");
+studentSchema.post("save", function (doc, next) {
+  doc.password = "";
+  next();
 });
 
 //create a static

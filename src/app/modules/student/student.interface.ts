@@ -40,6 +40,7 @@ export type TStudent = {
   localGardian: LocalGardian;
   profileImg?: string | undefined;
   isActive: "active" | "block";
+  isDeleted:boolean;
 };
 
 
