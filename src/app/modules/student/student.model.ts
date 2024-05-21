@@ -10,7 +10,6 @@ import validator from "validator";
 import bcrypt from "bcrypt";
 import config from "../../config";
 
-
 //schema create
 const userNameSchema = new Schema<UserName>({
   firstName: {
@@ -88,7 +87,7 @@ const studentSchema = new Schema<TStudent, StudentModel>({
   password: {
     type: String,
     required: true,
-    max: [20, "Password must be 20 charctur"]
+    max: [20, "Password must be 20 charctur"],
   },
   name: {
     type: userNameSchema,
@@ -138,11 +137,22 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     default: "active",
     required: [true, "Active status is required"],
   },
-  isDeleted:{
-    type:Boolean,
-    default:false
+  isDeleted: {
+    type: Boolean,
+    default: false,
   },
+}, {
+  toJSON:{
+    virtuals:true
+  }
 });
+
+//virtual crate
+studentSchema.virtual('full Name').get(function (){
+  return `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`
+});
+
+
 
 //pre save middlewere
 studentSchema.pre("save", async function (next) {
@@ -156,15 +166,20 @@ studentSchema.pre("save", async function (next) {
 });
 
 //quary Middlewer
-studentSchema.pre('find', function(next){
-   this.find({isDeleted: {$ne: true}})
-  next()
-})
+studentSchema.pre("find", function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
 
 studentSchema.pre('findOne', function(next){
    this.find({isDeleted: {$ne: true}})
   next()
 })
+
+// studentSchema.pre("aggregate", function (next) {
+//   this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+//   next();
+// });
 
 //post seve middlewere
 studentSchema.post("save", function (doc, next) {
