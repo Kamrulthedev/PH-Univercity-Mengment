@@ -33,9 +33,10 @@ const createStudent = async (req: Request, res: Response) => {
         success: false,
         message: "Validation error",
         errors: err.errors,
-        name:"ZODERROR"
+        name: "ZODERROR",
       });
-    }}
+    }
+  }
 };
 
 const getStudents = async (req: Request, res: Response) => {
@@ -46,15 +47,15 @@ const getStudents = async (req: Request, res: Response) => {
       message: "Student are retrieved Successfully",
       data: result,
     });
-  } catch (err:any) {
+  } catch (err: any) {
     // Handle Zod validation error
     res.status(400).json({
       success: false,
       message: "someting is worng",
       errors: err.errors,
-      name:"error"
+      name: "error",
     });
-};
+  }
 };
 const getASingleStudent = async (req: Request, res: Response) => {
   try {
@@ -65,19 +66,39 @@ const getASingleStudent = async (req: Request, res: Response) => {
       message: "A Single Student Get is Successfully",
       data: result,
     });
-  } catch (err:any) {
+  } catch (err: any) {
     // Handle Zod validation error
     res.status(400).json({
       success: false,
       message: "smoneting si worng",
       errors: err.errors,
-      name:"error"
-    })
+      name: "error",
+    });
   }
-}
+};
+
+const deleteStudent = async (req: Request, res: Response) => {
+  try {
+    const { studentId } = req.params;
+    const result = await StudentService.deleteStudentformDB(studentId);
+    res.status(200).json({
+      success:true,
+      message:"Delete Student is Successfully",
+      data:result
+    })
+  } catch (err: any) {
+    res.status(400).json({
+      success: false,
+      message: "smoting wes worng",
+      errros: err.error,
+      name: "error",
+    });
+  }
+};
 
 export const studentControllar = {
   createStudent,
   getStudents,
   getASingleStudent,
+  deleteStudent
 };

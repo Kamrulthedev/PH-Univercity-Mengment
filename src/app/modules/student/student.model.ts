@@ -157,7 +157,13 @@ studentSchema.pre("save", async function (next) {
 
 //quary Middlewer
 studentSchema.pre('find', function(next){
-  
+   this.find({isDeleted: {$ne: true}})
+  next()
+})
+
+studentSchema.pre('findOne', function(next){
+   this.find({isDeleted: {$ne: true}})
+  next()
 })
 
 //post seve middlewere
