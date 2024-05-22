@@ -244,7 +244,7 @@
    } catch (error) {
     console.log(error);
     }
-  };
+####  };
 
  const getASingleStudent = async (req: Request, res: Response) => {
   try {
