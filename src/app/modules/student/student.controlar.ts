@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { StudentService } from "./student.service";
 import studentvalidationSchema from "./student.validation";
-import { ZodError } from "zod";
 
 const createStudent = async (req: Request, res: Response) => {
   try {
@@ -50,7 +49,6 @@ const getASingleStudent = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err: any) {
-    // Handle Zod validation error
     res.status(400).json({
       success: false,
       message: "smoneting si worng",
@@ -62,7 +60,7 @@ const getASingleStudent = async (req: Request, res: Response) => {
 
 const deleteStudent = async (req: Request, res: Response) => {
   try {
-    const { studentId } = req.params;
+    const studentId = req.params.studentId;
     const result = await StudentService.deleteStudentformDB(studentId);
     res.status(200).json({
       success:true,
@@ -73,8 +71,7 @@ const deleteStudent = async (req: Request, res: Response) => {
     res.status(400).json({
       success: false,
       message: "smoting wes worng",
-      errros: err.error,
-      name: "error",
+      errros: err.message
     });
   }
 };
