@@ -297,7 +297,7 @@
 ####  return result;
 #### };
 
-####export const StudentService = {
+####export const StudentService = { 
 ####  createStudentInToDB,
 ####  getAllStudentsFromDB,
 ####  GetASingleStudent,
