@@ -4,8 +4,8 @@ import studentvalidationSchema from "./student.validation";
 
 const createStudent = async (req: Request, res: Response) => {
   try {
-    const { student: studentData } = req.body;
-    const result = StudentService.createStudentInToDB(studentData);
+    const student = req.body;
+    const result = StudentService.createStudentInToDB(student);
     res.status(200).json({
       success: true,
       message: "Student Created Successfully",
