@@ -19,13 +19,13 @@ const createStudent = async (password: string, studentData: TStudent) => {
     //set id and _id as user
     studentData.id = NewUser.id,
     studentData.user = NewUser._id
-
     const NewStudent = await Student.create(studentData)
     return NewStudent
   };
 };
 
-
 export const UserService = {
   createStudent,
 };
+
+

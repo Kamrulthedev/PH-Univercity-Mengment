@@ -82,7 +82,7 @@ const guardianSchema = new Schema<Gardians>({
   },
 });
 
-const studentSchema = new Schema<TStudent, StudentModel>(
+export const studentSchema = new Schema<TStudent, StudentModel>(
   {
     id: { type: String },
     user: {
