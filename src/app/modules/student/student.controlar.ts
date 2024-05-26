@@ -1,8 +1,7 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { StudentService } from "./student.service";
 
-
-const getStudents = async (req: Request, res: Response) => {
+const getStudents = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await StudentService.getAllStudentsFromDB();
     res.status(200).json({
@@ -10,17 +9,16 @@ const getStudents = async (req: Request, res: Response) => {
       message: "Student are retrieved Successfully",
       data: result,
     });
-  } catch (err: any) {
-        res.status(400).json({
-      success: false,
-      message: "someting is worng",
-      errors: err.errors,
-      name: "error",
-    });
+  } catch (err) {
+    next(err);
   }
 };
 
-const getASingleStudent = async (req: Request, res: Response) => {
+const getASingleStudent = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { studentId } = req.params;
     const result = await StudentService.GetASingleStudent(studentId);
@@ -29,36 +27,31 @@ const getASingleStudent = async (req: Request, res: Response) => {
       message: "A Single Student Get is Successfully",
       data: result,
     });
-  } catch (err: any) {
-    res.status(400).json({
-      success: false,
-      message: "smoneting si worng",
-      errors: err.errors,
-      name: "error",
-    });
+  } catch (err) {
+    next(err);
   }
 };
 
-const deleteStudent = async (req: Request, res: Response) => {
+const deleteStudent = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const studentId = req.params.studentId;
     const result = await StudentService.deleteStudentformDB(studentId);
     res.status(200).json({
-      success:true,
-      message:"Delete Student is Successfully",
-      data:result
-    })
-  } catch (err: any) {
-    res.status(400).json({
-      success: false,
-      message: "smoting wes worng",
-      errros: err.message
+      success: true,
+      message: "Delete Student is Successfully",
+      data: result,
     });
+  } catch (err: any) {
+    next(err);
   }
 };
 
 export const studentControllar = {
   getStudents,
   getASingleStudent,
-  deleteStudent
+  deleteStudent,
 };
