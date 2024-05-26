@@ -9,7 +9,6 @@ app.use(cors());
 
 //application routes
 app.use("/api/v1/students", StudentRouts);
-
 app.use("/api/v1/users", UserRouotes);
 
 app.get("/", (req: Request, res: Response) => {
