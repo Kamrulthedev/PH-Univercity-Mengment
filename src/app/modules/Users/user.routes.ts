@@ -5,3 +5,6 @@ const router = express.Router()
 
 
 router.post('/', UserControllar.createUserDb) 
+
+
+export const UserRouotes = router;

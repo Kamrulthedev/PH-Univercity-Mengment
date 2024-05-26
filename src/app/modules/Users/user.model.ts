@@ -24,10 +24,12 @@ export const UserSchema = new Schema<TUser>(
     status: {
       type: String,
       enum: ["in-progress", "blocked"],
+      default:'in-progress'
     },
     isDeleted: {
       type: Boolean,
       required: true,
+      default:false
     },
   },
   {
