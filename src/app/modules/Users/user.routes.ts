@@ -4,7 +4,7 @@ import { UserControllar } from './user.cotrollar';
 const router = express.Router()
 
 
-router.post('/', UserControllar.createUserDb) 
+router.post('/', UserControllar.createStudent) 
 
 
 export const UserRouotes = router;

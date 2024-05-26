@@ -40,7 +40,6 @@ export type TStudent = {
   gardians: Gardians;
   localGardian: LocalGardian;
   profileImg?: string | undefined;
-  isActive: "active" | "block";
   isDeleted:boolean;
 };
 
