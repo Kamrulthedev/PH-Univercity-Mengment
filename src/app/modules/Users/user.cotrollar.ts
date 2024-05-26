@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { UserService } from "./user.service";
+import { UserServices } from "./user.service";
 
-const createStudent = async (req: Request, res: Response) => {
+const createStudentDb = async (req: Request, res: Response) => {
   try {
-    const { password, student } = req.body;
-    const result = UserService.createStudent(password, student);
+    const { password, student : studentData } = req.body;
+    const result = UserServices.createStudent(password, studentData);
     res.status(200).json({
       success: true,
       message: "Student Created Successfully",
@@ -20,5 +20,5 @@ const createStudent = async (req: Request, res: Response) => {
 };
 
 export const UserControllar = {
-  createStudent,
+  createStudentDb,
 };

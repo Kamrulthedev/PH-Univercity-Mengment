@@ -1,25 +1,24 @@
 import { Schema, model } from "mongoose";
 import { TUser } from "./user.interface";
 
-
 //create a Shchema
-export const UserSchema = new Schema<TUser>(
+const userSchema = new Schema<TUser>(
   {
     id: {
       type: String,
-      required: true,
+      require: true,
     },
     password: {
       type: String,
-      required: true,
+      require: true,
     },
     needsPasswordChange: {
       type: Boolean,
-      required: true,
+      default: true,
     },
     role: {
       type: String,
-      enum: ["students", "admin", "faculty"],
+      enum: ["student", "faculty", "admin"],
     },
     status: {
       type: String,
@@ -28,8 +27,7 @@ export const UserSchema = new Schema<TUser>(
     },
     isDeleted: {
       type: Boolean,
-      required: true,
-      default:false
+      default: false,
     },
   },
   {
@@ -38,4 +36,5 @@ export const UserSchema = new Schema<TUser>(
 );
 
 //create model
-export const User = model<TUser>("User", UserSchema);
+
+export const User = model<TUser>("User", userSchema);

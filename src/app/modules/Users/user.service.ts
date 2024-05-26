@@ -12,19 +12,20 @@ const createStudent = async (password: string, studentData: TStudent) => {
   //set role
   userData.role = "student";
   //set menually a id
-  userData.id = "2030100002";
+  userData.id = "2030100001";
   //create a user
   const NewUser = await User.create(userData);
   if(Object.keys(NewUser).length){
     //set id and _id as user
+    //create a user
     studentData.id = NewUser.id,
     studentData.user = NewUser._id
     const NewStudent = await Student.create(studentData)
     return NewStudent
   };
 };
-
-export const UserService = {
+ 
+export const UserServices = {
   createStudent,
 };
 
