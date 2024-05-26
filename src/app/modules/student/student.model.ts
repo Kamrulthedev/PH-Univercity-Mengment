@@ -134,54 +134,39 @@ export const studentSchema = new Schema<TStudent, StudentModel>(
   }
 );
 
-// //virtual crate
-// studentSchema.virtual("full Name").get(function () {
-//   return `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`;
-// });
+//virtual crate
+studentSchema.virtual("full Name").get(function () {
+  return `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`;
+});
 
-// //pre save middlewere
-// studentSchema.pre("save", async function (next) {
-//   const user = this;
-//   //hashing password and save init DB
-//   user.password = await bcrypt.hash(
-//     user.password,
-//     Number(config.data_salt_rounds)
-//   );
-//   next();
-// });
 
-// //quary Middlewer
-// studentSchema.pre("find", function (next) {
-//   this.find({ isDeleted: { $ne: true } });
-//   next();
-// });
+//quary Middlewer
+studentSchema.pre("find", function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
 
-// studentSchema.pre("findOne", function (next) {
-//   this.find({ isDeleted: { $ne: true } });
-//   next();
-// });
+studentSchema.pre("findOne", function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
 
-// // studentSchema.pre("aggregate", function (next) {
-// //   this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
-// //   next();
-// // });
+studentSchema.pre("aggregate", function (next) {
+  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+  next();
+});
 
-// //post seve middlewere
-// studentSchema.post("save", function (doc, next) {
-//   doc.password = "";
-//   next();
-// });
+//post seve middlewere
+studentSchema.post("save", function (doc, next) {
+  doc.password = "";
+  next();
+});
 
-// //create a static
-// studentSchema.statics.isUserExists = async function (id: string) {
-//   const existingUser = await Student.findOne({ id });
-//   return existingUser;
-// };
-
-// // studentSchema.methods.isUserExists = async function (id: string) {
-// //   const isextingUser = await Student.findOne({ id });
-// //   return isextingUser;
-// // };
+//create a static
+studentSchema.statics.isUserExists = async function (id: string) {
+  const existingUser = await Student.findOne({ id });
+  return existingUser;
+};
 
 // // //model create
 export const Student = model<TStudent>("Student", studentSchema);
