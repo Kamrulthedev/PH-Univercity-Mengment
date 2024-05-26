@@ -1,4 +1,4 @@
-import { Schema, model, connect } from "mongoose";
+import { Schema, model } from "mongoose";
 import {
   Gardians,
   LocalGardian,
@@ -6,9 +6,7 @@ import {
   TStudent,
   UserName,
 } from "./student.interface";
-import validator from "validator";
-import bcrypt from "bcrypt";
-import config from "../../config";
+
 
 //schema create
 const userNameSchema = new Schema<UserName>({
@@ -16,24 +14,11 @@ const userNameSchema = new Schema<UserName>({
     type: String,
     required: [true, "First name is required"],
     maxlength: [20, "This Name is not find please 20 cheracotrs"],
-    // trim: true,
-    // validate: {
-    //   validator: function (value: any) {
-    //     const firstNamevalue =
-    //       value.charAt(0).toLocaleUpperCase() + value.slice(1);
-    //     return firstNamevalue === value;
-    //   },
-    //   message: "{VALUE} is not found",
-    // },
   },
   middleName: { type: String, required: [true, "Middle name is required"] },
   lastName: {
     type: String,
     required: [true, "Last name is required"],
-    // validate: {
-    //   validator: (value: string) => validator.isAlpha(value),
-    //   message: "{VALUE} is not courend value",
-    // },
   },
 });
 
@@ -149,54 +134,54 @@ export const studentSchema = new Schema<TStudent, StudentModel>(
   }
 );
 
-//virtual crate
-studentSchema.virtual("full Name").get(function () {
-  return `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`;
-});
+// //virtual crate
+// studentSchema.virtual("full Name").get(function () {
+//   return `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`;
+// });
 
-//pre save middlewere
-studentSchema.pre("save", async function (next) {
-  const user = this;
-  //hashing password and save init DB
-  user.password = await bcrypt.hash(
-    user.password,
-    Number(config.data_salt_rounds)
-  );
-  next();
-});
-
-//quary Middlewer
-studentSchema.pre("find", function (next) {
-  this.find({ isDeleted: { $ne: true } });
-  next();
-});
-
-studentSchema.pre("findOne", function (next) {
-  this.find({ isDeleted: { $ne: true } });
-  next();
-});
-
-// studentSchema.pre("aggregate", function (next) {
-//   this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+// //pre save middlewere
+// studentSchema.pre("save", async function (next) {
+//   const user = this;
+//   //hashing password and save init DB
+//   user.password = await bcrypt.hash(
+//     user.password,
+//     Number(config.data_salt_rounds)
+//   );
 //   next();
 // });
 
-//post seve middlewere
-studentSchema.post("save", function (doc, next) {
-  doc.password = "";
-  next();
-});
+// //quary Middlewer
+// studentSchema.pre("find", function (next) {
+//   this.find({ isDeleted: { $ne: true } });
+//   next();
+// });
 
-//create a static
-studentSchema.statics.isUserExists = async function (id: string) {
-  const existingUser = await Student.findOne({ id });
-  return existingUser;
-};
+// studentSchema.pre("findOne", function (next) {
+//   this.find({ isDeleted: { $ne: true } });
+//   next();
+// });
 
-// studentSchema.methods.isUserExists = async function (id: string) {
-//   const isextingUser = await Student.findOne({ id });
-//   return isextingUser;
+// // studentSchema.pre("aggregate", function (next) {
+// //   this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+// //   next();
+// // });
+
+// //post seve middlewere
+// studentSchema.post("save", function (doc, next) {
+//   doc.password = "";
+//   next();
+// });
+
+// //create a static
+// studentSchema.statics.isUserExists = async function (id: string) {
+//   const existingUser = await Student.findOne({ id });
+//   return existingUser;
 // };
 
-// //model create
+// // studentSchema.methods.isUserExists = async function (id: string) {
+// //   const isextingUser = await Student.findOne({ id });
+// //   return isextingUser;
+// // };
+
+// // //model create
 export const Student = model<TStudent>("Student", studentSchema);

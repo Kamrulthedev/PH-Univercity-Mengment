@@ -26,7 +26,7 @@ export type LocalGardian = {
 
 export type TStudent = {
   id?: string;
-  user: Types.ObjectId
+  user: Types.ObjectId;
   password:string;
   name: UserName;
   gender: string;

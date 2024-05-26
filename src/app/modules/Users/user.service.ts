@@ -21,12 +21,10 @@ const createStudent = async (password: string, studentData: TStudent) => {
     studentData.id = NewUser.id,
     studentData.user = NewUser._id
     const NewStudent = await Student.create(studentData)
-    return NewStudent
-  };
+    return NewStudent;
+  }
 };
  
 export const UserServices = {
   createStudent,
 };
-
-
