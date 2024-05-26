@@ -45,7 +45,7 @@ const deleteStudent = async (
       message: "Delete Student is Successfully",
       data: result,
     });
-  } catch (err: any) {
+  } catch (err) {
     next(err);
   }
 };
