@@ -82,74 +82,82 @@ const guardianSchema = new Schema<Gardians>({
   },
 });
 
-const studentSchema = new Schema<TStudent, StudentModel>({
-  id: { type: String },
-  password: {
-    type: String,
-    required: true,
-    max: [20, "Password must be 20 charctur"],
+const studentSchema = new Schema<TStudent, StudentModel>(
+  {
+    id: { type: String },
+    user: {
+      type: Schema.Types.ObjectId,
+      required: [true, "user id is required"],
+      unique:true,
+      ref: 'User'
+    },
+    password: {
+      type: String,
+      required: true,
+      max: [20, "Password must be 20 charctur"],
+    },
+    name: {
+      type: userNameSchema,
+      required: [true, "Student name is required"],
+      maxlength: [10, "This Name is not find please 10 cheracotrs"],
+    },
+    gender: { type: String, required: [true, "Gender is required"] },
+    dateOfBirth: {
+      type: String,
+      required: [true, "Date of birth is required"],
+    },
+    email: {
+      type: String,
+      required: [true, "Email is required"],
+    },
+    contectNo: { type: String, required: [true, "Contact number is required"] },
+    emargecyContectNo: {
+      type: String,
+      required: [true, "Emergency contact number is required"],
+    },
+    bloodGroup: {
+      type: String,
+      enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
+      message: "Invalid blood group",
+    },
+    persentAddress: {
+      type: String,
+      required: [true, "Present address is required"],
+    },
+    permenantAddress: {
+      type: String,
+      required: [true, "Permanent address is required"],
+    },
+    gardians: {
+      type: guardianSchema,
+      required: [true, "Guardians information is required"],
+    },
+    localGardian: {
+      type: localGuardianSchema,
+      required: [true, "Local guardian information is required"],
+    },
+    profileImg: { type: String },
+    isActive: {
+      type: String,
+      enum: ["active", "block"],
+      default: "active",
+      required: [true, "Active status is required"],
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
   },
-  name: {
-    type: userNameSchema,
-    required: [true, "Student name is required"],
-    maxlength: [10, "This Name is not find please 10 cheracotrs"],
-  },
-  gender: { type: String, required: [true, "Gender is required"] },
-  dateOfBirth: { type: String, required: [true, "Date of birth is required"] },
-  email: {
-    type: String,
-    required: [true, "Email is required"],
-    // validate:{
-    //   validator:(value:string)=>validator.isEmail(value),
-    //   message:'{VALUE} is not defind type'
-    // }
-  },
-  contectNo: { type: String, required: [true, "Contact number is required"] },
-  emargecyContectNo: {
-    type: String,
-    required: [true, "Emergency contact number is required"],
-  },
-  bloodGroup: {
-    type: String,
-    enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
-    message: "Invalid blood group",
-  },
-  persentAddress: {
-    type: String,
-    required: [true, "Present address is required"],
-  },
-  permenantAddress: {
-    type: String,
-    required: [true, "Permanent address is required"],
-  },
-  gardians: {
-    type: guardianSchema,
-    required: [true, "Guardians information is required"],
-  },
-  localGardian: {
-    type: localGuardianSchema,
-    required: [true, "Local guardian information is required"],
-  },
-  profileImg: { type: String },
-  isActive: {
-    type: String,
-    enum: ["active", "block"],
-    default: "active",
-    required: [true, "Active status is required"],
-  },
-  isDeleted: {
-    type: Boolean,
-    default: false,
-  },
-}, {
-  toJSON:{
-    virtuals:true
+  {
+    toJSON: {
+      virtuals: true,
+    },
   }
-});
+);
 
 //virtual crate
-studentSchema.virtual('full Name').get(function (){
-  return `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`
+studentSchema.virtual("full Name").get(function () {
+  return `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`;
 });
 
 //pre save middlewere
@@ -169,10 +177,10 @@ studentSchema.pre("find", function (next) {
   next();
 });
 
-studentSchema.pre('findOne', function(next){
-   this.find({isDeleted: {$ne: true}})
-  next()
-})
+studentSchema.pre("findOne", function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
 
 // studentSchema.pre("aggregate", function (next) {
 //   this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
