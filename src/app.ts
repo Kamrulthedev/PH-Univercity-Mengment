@@ -4,14 +4,15 @@ import { StudentRouts } from "./app/modules/student/student.route";
 import { UserRouotes } from "./app/modules/users/user.routes";
 import GlobalErrorHandel from "./app/milddlerwer/globalErrorHandelar";
 import notFound from "./app/milddlerwer/notFound";
+import router from "./app/routes";
 const app: Application = express();
 
 app.use(express.json());
 app.use(cors());
 
 //application routes
-app.use("/api/v1/students", StudentRouts);
-app.use("/api/v1/users", UserRouotes);
+app.use("/api/v1" , router);
+
 
 app.get("/", (req: Request, res: Response) => {
   const a = 19;
