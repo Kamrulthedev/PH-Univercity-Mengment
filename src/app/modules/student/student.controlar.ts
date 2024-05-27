@@ -1,12 +1,8 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import { StudentService } from "./student.service";
+import catchAsync from "../../utils/catchAsync";
 
-//create a catchAsync function
-const catchAsync = (fun: RequestHandler) => {
-  return (req: Request, res: Response, next: NextFunction) => {
-    Promise.resolve(fun(req, res, next)).catch((err) => next(err));
-  };
-};
+
 
 //gell all students
 const getStudents = catchAsync(async (req, res, next) => {
@@ -40,6 +36,7 @@ const deleteStudent = catchAsync(async (req, res, next) => {
   });
 });
 
+//export student Controllar
 export const studentControllar = {
   getStudents,
   getASingleStudent,
