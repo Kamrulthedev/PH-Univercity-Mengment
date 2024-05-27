@@ -5,10 +5,14 @@ import { UserRouotes } from "./app/modules/users/user.routes";
 import GlobalErrorHandel from "./app/milddlerwer/globalErrorHandelar";
 import notFound from "./app/milddlerwer/notFound";
 import router from "./app/routes";
+import bodyParser from 'body-parser';
 const app: Application = express();
 
 app.use(express.json());
 app.use(cors());
+
+// Middleware to parse JSON bodies
+app.use(bodyParser.json());
 
 //application routes
 app.use("/api/v1" , router);

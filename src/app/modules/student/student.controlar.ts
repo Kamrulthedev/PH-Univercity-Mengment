@@ -1,11 +1,11 @@
-import { NextFunction, Request, RequestHandler, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { StudentService } from "./student.service";
-import catchAsync from "../../utils/catchAsync";
+
 
 
 
 //gell all students
-const getStudents = catchAsync(async (req, res, next) => {
+const getStudents = (async (req:Request, res:Response, next:NextFunction) => {
   const result = await StudentService.getAllStudentsFromDB();
   res.status(200).json({
     success: true,
@@ -15,7 +15,7 @@ const getStudents = catchAsync(async (req, res, next) => {
 });
 
 //get a single student
-const getASingleStudent = catchAsync(async (req, res, next) => {
+const getASingleStudent =  (async (req:Request, res:Response, next:NextFunction)=> {
   const { studentId } = req.params;
   const result = await StudentService.GetASingleStudent(studentId);
   res.status(200).json({
@@ -26,7 +26,7 @@ const getASingleStudent = catchAsync(async (req, res, next) => {
 });
 
 //delete a student
-const deleteStudent = catchAsync(async (req, res, next) => {
+const deleteStudent =  (async (req:Request, res:Response, next:NextFunction) => {
   const studentId = req.params.studentId;
   const result = await StudentService.deleteStudentformDB(studentId);
   res.status(200).json({

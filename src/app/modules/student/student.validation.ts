@@ -44,7 +44,6 @@ const guardianvalidationSchema = z.object({
 
 // Student Schema
 const studentvalidationSchema = z.object({
-  body: z.object({
     id: z.string().optional(),
     password: z.string().max(20),
     name: userNamevalidationSchema,
@@ -72,8 +71,7 @@ const studentvalidationSchema = z.object({
     gardians: guardianvalidationSchema,
     localGardian: localGuardianvalidationSchema,
     profileImg: z.string().optional(),
-  }),
-});
+  });
 
 export const studentvalidations = {
   studentvalidationSchema,
