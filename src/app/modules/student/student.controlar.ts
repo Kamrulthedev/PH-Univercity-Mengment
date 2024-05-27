@@ -1,7 +1,14 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import { StudentService } from "./student.service";
 
-const getStudents = async (req: Request, res: Response, next: NextFunction) => {
+//catchAsync function
+const catchAsync = (fun:RequestHandler) => {
+  return (req:Request, res:Response, next:NextFunction) => {
+    Promise.resolve(fun(req, res, next)).catch((err) => next(err));
+  };
+};
+
+const getStudents = catchAsync(async (req, res, next) => {
   try {
     const result = await StudentService.getAllStudentsFromDB();
     res.status(200).json({
@@ -12,13 +19,9 @@ const getStudents = async (req: Request, res: Response, next: NextFunction) => {
   } catch (err) {
     next(err);
   }
-};
+});
 
-const getASingleStudent = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const getASingleStudent: RequestHandler = async (req, res, next) => {
   try {
     const { studentId } = req.params;
     const result = await StudentService.GetASingleStudent(studentId);
@@ -32,11 +35,7 @@ const getASingleStudent = async (
   }
 };
 
-const deleteStudent = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const deleteStudent: RequestHandler = async (req, res, next) => {
   try {
     const studentId = req.params.studentId;
     const result = await StudentService.deleteStudentformDB(studentId);
