@@ -3,8 +3,6 @@ import { TAcademicSemester } from "./academicSemester.interface";
 import { AcademicSemesterCode, AcademicSemesterName, Months } from "./academicSemester.constend";
 
 
-
-
 const academicSemesterSchema = new Schema<TAcademicSemester>(
   {
     name: {
