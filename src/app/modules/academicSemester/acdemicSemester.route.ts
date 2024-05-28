@@ -3,14 +3,22 @@ import validationRequest from "../../milddlerwer/validate.Request";
 import { AcademicSemestersControllars } from "./academicSemester.conrollar";
 import { AcademicSemesterValidation } from "./acdemicSemester.validation";
 
-
 const router = express.Router();
 //create a academic semester
-  router.post('/create-academic-semester',validationRequest(AcademicSemesterValidation.createAcademicSemestervalidationSchema), AcademicSemestersControllars.createAcademincSemesterDb)
-  //get all Academic Semester
-  router.get('/', AcademicSemestersControllars.GetAllAcademicSemesterDb)
-  //get a single Academic Semeter data
-  router.get('/:id', AcademicSemestersControllars.getASingleAcademicSemesterDb)
-
+router.post(
+  "/create-academic-semester",
+  validationRequest(
+    AcademicSemesterValidation.createAcademicSemestervalidationSchema
+  ),
+  AcademicSemestersControllars.createAcademincSemesterDb
+);
+//get all Academic Semester
+router.get("/", AcademicSemestersControllars.GetAllAcademicSemesterDb);
+//get all Academic Semester
+router.get("/:id", AcademicSemestersControllars.getASingleAcademicSemesterDb);
+//update Academic Semester
+router.patch("/:id",validationRequest(AcademicSemesterValidation.createAcademicSemestervalidationSchema),
+  AcademicSemestersControllars.UpdateAcademicSemesterDb
+);
 
 export const AcademicSemesterRouts = router;

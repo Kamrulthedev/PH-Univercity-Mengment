@@ -13,19 +13,31 @@ const createAcademincSemester = async (payload: TAcademicSemester) => {
 
 //get all Academic Semester
 const GetAllAcademicSemester = async () => {
-  const result = await AcademicSemester.find()
+  const result = await AcademicSemester.find();
   return result;
 };
 
 //get a single academic semester data
-const GetsingleAacadamic = async (id:string)=>{
-  const result = await AcademicSemester.findById(id)
+const GetsingleAacadamic = async (id: string) => {
+  const result = await AcademicSemester.findById(id);
   return result;
 };
 
+//update Academic semester
+const UpdateAcademicSemester = async (
+  id: string,
+  semesterData: Partial<TAcademicSemester>
+) => {
+  const result = await AcademicSemester.findByIdAndUpdate(id, semesterData, {
+    new: true,
+    runValidators: true,
+  });
+  return result;
+};
 
 export const AcademicSemesterServices = {
   createAcademincSemester,
   GetAllAcademicSemester,
-  GetsingleAacadamic
+  GetsingleAacadamic,
+  UpdateAcademicSemester
 };
