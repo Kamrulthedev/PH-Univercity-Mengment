@@ -1,15 +1,16 @@
+import { Schema } from "mongoose";
 import { Model, Types } from "mongoose";
 
-export type Gardians = {
+export type  Guardians = {
   fatherName: string;
-  fatherContectNo: string;
+  fatherContactNo: string;
   fatherOccupation: string;
   fatherAddress: string;
-  matherName: string;
-  matherContectNo: string;
-  matherOccupation: string;
-  matherAddress: string;
-};
+  motherName: string;
+  motherContactNo: string;
+  motherOccupation: string;
+  motherAddress: string;
+}
 
 export type UserName = {
   firstName: string;
@@ -17,31 +18,31 @@ export type UserName = {
   lastName: string;
 };
 
-export type LocalGardian = {
+export type LocalGuardian  = {
   name: string;
   occupation: string;
-  contectNO: string;
+  contactNo: string;
   address: string;
-};
+}
 
 export type TStudent = {
-  id?: string;
-  user: Types.ObjectId;
-  password:string;
+  id: string;
+  user: Schema.Types.ObjectId;
+  password: string;
   name: UserName;
   gender: string;
-  dateOfBirth?: Date;
+  dateOfBirth: Date;
   email: string;
-  contectNo: string;
-  emargecyContectNo: string;
-  bloodGroup?: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
-  persentAddress: string;
-  permenantAddress: string;
-  gardians: Gardians;
-  localGardian: LocalGardian;
-  profileImg?: string | undefined;
-  isDeleted:boolean;
-};
+  contactNo: string;
+  emergencyContactNo: string;
+  bloodGroup: string;
+  presentAddress: string;
+  permanentAddress: string;
+  guardians: Guardians;
+  localGuardian: LocalGuardian;
+  profileImg?: string;
+  isDeleted?: boolean;
+}
 
 
 

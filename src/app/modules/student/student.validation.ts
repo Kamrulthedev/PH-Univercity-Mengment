@@ -1,53 +1,53 @@
-import z from "zod";
+import { z } from "zod";
 
-// UserName Schema
-const userNamevalidationSchema = z.object({
+// Name Schema
+const nameValidationSchema = z.object({
   firstName: z.string(),
-  middleName: z.string(),
+  middleName: z.string().optional(),
   lastName: z.string(),
 });
 
 // LocalGuardian Schema
-const localGuardianvalidationSchema = z.object({
+const localGuardianValidationSchema = z.object({
   name: z.string(),
   occupation: z.string(),
-  contectNO: z.string(),
+  contactNo: z.string(),
   address: z.string(),
 });
 
 // Guardians Schema
-const guardianvalidationSchema = z.object({
+const guardianValidationSchema = z.object({
   fatherName: z.string(),
-  fatherContectNo: z.string(),
+  fatherContactNo: z.string(),
   fatherOccupation: z.string(),
   fatherAddress: z.string(),
-  matherName: z.string(),
-  matherContectNo: z.string(),
-  matherOccupation: z.string(),
-  matherAddress: z.string(),
+  motherName: z.string(),
+  motherContactNo: z.string(),
+  motherOccupation: z.string(),
+  motherAddress: z.string(),
 });
 
 // Student validation Schema
-const createStudentvalidationSchema = z.object({
+const createStudentValidationSchema = z.object({
   body: z.object({
-    password: z.string().max(20),
+    password: z.string(),
     student: z.object({
-      name: userNamevalidationSchema,
-      gender: z.enum(["male", "famale", "other"]),
-      dateOfBirth: z.date().optional(),
+      name: nameValidationSchema,
+      gender: z.enum(["male", "female", "other"]),
+      dateOfBirth: z.string(), 
       email: z.string().email(),
-      contectNo: z.string(),
-      emargecyContectNo: z.string(),
+      contactNo: z.string(),
+      emergencyContactNo: z.string(),
       bloodGroup: z.enum(["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]),
-      persentAddress: z.string(),
-      permenantAddress: z.string(),
-      gardians: guardianvalidationSchema,
-      localGardian: localGuardianvalidationSchema,
+      presentAddress: z.string(),
+      permanentAddress: z.string(),
+      guardians: guardianValidationSchema,
+      localGuardian: localGuardianValidationSchema,
       profileImg: z.string().optional(),
     }),
   }),
 });
 
 export const studentvalidations = {
-  createStudentvalidationSchema,
+  createStudentValidationSchema,
 };
