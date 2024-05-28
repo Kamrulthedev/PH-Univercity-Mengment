@@ -1,4 +1,5 @@
 import config from "../../config";
+import { TAcademicSemester } from "../academicSemester/academicSemester.interface";
 import { TStudent } from "../student/student.interface";
 import { Student } from "../student/student.model";
 import { TUser } from "./user.interface";
@@ -11,21 +12,27 @@ const createStudent = async (password: string, studentData: TStudent) => {
   userData.password = password || (config.default_password as string);
   //set role
   userData.role = "student";
-  //set menually a id
-  userData.id = "2030100001";
+
+  //year semester 4 digit number
+  const generatStudentId =(payload: TAcademicSemester) =>{
+
+  };
+
+
+
+    //set menually a id
+    userData.id = "2030100002";
   //create a user
   const NewUser = await User.create(userData);
-  if(Object.keys(NewUser).length){
+  if (Object.keys(NewUser).length) {
     //set id and _id as user
     //create a user
-    studentData.id = NewUser.id,
-    studentData.user = NewUser._id
-    const NewStudent = await Student.create(studentData)
+    (studentData.id = NewUser.id), (studentData.user = NewUser._id);
+    const NewStudent = await Student.create(studentData);
     return NewStudent;
   }
 };
- 
+
 export const UserServices = {
   createStudent,
 };
-
