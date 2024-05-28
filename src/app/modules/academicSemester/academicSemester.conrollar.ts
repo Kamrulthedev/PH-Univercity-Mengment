@@ -41,9 +41,9 @@ const getASingleAcademicSemesterDb = catchAsync(async (req, res, next) => {
 
 //update ACademic semester data
 const UpdateAcademicSemesterDb = catchAsync(async(req, res, next)=>{
-  const semesterDataid = req.params.semesterData;
-  const semesterData = req.body;
-  const result = await AcademicSemesterServices.UpdateAcademicSemester(semesterDataid, semesterData)
+  const { id } = req.params;
+    const updateData = req.body;
+  const result = await AcademicSemesterServices.UpdateAcademicSemester(id, updateData)
   sendResponse(res, {
     statusCode:httpStatus.OK,
     success:true, message:"Academic Semester Data Updated SUccessfully",
