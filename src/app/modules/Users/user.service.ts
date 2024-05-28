@@ -18,8 +18,6 @@ const createStudent = async (password: string, studentData: TStudent) => {
 
   };
 
-
-
     //set menually a id
     userData.id = "2030100002";
   //create a user
