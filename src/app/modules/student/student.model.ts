@@ -1,8 +1,7 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 import {
   Guardians,
   LocalGuardian,
-  StudentModel,
   TStudent,
   UserName,
 } from "./student.interface";
@@ -74,7 +73,7 @@ const guardianSchema = new Schema<Guardians>({
 const studentSchema = new Schema<TStudent>({
   id: { type: String },
   user: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     required: [true, "User id is required"],
     unique: true,
     ref: "User",

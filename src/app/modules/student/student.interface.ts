@@ -1,5 +1,5 @@
-import { Schema } from "mongoose";
-import { Model, Types } from "mongoose";
+import mongoose from "mongoose";
+import { Model } from "mongoose";
 
 export type  Guardians = {
   fatherName: string;
@@ -27,7 +27,7 @@ export type LocalGuardian  = {
 
 export type TStudent = {
   id: string;
-  user: Schema.Types.ObjectId;
+  user: mongoose.Types.ObjectId;
   password: string;
   name: UserName;
   gender: string;
@@ -42,7 +42,7 @@ export type TStudent = {
   localGuardian: LocalGuardian;
   profileImg?: string;
   isDeleted?: boolean;
-}
+};
 
 
 

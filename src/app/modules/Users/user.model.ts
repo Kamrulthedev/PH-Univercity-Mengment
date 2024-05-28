@@ -3,16 +3,17 @@ import { TUser } from "./user.interface";
 import config from "../../config";
 import bcrypt from "bcrypt";
 
-//create a Shchema
+// Create a Mongoose Schema
 const userSchema = new Schema<TUser>(
   {
     id: {
       type: String,
-      require: true,
+      required: true,
+      unique: true,
     },
     password: {
       type: String,
-      require: true,
+      required: true, 
     },
     needsPasswordChange: {
       type: Boolean,
@@ -20,12 +21,13 @@ const userSchema = new Schema<TUser>(
     },
     role: {
       type: String,
-      enum: ["student", "faculty", "admin"],
+      enum: ['admin', 'student', 'faculty'],
+      required: true, 
     },
     status: {
       type: String,
-      enum: ["in-progress", "blocked"],
-      default:'in-progress'
+      enum: ['in-progress', 'blocked'],
+      default: 'in-progress',
     },
     isDeleted: {
       type: Boolean,
@@ -33,7 +35,7 @@ const userSchema = new Schema<TUser>(
     },
   },
   {
-    timestamps: true,
+    timestamps: true, 
   }
 );
 
