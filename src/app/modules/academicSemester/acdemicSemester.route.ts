@@ -9,6 +9,8 @@ const router = express.Router();
   router.post('/create-academic-semester',validationRequest(AcademicSemesterValidation.createAcademicSemestervalidationSchema), AcademicSemestersControllars.createAcademincSemesterDb)
   //get all Academic Semester
   router.get('/', AcademicSemestersControllars.GetAllAcademicSemesterDb)
+  //get a single Academic Semeter data
+  router.get('/:id', AcademicSemestersControllars.getASingleAcademicSemesterDb)
 
 
 export const AcademicSemesterRouts = router;

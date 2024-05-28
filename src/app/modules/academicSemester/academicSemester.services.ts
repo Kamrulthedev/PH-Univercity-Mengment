@@ -11,12 +11,21 @@ const createAcademincSemester = async (payload: TAcademicSemester) => {
   return result;
 };
 
+//get all Academic Semester
 const GetAllAcademicSemester = async () => {
   const result = await AcademicSemester.find()
   return result;
 };
 
+//get a single academic semester data
+const GetsingleAacadamic = async (id:string)=>{
+  const result = await AcademicSemester.findById(id)
+  return result;
+};
+
+
 export const AcademicSemesterServices = {
   createAcademincSemester,
-  GetAllAcademicSemester
+  GetAllAcademicSemester,
+  GetsingleAacadamic
 };
