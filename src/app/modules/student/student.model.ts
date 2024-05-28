@@ -7,7 +7,6 @@ import {
   UserName,
 } from "./student.interface";
 
-
 //schema create
 const userNameSchema = new Schema<UserName>({
   firstName: {
@@ -73,8 +72,8 @@ export const studentSchema = new Schema<TStudent, StudentModel>(
     user: {
       type: Schema.Types.ObjectId,
       required: [true, "user id is required"],
-      unique:true,
-      ref: 'User'
+      unique: true,
+      ref: "User",
     },
     password: {
       type: String,
@@ -87,13 +86,11 @@ export const studentSchema = new Schema<TStudent, StudentModel>(
       maxlength: [10, "This Name is not find please 10 cheracotrs"],
     },
     gender: { type: String, required: [true, "Gender is required"] },
-    dateOfBirth: {
-      type: String,
-      required: [true, "Date of birth is required"],
-    },
+    dateOfBirth: {type: Date},
     email: {
       type: String,
       required: [true, "Email is required"],
+      unique:true
     },
     contectNo: { type: String, required: [true, "Contact number is required"] },
     emargecyContectNo: {
@@ -138,7 +135,6 @@ export const studentSchema = new Schema<TStudent, StudentModel>(
 studentSchema.virtual("full Name").get(function () {
   return `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`;
 });
-
 
 //quary Middlewer
 studentSchema.pre("find", function (next) {
