@@ -80,7 +80,7 @@ const studentSchema = new Schema<TStudent>({
   },
   password: {
     type: String,
-    required: [true, "Password is required"],
+    // required: [true, "Password is required"],
     maxlength: [20, "Password must be less than 20 characters"],
   },
   name: {
