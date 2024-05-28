@@ -2,7 +2,7 @@ import sendResponse from "../../utils/sendResponse";
 import httpStatus from "http-status";
 import catchAsync from "../../utils/catchAsync";
 import { AcademicSemesterServices } from "./academicSemester.services";
-import { NextFunction, Request, Response } from "express";
+
 
 const createAcademincSemesterDb = catchAsync(async (req, res, next) => {
   const result = await AcademicSemesterServices.createAcademincSemester(

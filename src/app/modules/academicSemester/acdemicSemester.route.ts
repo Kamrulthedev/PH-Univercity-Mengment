@@ -17,7 +17,7 @@ router.get("/", AcademicSemestersControllars.GetAllAcademicSemesterDb);
 //get all Academic Semester
 router.get("/:id", AcademicSemestersControllars.getASingleAcademicSemesterDb);
 //update Academic Semester
-router.patch("/:id",validationRequest(AcademicSemesterValidation.createAcademicSemestervalidationSchema),
+router.patch("/:id",validationRequest(AcademicSemesterValidation.UpdateAcademicSemesterValidationschema),
   AcademicSemestersControllars.UpdateAcademicSemesterDb
 );
 
