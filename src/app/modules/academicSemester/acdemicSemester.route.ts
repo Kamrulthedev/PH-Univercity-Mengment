@@ -1,7 +1,7 @@
 import express from "express";
 import validationRequest from "../../milddlerwer/validate.Request";
-import { AcademicSemesterValidation } from "./acdemicSemester.validation";
 import { AcademicSemestersControllars } from "./academicSemester.conrollar";
+import { AcademicSemesterValidation } from "./acdemicSemester.validation";
 
 
 const router = express.Router();
