@@ -1,6 +1,5 @@
 
 
-
 //create a Type or interface
 export type TUser = {
     id: string;
