@@ -73,7 +73,7 @@ const guardianSchema = new Schema<Guardians>({
 // Student validation Schema
 const studentSchema = new Schema<TStudent>(
   {
-    id: { type: String },
+    id: { type: String , unique:true},
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: [true, "User id is required"],
