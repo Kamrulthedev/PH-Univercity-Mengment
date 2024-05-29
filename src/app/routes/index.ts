@@ -10,6 +10,7 @@ const router = Router()
 router.use('/students', StudentRouts)
 router.use('/users', UserRouotes)
 router.use('/academic-semesters',AcademicSemesterRouts)
+router.use('/academic-faculty',AcademicSemesterRouts)
 
 
 export default router;
