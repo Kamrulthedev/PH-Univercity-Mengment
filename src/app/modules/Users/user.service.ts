@@ -9,49 +9,68 @@ import { generatStudentId } from "./user.utils";
 import AppError from "../../Error/AppError";
 import httpStatus from "http-status";
 
+
+
 const createStudent = async (password: string, studentData: TStudent) => {
-  //create a user object
+  // Create a user object
   const userData: Partial<TUser> = {};
-  //if password is not given , use as default password
   userData.password = password || (config.default_password as string);
-  //set role
   userData.role = "student";
 
-  //create isolated environmenet
+  // Find academic semester info
+  const admissionSemester = await AcademicSemester.findById(
+    studentData.admissionSemester
+  );
+
+  // Check if admission semester exists
+  if (!admissionSemester) {
+    throw new AppError(httpStatus.NOT_FOUND, "Admission semester not found");
+  }
+
+  userData.id = await generatStudentId(admissionSemester);
+
   const session = await mongoose.startSession();
 
   try {
     session.startTransaction();
-    //fin academic semester inif
-    const admissionSemester = await AcademicSemester.findById(
-      studentData.admissionSemester
-    );
-    if (!admissionSemester) {
-      throw new Error("Admission semester not found");
+
+    // Check for existing academic department
+    const existingStudent = await Student.findOne({
+      academicDepement: studentData.academicDepement,
+    }).session(session);
+
+    if (existingStudent) {
+      throw new AppError(
+        httpStatus.CONFLICT,
+        "A student with this academic department already exists"
+      );
     }
-    //set menually a id
-    userData.id = await generatStudentId(admissionSemester);
-    //create a user(transaction-1)
-    const NewUser = await User.create([userData], { session });
-    if (!NewUser.length) {
-      throw new AppError(httpStatus.BAD_REQUEST, "Fail to create user !!");
+
+    const newUser = await User.create([userData], { session });
+
+    if (!newUser.length) {
+      throw new AppError(httpStatus.BAD_REQUEST, "Failed to create user");
     }
-    //set id, _id as user
-    studentData.id = NewUser[0].id;
-    studentData.user = NewUser[0]._id;
-    //create a student (tracsaction-2)
-    const NewStudent = await Student.create([studentData], { session });
-    if (!NewStudent.length) {
-      throw new AppError(httpStatus.BAD_REQUEST, "Falied to create student");
+
+    studentData.id = newUser[0].id;
+    studentData.user = newUser[0]._id;
+
+    const newStudent = await Student.create([studentData], { session });
+
+    if (!newStudent.length) {
+      throw new AppError(httpStatus.BAD_REQUEST, "Failed to create student");
     }
+
     await session.commitTransaction();
-    await session.endSession();
-    return NewStudent;
+    return newStudent;
   } catch (err) {
     await session.abortTransaction();
+    throw err;
+  } finally {
     await session.endSession();
   }
 };
+
 
 export const UserServices = {
   createStudent,
