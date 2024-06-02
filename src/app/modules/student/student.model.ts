@@ -130,6 +130,12 @@ const studentSchema = new Schema<TStudent>(
       type: Boolean,
       default: false,
     },
+    academicDepement: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: [true, "Academic Deperment is required"],
+      unique: true,
+      ref: "AcademicDeperment",
+    },
   },
   {
     toJSON: {

@@ -17,4 +17,25 @@ const academicDepermentSchema = new Schema<TAcademicDeperment>(
     timestamps:true
 });
 
-export const AcademicDeperment = model<TAcademicDeperment>("AcademicDeperment", academicDepermentSchema)
+academicDepermentSchema.pre('save', async function(next){
+    const isDepermentExist = await AcademicDeperment.findOne({
+        name:this.name,
+    });
+    if(isDepermentExist){
+        throw new Error('This Deperment is already exist !!');
+    }
+    next()
+});
+
+
+academicDepermentSchema.pre('findOneAndUpdate', async function(next){
+const query = this.getQuery;
+  const isDepermentExist = await AcademicDeperment.findOne(query)
+  if(!isDepermentExist){
+    throw new Error('This deperment does not exist !!');
+  }
+  next()
+});
+
+
+export const AcademicDeperment = model<TAcademicDeperment>("AcademicDeperment", academicDepermentSchema);

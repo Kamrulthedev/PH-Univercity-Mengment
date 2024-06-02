@@ -43,6 +43,7 @@ export type TStudent = {
   profileImg?: string;
   admissionSemester:Types.ObjectId;
   isDeleted?: boolean;
+  academicDepement:mongoose.Types.ObjectId;
 };
 
 

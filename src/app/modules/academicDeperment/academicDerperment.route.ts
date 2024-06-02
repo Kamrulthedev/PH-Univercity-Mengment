@@ -15,5 +15,6 @@ router.get('/', AcademicDepermantControllar.getAllACademicDeperment);
 router.get('/:id', AcademicDepermantControllar.getSingleAcademicDeperment);
 
 //update academic deperment
-router.patch('/:id', AcademicDepermantControllar.updateAcademicDeperment)
+router.patch('/:id', AcademicDepermantControllar.updateAcademicDeperment);
+
 export const AcademicDepermantRouter = router;
