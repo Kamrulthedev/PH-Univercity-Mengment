@@ -17,18 +17,18 @@ const academicDepermentSchema = new Schema<TAcademicDeperment>(
 );
 
 //create a pre hook middlerwaer
-academicDepermentSchema.pre("save", async function (next) {
-  const isDepermentExist = await AcademicDeperment.findOne({
-    name: this.name,
-  });
-  if (isDepermentExist) {
-    throw new AppError(
-      httpStatus.NOT_FOUND,
-      "This Deperment is already exist !!"
-    );
-  }
-  next();
-});
+// academicDepermentSchema.pre("save", async function (next) {
+//   const isDepermentExist = await AcademicDeperment.findOne({
+//     name: this.name,
+//   });
+//   if (isDepermentExist) {
+//     throw new AppError(
+//       httpStatus.NOT_FOUND,
+//       "This Deperment is already exist !!"
+//     );
+//   }
+//   next();
+// });
 
 //create a pre hook middleware
 academicDepermentSchema.pre("findOneAndUpdate", async function (next) {

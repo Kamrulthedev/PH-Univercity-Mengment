@@ -53,9 +53,6 @@ const updateStudent = async (id: string, paylaod: Partial<TStudent>) => {
       modifidIUpdateData[`guardians.${key}`] = value;
     }
   };
-  
-
-  console.log(modifidIUpdateData)
 
   const result = await Student.findOneAndUpdate({ id }, modifidIUpdateData, { new: true, runValidators:true });
   return result;
