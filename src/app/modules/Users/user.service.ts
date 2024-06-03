@@ -34,11 +34,12 @@ const createStudent = async (password: string, studentData: TStudent) => {
   try {
     session.startTransaction();
 
-    // Check for existing academic department
+    // Check for existing student in the same academic department
     const existingStudent = await Student.findOne({
       academicDepement: studentData.academicDepement,
     }).session(session);
 
+    // If a student with the same academic department already exists, throw an error
     if (existingStudent) {
       throw new AppError(
         httpStatus.CONFLICT,
@@ -46,15 +47,18 @@ const createStudent = async (password: string, studentData: TStudent) => {
       );
     }
 
+    // Create a new user
     const newUser = await User.create([userData], { session });
 
     if (!newUser.length) {
       throw new AppError(httpStatus.BAD_REQUEST, "Failed to create user");
     }
 
+    // Set the id and user reference in studentData
     studentData.id = newUser[0].id;
     studentData.user = newUser[0]._id;
 
+    // Create a new student
     const newStudent = await Student.create([studentData], { session });
 
     if (!newStudent.length) {
@@ -70,6 +74,7 @@ const createStudent = async (password: string, studentData: TStudent) => {
     await session.endSession();
   }
 };
+
 
 
 export const UserServices = {
