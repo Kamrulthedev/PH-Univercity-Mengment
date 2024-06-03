@@ -64,7 +64,6 @@ const createStudent = async (password: string, studentData: TStudent) => {
 };
 
 
-
 export const UserServices = {
   createStudent,
 };

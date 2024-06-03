@@ -29,10 +29,39 @@ const GetASingleStudent = async (id: string) => {
 };
 
 const updateStudent = async (id: string, paylaod: Partial<TStudent>) => {
-  const result = await Student.findOneAndUpdate({ id }, paylaod, { new: true });
+
+  const { name, guardians, localGuardian, ...renauiningStudentData } = paylaod;
+
+  const modifidIUpdateData : Record<string, unknown> = {
+    ...renauiningStudentData
+  }
+
+  if(name && Object.keys(name).length){
+    for(const [key, value] of Object.entries(name)){
+      modifidIUpdateData[`name.${key}`] = value;
+    }
+  };
+
+  if(localGuardian && Object.keys(localGuardian).length){
+    for(const [key, value] of Object.entries(localGuardian)){
+      modifidIUpdateData[`localGuardian.${key}`] = value;
+    }
+  };
+
+  if(guardians && Object.keys(guardians).length){
+    for(const [key, value] of Object.entries(guardians)){
+      modifidIUpdateData[`guardians.${key}`] = value;
+    }
+  };
+  
+
+  console.log(modifidIUpdateData)
+
+  const result = await Student.findOneAndUpdate({ id }, modifidIUpdateData, { new: true, runValidators:true });
   return result;
 };
 
+//delete student
 const deleteStudentformDB = async (id: string) => {
   const session = await mongoose.startSession();
   try {
@@ -56,6 +85,9 @@ const deleteStudentformDB = async (id: string) => {
         session,
       }
     );
+    if (!deleteUser) {
+      throw new AppError(404, "Falid to delete student");
+    }
 
     await session.commitTransaction();
     await session.endSession();
@@ -64,6 +96,7 @@ const deleteStudentformDB = async (id: string) => {
   } catch (err) {
     await session.abortTransaction();
     await session.endSession();
+    throw new Error("Failed to delete student");
   }
 };
 
