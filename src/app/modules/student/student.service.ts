@@ -66,7 +66,9 @@ const deleteStudentformDB = async (id: string) => {
     const deleteStudent = await Student.findOneAndUpdate(
       { id },
       {
-        idDeleted: true,
+        idDeleted: true
+      },
+      {
         new: true,
         session,
       }
@@ -77,7 +79,9 @@ const deleteStudentformDB = async (id: string) => {
     const deleteUser = await User.findOneAndUpdate(
       { id },
       {
-        idDeleted: true,
+        idDeleted: true
+      },
+      {
         new: true,
         session,
       }
@@ -91,6 +95,7 @@ const deleteStudentformDB = async (id: string) => {
 
     return deleteStudent;
   } catch (err) {
+    console.log(err)
     await session.abortTransaction();
     await session.endSession();
     throw new Error("Failed to delete student");
