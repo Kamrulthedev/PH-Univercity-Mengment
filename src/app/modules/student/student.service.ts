@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { Student } from "./student.model";
 import AppError from "../../Error/AppError";
 import { User } from "../users/user.model";
+import { TStudent } from "./student.interface";
 
 const getAllStudentsFromDB = async () => {
   const result = await Student.find()
@@ -16,7 +17,7 @@ const getAllStudentsFromDB = async () => {
 };
 
 const GetASingleStudent = async (id: string) => {
-  const result = await Student.findOne({id})
+  const result = await Student.findOne({ id })
     .populate("admissionSemester")
     .populate({
       path: "academicDepement",
@@ -27,11 +28,10 @@ const GetASingleStudent = async (id: string) => {
   return result;
 };
 
-const updateStudent = async(id:string) =>{
-  const result = await Student({id}, )
-}
-
-
+const updateStudent = async (id: string, paylaod: Partial<TStudent>) => {
+  const result = await Student.findOneAndUpdate({ id }, paylaod);
+  return result;
+};
 
 const deleteStudentformDB = async (id: string) => {
   const session = await mongoose.startSession();
@@ -57,8 +57,8 @@ const deleteStudentformDB = async (id: string) => {
       }
     );
 
-await session.commitTransaction();
-await session.endSession();
+    await session.commitTransaction();
+    await session.endSession();
 
     return deleteStudent;
   } catch (err) {
