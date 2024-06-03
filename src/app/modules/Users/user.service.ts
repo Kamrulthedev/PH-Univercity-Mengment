@@ -27,25 +27,13 @@ const createStudent = async (password: string, studentData: TStudent) => {
     throw new AppError(httpStatus.NOT_FOUND, "Admission semester not found");
   }
 
+  // Generate student ID
   userData.id = await generatStudentId(admissionSemester);
 
   const session = await mongoose.startSession();
 
   try {
     session.startTransaction();
-
-    // Check for existing student in the same academic department
-    const existingStudent = await Student.findOne({
-      academicDepement: studentData.academicDepement,
-    }).session(session);
-
-    // If a student with the same academic department already exists, throw an error
-    if (existingStudent) {
-      throw new AppError(
-        httpStatus.CONFLICT,
-        "A student with this academic department already exists"
-      );
-    }
 
     // Create a new user
     const newUser = await User.create([userData], { session });

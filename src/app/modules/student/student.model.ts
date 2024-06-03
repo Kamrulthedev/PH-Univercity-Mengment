@@ -132,8 +132,8 @@ const studentSchema = new Schema<TStudent>(
     },
     academicDepement: {
       type: mongoose.Schema.Types.ObjectId,
-      required: [true, "Academic Deperment is required"],
-      ref: "AcademicDeperment",
+      ref: 'AcademicDepartment',
+      unique: false
     },
   },
   {

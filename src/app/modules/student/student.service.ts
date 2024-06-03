@@ -29,7 +29,7 @@ const GetASingleStudent = async (id: string) => {
 };
 
 const updateStudent = async (id: string, paylaod: Partial<TStudent>) => {
-  const result = await Student.findOneAndUpdate({ id }, paylaod);
+  const result = await Student.findOneAndUpdate({ id }, paylaod, { new: true });
   return result;
 };
 

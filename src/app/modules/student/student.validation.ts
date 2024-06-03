@@ -62,7 +62,7 @@ const updatelocalGuardianValidationSchema = z.object({
   occupation: z.string().optional(),
   contactNo: z.string().optional(),
   address: z.string().optional(),
-});
+}).optional(); // Mark this schema as optional
 
 const updateguardianValidationSchema = z.object({
   fatherName: z.string().optional(),
@@ -73,7 +73,7 @@ const updateguardianValidationSchema = z.object({
   motherContactNo: z.string().optional(),
   motherOccupation: z.string().optional(),
   motherAddress: z.string().optional(),
-});
+}).optional(); 
 
 const updateStudentValidationSchema = z.object({
   body: z.object({

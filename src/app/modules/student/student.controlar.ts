@@ -26,17 +26,18 @@ const getASingleStudent = catchAsync(async (req, res, next) => {
   });
 });
 
+//update student
 const updateStudentDb = catchAsync(async(req, res, next) =>{
   const {studentId} = req.params;
-  const result = await StudentService.updateStudent(studentId, req.body);
+  const {student} = req.body;
+  const result = await StudentService.updateStudent(studentId, student);
   sendResponse(res, {
     statusCode:httpStatus.OK,
     success:true,
-    message:"Student Update is Successfully !!",
+    message:"Student Update is Successfully!!",
     data:result
   })
-  
-})
+});
 
 
 
