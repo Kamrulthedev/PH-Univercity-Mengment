@@ -1,41 +1,37 @@
-import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
-import { ZodError, ZodIssue } from "zod";
-import { TErrorSource } from "../interface/error";
+import { ErrorRequestHandler } from "express";
+import { ZodError } from "zod";
 import config from "../config";
+import handlerZodError from "../Error/handleZodError";
+import handlerValidationError from "../Error/handleValidatoinError";
+import { TErrorSources } from "../interface/error";
+import handlerCastError from "../Error/handleCastError";
 
 const GlobalErrorHandel: ErrorRequestHandler = (err, req, res, next) => {
   let statusCode = err.statusCode || 500;
   let message = err.message || "Somoting went wromng !";
 
-  let errorSources: TErrorSource = [
+  let errorSources: TErrorSources = [
     {
       path: "",
-      message: "Somehting went wromng !",
+      message: "Something went wrong!",
     },
   ];
-
-  // Define your error handler for Zod errors
-  const handlerZodError = (err: ZodError) => {
-    const errorSources: TErrorSource = err.issues.map((issue: ZodIssue) => {
-      return {
-        path: issue.path[issue.path.length - 1],
-        message: issue.message,
-      };
-    });
-    const statusCode = 400;
-
-    return {
-      statusCode,
-      message: "Zod Validation Error",
-      errorSources,
-    };
-  };
 
   if (err instanceof ZodError) {
     const simplifiedError = handlerZodError(err);
     statusCode = simplifiedError.statusCode;
     message = simplifiedError.message;
     errorSources = simplifiedError.errorSources;
+  } else if (err?.name === "ValidatorError") {
+    const simplifiedError = handlerValidationError(err);
+    statusCode = simplifiedError?.statusCode;
+    message = simplifiedError?.message;
+    errorSources = simplifiedError?.errorSources;
+  }else if(err?.name === "CastError"){
+    const simplifiedError = handlerCastError(err);
+    statusCode = simplifiedError?.statusCode,
+    message = simplifiedError?.message;
+    errorSources = simplifiedError?.errorSources;
   }
 
   return res.status(statusCode).json({
