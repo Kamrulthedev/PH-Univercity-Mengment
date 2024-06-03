@@ -1,6 +1,7 @@
 import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
 import { ZodError, ZodIssue } from "zod";
 import { TErrorSource } from "../interface/error";
+import config from "../config";
 
 const GlobalErrorHandel: ErrorRequestHandler = (err, req, res, next) => {
   let statusCode = err.statusCode || 500;
@@ -33,14 +34,15 @@ const GlobalErrorHandel: ErrorRequestHandler = (err, req, res, next) => {
   if (err instanceof ZodError) {
     const simplifiedError = handlerZodError(err);
     statusCode = simplifiedError.statusCode;
-     message = simplifiedError.message;
-     errorSources = simplifiedError.errorSources;
-  };
+    message = simplifiedError.message;
+    errorSources = simplifiedError.errorSources;
+  }
 
   return res.status(statusCode).json({
     sucess: false,
     message,
     errorSources,
+    stack: config.NODE_ENV === "development" ? err?.stack : null,
   });
 };
 
