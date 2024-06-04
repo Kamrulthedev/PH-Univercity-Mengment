@@ -144,7 +144,7 @@ const studentSchema = new Schema<TStudent>(
 
 //virtual crate
 studentSchema.virtual("full Name").get(function () {
-  return `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`;
+  return `${this?.name?.firstName} ${this?.name?.middleName} ${this?.name?.lastName}`;
 });
 
 //quary Middlewer

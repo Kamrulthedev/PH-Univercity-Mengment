@@ -21,12 +21,11 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
   });
 
   //Filtering
-  const excludeFields = ["searchTerm", "sort", "limit", "page"];
-
-  console.log({query}, {queryObj});
+  const excludeFields = ["searchTerm", "sort", "limit", "page", "fields"];
 
   excludeFields.forEach((eL) => delete queryObj[eL]);
-
+  console.log({query}, {queryObj});
+  
   const filterQuery = searchQuery
     .find(queryObj)
     .populate("admissionSemester")
@@ -58,9 +57,18 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
 
   const paginaateQuery = sortQuery.skip(skip);
 
-  const limitQuery = await paginaateQuery.limit(limit);
+  const limitQuery = paginaateQuery.limit(limit);
 
-  return limitQuery;
+  //fild limiting
+  let fields = '-__v'
+
+  if(query.fields){
+    fields = (query.fields as string).split(',').join(' ')
+  }
+
+  const fieldQuery = await limitQuery.select(fields);
+
+  return fieldQuery;
 };
 
 //get a single students
