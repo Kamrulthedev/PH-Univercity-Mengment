@@ -5,7 +5,7 @@ import httpStatus from "http-status";
 
 //gell all students
 const getStudents = catchAsync(async (req, res, next) => {
-  const result = await StudentService.getAllStudentsFromDB();
+  const result = await StudentService.getAllStudentsFromDB(req.query);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -38,8 +38,6 @@ const updateStudentDb = catchAsync(async(req, res, next) =>{
     data:result
   })
 });
-
-
 
 
 //delete a student
