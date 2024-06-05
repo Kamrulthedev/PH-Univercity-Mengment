@@ -41,3 +41,33 @@ export const generatStudentId = async (payload: TAcademicSemester) => {
 
   return incrementId;
 };
+
+
+//create a Faculty ID
+
+export const findLAstFacultyId = async()=>{
+  const lastFaculty = await User.findOne(
+    {
+      role:'faculty'
+    },
+    {
+      id:1,
+      _id:0
+    }
+  )
+  .sort({createAt:-1})
+  .lean();
+  return lastFaculty?.id ? lastFaculty.id.substring(2): undefined
+};
+
+export const generatFacultyId = async()=>{
+  let currentId = (0).toString();
+  const lastFacultyId = await findLAstFacultyId();
+  
+  if(lastFacultyId){
+    currentId = lastFacultyId.substring(2);
+  }
+  let incrementId = (Number(currentId) + 1).toString().padStart(4, '0');
+  incrementId = `F-${incrementId}`;
+  return incrementId
+}
