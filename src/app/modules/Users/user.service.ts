@@ -111,4 +111,5 @@ const createFaculty = async(password :string, payload :TFaculty)=>{
 
 export const UserServices = {
   createStudent,
+  createFaculty
 };
