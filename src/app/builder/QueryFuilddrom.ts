@@ -36,7 +36,7 @@ class QueryBuilder<T> {
     this.modelQuery = this.modelQuery.find(queryObj as FilterQuery<T>);
 
     return this;
-  }
+  };
 
   sort() {
     const sort =
