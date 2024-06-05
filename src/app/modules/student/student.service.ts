@@ -3,72 +3,29 @@ import { Student } from "./student.model";
 import AppError from "../../Error/AppError";
 import { User } from "../users/user.model";
 import { TStudent } from "./student.interface";
+import QueryBuilder from "../../builder/QueryFuilddrom";
+import { studentSeachableFields } from "./consted";
 
 const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
+  const studentQuery = new QueryBuilder(
+    Student.find()
+      .populate("admissionSemester")
+      .populate({
+        path: "academicDepement",
+        populate: {
+          path: "academicFaculty",
+        },
+      }),
+    query
+  )
+    .search(studentSeachableFields)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
 
-  const queryObj = { ...query };
-
-  let searchTerm = "";
-
-  if (query?.searchTerm) {
-    searchTerm = query?.searchTerm as string;
-  }
-
-  const searchQuery = Student.find({
-    $or: ["email", "name.firstName", "presentAddress"].map((field) => ({
-      [field]: { $regex: searchTerm, $options: "i" },
-    })),
-  });
-
-  //Filtering
-  const excludeFields = ["searchTerm", "sort", "limit", "page", "fields"];
-
-  excludeFields.forEach((eL) => delete queryObj[eL]);
-  console.log({query}, {queryObj});
-  
-  const filterQuery = searchQuery
-    .find(queryObj)
-    .populate("admissionSemester")
-    .populate({
-      path: "academicDepement",
-      populate: {
-        path: "academicFaculty",
-      },
-    });
-
-  let sort = "-createdAt";
-  if (query.sort) {
-    sort = query.sort as string;
-  }
-
-  const sortQuery = filterQuery.sort(sort);
-
-  let page = 1;
-  let limit = 1;
-  let skip = 0;
-  if (query.limit) {
-    limit = Number(query.limit);
-    skip = (page - 1) * limit;
-  }
-
-  if (query.page) {
-    page = Number(query.page);
-  }
-
-  const paginaateQuery = sortQuery.skip(skip);
-
-  const limitQuery = paginaateQuery.limit(limit);
-
-  //fild limiting
-  let fields = '-__v'
-
-  if(query.fields){
-    fields = (query.fields as string).split(',').join(' ')
-  }
-
-  const fieldQuery = await limitQuery.select(fields);
-
-  return fieldQuery;
+  const result = await studentQuery.modelQuery;
+  return result;
 };
 
 //get a single students
