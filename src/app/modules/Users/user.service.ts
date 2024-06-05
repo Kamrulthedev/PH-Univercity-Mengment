@@ -8,7 +8,7 @@ import { User } from "./user.model";
 import { generatStudentId } from "./user.utils";
 import AppError from "../../Error/AppError";
 import httpStatus from "http-status";
-
+import { TFaculty } from "../Faculty/faculty.interface";
 
 
 const createStudent = async (password: string, studentData: TStudent) => {
@@ -63,6 +63,13 @@ const createStudent = async (password: string, studentData: TStudent) => {
   }
 };
 
+
+const createFaculty = async(password :string, payload :TFaculty)=>{
+  const userData :Partial<TUser> = {};
+  
+  userData.password = password || config.default_password as string
+  
+}
 
 export const UserServices = {
   createStudent,

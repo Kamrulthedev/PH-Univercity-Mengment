@@ -16,7 +16,7 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
           path: "academicFaculty",
         },
       }),
-    query
+    query,
   )
     .search(studentSeachableFields)
     .filter()
