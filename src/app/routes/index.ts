@@ -5,15 +5,31 @@ import { AcademicSemesterRouts } from "../modules/academicSemester/acdemicSemest
 import { AcademicFacultyRotes } from "../modules/academicFaculty/academicFaculty.route";
 import { AcademicDepermantRouter } from "../modules/academicDeperment/academicDerperment.route";
 
+const router = Router();
 
+const moduleRoutes = [
+  {
+    path: "/students",
+    route: StudentRouts,
+  },
+  {
+    path: "/users",
+    route: UserRouotes,
+  },
+  {
+    path: "/academic-semesters",
+    route: AcademicSemesterRouts,
+  },
+  {
+    path: "/academic-facultys",
+    route: AcademicFacultyRotes,
+  },
+  {
+    path: "/academic-deperments",
+    route: AcademicDepermantRouter,
+  },
+];
 
-const router = Router()
-
-router.use('/students', StudentRouts)
-router.use('/users', UserRouotes)
-router.use('/academic-semesters',AcademicSemesterRouts)
-router.use('/academic-facultys',AcademicFacultyRotes)
-router.use('/academic-deperments', AcademicDepermantRouter)
-
+moduleRoutes.forEach((route) => router.use(route.path, route.route));
 
 export default router;

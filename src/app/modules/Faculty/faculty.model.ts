@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 import { FacultyModel, TFaculty, TUserName } from "./faculty.interface";
 import { BloodGroup, Gender } from "./faculty.constant";
 
@@ -7,7 +7,7 @@ const userNameSchema = new Schema<TUserName>({
     type: String,
     required: [true, "First Name is required"],
     trim: true,
-    maxlength: [20, "Name can not be more than 20 characters"],
+    maxlength: [20, "Name cannot be more than 20 characters"],
   },
   middleName: {
     type: String,
@@ -17,7 +17,7 @@ const userNameSchema = new Schema<TUserName>({
     type: String,
     trim: true,
     required: [true, "Last Name is required"],
-    maxlength: [20, "Name can not be more than 20 characters"],
+    maxlength: [20, "Name cannot be more than 20 characters"],
   },
 });
 
@@ -55,6 +55,12 @@ const facultySchema = new Schema<TFaculty, FacultyModel>(
       type: String,
       required: [true, "Email is required"],
       unique: true,
+      validate: {
+        validator: function (v: string) {
+          return /^\S+@\S+\.\S+$/.test(v);
+        },
+        message: (props) => `${props.value} is not a valid email!`,
+      },
     },
     contactNo: { type: String, required: [true, "Contact number is required"] },
     emergencyContactNo: {
@@ -78,9 +84,9 @@ const facultySchema = new Schema<TFaculty, FacultyModel>(
     },
     profileImg: { type: String },
     academicDepartment: {
-      type: Schema.Types.ObjectId,
-      required: [true, "User id is required"],
-      ref: "User",
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "AcademicDepartment",
     },
     isDeleted: {
       type: Boolean,
@@ -94,9 +100,9 @@ const facultySchema = new Schema<TFaculty, FacultyModel>(
   }
 );
 
-//checking if user is already exist!
+// checking if user already exists
 facultySchema.statics.isUserExists = async function (id: string) {
-  const existingUser = await Faculty.findOne({ id });
+  const existingUser = await this.findOne({ id });
   return existingUser;
 };
 
