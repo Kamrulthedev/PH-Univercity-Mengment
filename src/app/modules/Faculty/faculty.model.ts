@@ -84,9 +84,9 @@ const facultySchema = new Schema<TFaculty, FacultyModel>(
     },
     profileImg: { type: String },
     academicDepartment: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       required: true,
-      ref: "AcademicSemester",
+      ref: "AcademicDeperment",
     },
     isDeleted: {
       type: Boolean,

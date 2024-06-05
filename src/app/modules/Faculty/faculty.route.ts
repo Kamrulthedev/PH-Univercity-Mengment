@@ -4,8 +4,8 @@ import { FacultyControllar } from './faculty.controllar';
 
 const router = express.Router();
 
-router.get('/', FacultyControllar.getAllFacutlyDb);
-
 router.get('/:facultyId', FacultyControllar.getSingleFacultyDb);
+
+router.get('/', FacultyControllar.getAllFacutlyDb);
 
 export const FacultiesRoter = router;
