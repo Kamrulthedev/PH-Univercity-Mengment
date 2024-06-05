@@ -67,12 +67,14 @@ const createStudent = async (password: string, studentData: TStudent) => {
 
 //crete Faculty
 const createFaculty = async (password: string, payload: TFaculty) => {
+  console.log(payload.academicDepartment)
   const userData: Partial<TUser> = {
     password: password || (config.default_password as string),
     role: "faculty",
   };
 
   const academicDepartment = await AcademicDeperment.findById(payload.academicDepartment);
+  console.log(payload)
   if (!academicDepartment) {
     throw new AppError(httpStatus.BAD_REQUEST, "Academic Department not found");
   }

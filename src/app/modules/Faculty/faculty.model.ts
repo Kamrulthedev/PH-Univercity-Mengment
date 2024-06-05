@@ -86,7 +86,7 @@ const facultySchema = new Schema<TFaculty, FacultyModel>(
     academicDepartment: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "AcademicDepartment",
+      ref: "AcademicSemester",
     },
     isDeleted: {
       type: Boolean,
