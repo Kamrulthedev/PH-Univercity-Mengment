@@ -3,7 +3,6 @@ import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { FacultyService } from "./faculty.service";
 
-
 //get single faculty
 const getSingleFacultyDb = catchAsync(async (req, res, next) => {
   const { facultyId } = req.params;
@@ -34,9 +33,21 @@ const updateFacultyDb = catchAsync(async (req, res, next) => {
   const { faculty } = req.body;
   const result = await FacultyService.updataFaculty(facultyId, faculty);
   sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Faculty is updated successfully",
+    data: result,
+  });
+});
+
+//delete faculty
+const deletedFacultyDb = catchAsync(async (req, res, next) => {
+  const { facultyId } = req.params;
+  const result = await FacultyService.deleteFaculty(facultyId);
+  sendResponse(res, {
     statusCode:httpStatus.OK,
     success:true,
-    message:"Faculty is updated successfully",
+    message:"Faculty is deleted successfully",
     data:result
   })
 });
@@ -44,5 +55,6 @@ const updateFacultyDb = catchAsync(async (req, res, next) => {
 export const FacultyControllar = {
   getSingleFacultyDb,
   getAllFacutlyDb,
-  updateFacultyDb
+  updateFacultyDb,
+  deletedFacultyDb
 };
