@@ -67,7 +67,6 @@ const createStudent = async (password: string, studentData: TStudent) => {
 
 //crete Faculty
 const createFaculty = async (password: string, payload: TFaculty) => {
-  console.log(payload)
   const userData: Partial<TUser> = {
     password: password || (config.default_password as string),
     role: "faculty",
