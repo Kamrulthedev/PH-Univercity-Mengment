@@ -24,23 +24,35 @@ const getAllAdmin = catchAsync(async (req, res, next) => {
   });
 });
 
+//update Admin data
+const updateAdminDb = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const payload = req.body;
+  const result = await AdminService.updateAdmin(id, payload);
 
-//update Admin data 
-const updateAdminDb  = catchAsync(async(req, res, next) =>{
-    const {id} = req.params;
-    const payload = req.body;
-    const result = await AdminService.updateAdmin(id, payload);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Admin is updated successfully",
+    data: result,
+  });
+});
 
-    sendResponse(res, {
-        statusCode:httpStatus.OK, 
-        success:true,
-        message:"Admin is updated successfully",
-        data:result
-    })
-})
+const deleteAdminDb = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const result = await AdminService.deleteAdmin(id);
+
+  sendResponse(res, {
+    statusCode:httpStatus.OK,
+    success:true,
+    message:"Admin is deleted successfully",
+    data:result
+  })
+});
 
 export const AdminControllar = {
   getSingelAdmin,
   getAllAdmin,
-  updateAdminDb
+  updateAdminDb,
+  deleteAdminDb
 };
