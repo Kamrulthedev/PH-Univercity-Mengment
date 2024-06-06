@@ -4,6 +4,9 @@ import { FacultyControllar } from './faculty.controllar';
 
 const router = express.Router();
 
+router.patch('/:facultyId', FacultyControllar.updateFacultyDb);
+
+
 router.get('/:facultyId', FacultyControllar.getSingleFacultyDb);
 
 router.get('/', FacultyControllar.getAllFacutlyDb);

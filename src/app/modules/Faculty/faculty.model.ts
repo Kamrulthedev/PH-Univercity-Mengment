@@ -21,6 +21,8 @@ const userNameSchema = new Schema<TUserName>({
   },
 });
 
+
+//create faculty schema
 const facultySchema = new Schema<TFaculty, FacultyModel>(
   {
     id: {
