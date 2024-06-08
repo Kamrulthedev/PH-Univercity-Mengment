@@ -20,7 +20,7 @@ const getAllAdmin = async (query: Record<string, unknown>) => {
 };
 //get single admin
 const getSingelAdmin = async (id: string) => {
-  const result = await Admin.findOne({id});
+  const result = await Admin.findById(id);
   return result;
 };
 
@@ -52,7 +52,7 @@ const deleteAdmin = async(id:string) =>{
         throw new AppError(httpStatus.BAD_REQUEST, "Failed to delete admin")
       }
       const userId = deletedAdmin?.user;
-      const deleteUser = await User.findOneAndUpdate(
+      const deleteUser = await User.findByIdAndUpdate(
         userId,
         {isDeleted:true},
         {new:true, session}

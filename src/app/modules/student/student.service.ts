@@ -30,7 +30,7 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
 
 //get a single students
 const GetASingleStudent = async (id: string) => {
-  const result = await Student.findOne({ id })
+  const result = await Student.findById( id )
     .populate("admissionSemester")
     .populate({
       path: "academicDepement",
@@ -41,6 +41,7 @@ const GetASingleStudent = async (id: string) => {
   return result;
 };
 
+//update-student
 const updateStudent = async (id: string, paylaod: Partial<TStudent>) => {
   const { name, guardians, localGuardian, ...renauiningStudentData } = paylaod;
 
@@ -66,7 +67,7 @@ const updateStudent = async (id: string, paylaod: Partial<TStudent>) => {
     }
   }
 
-  const result = await Student.findOneAndUpdate({ id }, modifidIUpdateData, {
+  const result = await Student.findByIdAndUpdate( id , modifidIUpdateData, {
     new: true,
     runValidators: true,
   });
@@ -78,8 +79,8 @@ const deleteStudentformDB = async (id: string) => {
   const session = await mongoose.startSession();
   try {
     session.startTransaction();
-    const deleteStudent = await Student.findOneAndUpdate(
-      { id },
+    const deleteStudent = await Student.findByIdAndUpdate(
+       id ,
       {
         idDeleted: true,
       },
@@ -91,8 +92,11 @@ const deleteStudentformDB = async (id: string) => {
     if (!deleteStudent) {
       throw new AppError(404, "Falid to delete student");
     }
-    const deleteUser = await User.findOneAndUpdate(
-      { id },
+
+    const userId = deleteStudent.user;
+
+    const deleteUser = await User.findByIdAndUpdate(
+      userId,
       {
         idDeleted: true,
       },

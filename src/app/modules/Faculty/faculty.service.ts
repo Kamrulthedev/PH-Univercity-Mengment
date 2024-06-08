@@ -23,7 +23,7 @@ const getAllFacutly = async (query: Record<string, unknown>) => {
 };
 //get single faculty
 const getSingleFaculty = async (id: string) => {
-  const result = await Faculty.findOne({ id }).populate("academicDepartment");
+  const result = await Faculty.findById( id ).populate("academicDepartment");
   return result;
 };
 
@@ -61,6 +61,7 @@ const deleteFaculty = async (id: string) => {
     }
     //get user _id
     const userId = deletedFaculty.user;
+    
     const deletedUser = await User.findByIdAndUpdate(
       userId,
       { isDeleted: true },
