@@ -13,7 +13,7 @@ const CouresValidationSchema = z.object({
   prefix: z.string(),
   code: z.number(),
   credits: z.number(),
-  perRequisiteCourses: z.array(TPerRequisiteCoursesSchema),
+  perRequisiteCourses: z.array(TPerRequisiteCoursesSchema).optional(),
 });
 
 export const CouresValidation = {
