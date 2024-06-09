@@ -1,3 +1,5 @@
+import QueryBuilder from "../../builder/QueryFuilddrom";
+import { CouresSearchablaFileds } from "./Coures.constant";
 import { TCoures } from "./Coures.interface";
 import { Coures } from "./Coures.model";
 
@@ -6,8 +8,13 @@ const createCoures = async (payload: TCoures) => {
   return result;
 };
 
-const getAllCoures = async () => {
-    const result = await Coures.find();
+const getAllCoures = async (query: Record<string, unknown>) => {
+    const GetQuery = new QueryBuilder( Coures.find().populate('perRequisiteCourses.course'), query).search(CouresSearchablaFileds)
+    .filter()
+    .sort()
+    .paginate()
+    .fields()
+    const result = await GetQuery.modelQuery;
     return result;
 };
 

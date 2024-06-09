@@ -8,4 +8,6 @@ const router = express.Router();
 
 router.post('/create-course',validationRequest(CouresValidation.CouresValidationSchema), CouresControllar.createCouresDb);
 
+router.get('/', CouresControllar.getAllCouresDb);
+
 export const CouresRauter = router;
