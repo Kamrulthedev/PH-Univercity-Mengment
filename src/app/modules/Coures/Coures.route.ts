@@ -14,6 +14,9 @@ router.get('/:id', CouresControllar.getSingleCouresDb);
 
 router.delete('/:id', CouresControllar.deleteCouresDb);
 
-router.patch('/:id',validationRequest(CouresValidation.UpdateCouresValidationSchema), CouresControllar.updateCorseDb)
+router.put('/:courseId/assign-faculties', validationRequest(CouresValidation.assignFacultiseWithCourseValidaitonSchema), CouresControllar.assignFacultiseWithCourseDb)
+
+router.patch('/:id',validationRequest(CouresValidation.UpdateCouresValidationSchema), CouresControllar.updateCorseDb);
+
 
 export const CouresRauter = router;
