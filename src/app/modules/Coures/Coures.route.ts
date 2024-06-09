@@ -10,4 +10,10 @@ router.post('/create-course',validationRequest(CouresValidation.CouresValidation
 
 router.get('/', CouresControllar.getAllCouresDb);
 
+router.get('/:id', CouresControllar.getSingleCouresDb);
+
+router.delete('/:id', CouresControllar.deleteCouresDb);
+
+router.patch('/:id',validationRequest(CouresValidation.UpdateCouresValidationSchema), CouresControllar.updateCorseDb)
+
 export const CouresRauter = router;

@@ -35,6 +35,18 @@ const getSingleCouresDb = catchAsync(async (req, res, next) => {
   });
 });
 
+const updateCorseDb = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const updateData = req.body;
+  const result = await CouresService.updateCorse(id , updateData);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Course Update Successfully !",
+    data: result,
+  });
+});
+
 const deleteCouresDb = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const result = await CouresService.deleteCoures(id);
@@ -46,10 +58,10 @@ const deleteCouresDb = catchAsync(async (req, res, next) => {
   });
 });
 
-
 export const CouresControllar = {
-    createCouresDb,
-    getAllCouresDb,
-    getSingleCouresDb,
-    deleteCouresDb
+  createCouresDb,
+  getAllCouresDb,
+  getSingleCouresDb,
+  updateCorseDb,
+  deleteCouresDb,
 };

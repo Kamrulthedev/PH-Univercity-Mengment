@@ -24,12 +24,12 @@ export const courseSchema = new Schema<TCoures>({
      trim: true,
       required: true
      },
-     credits:{type:Number, 
+credits:{type:Number, 
       trim: true,
       required: true
      },
-
   perRequisiteCourses: [perRequisiteCourseSchema],
+  isDeleted:{type:Boolean}
 });
 
 export const Coures = model<TCoures>("Coures", courseSchema);
