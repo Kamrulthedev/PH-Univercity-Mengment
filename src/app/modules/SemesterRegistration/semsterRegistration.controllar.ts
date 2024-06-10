@@ -24,7 +24,8 @@ const getAllSemesterRegistrationDb = catchAsync(async (req, res, next) => {
 });
 
 const getSingleSemesterRegistationDb = catchAsync(async (req, res, next) => {
-  const result = await SemesterRegistrationService.getSingleSemesterRegistation();
+    const {id} = req.params;
+  const result = await SemesterRegistrationService.getSingleSemesterRegistation(id);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
