@@ -6,7 +6,7 @@ import { SemesterRegistrationValidation } from './semesterRegistration.validatio
 
 const router = express.Router();
 
-router.post('/',validationRequest(SemesterRegistrationValidation.createsemesterRegistrationValidationSchema), SemesterRegistrationControllar.createSemesterRegistrationDb);
+router.post('/create-semester',validationRequest(SemesterRegistrationValidation.createsemesterRegistrationValidationSchema), SemesterRegistrationControllar.createSemesterRegistrationDb);
 
 router.get('/', SemesterRegistrationControllar.getAllSemesterRegistrationDb);
 

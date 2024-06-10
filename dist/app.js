@@ -17,8 +17,8 @@ app.use(body_parser_1.default.json());
 //application routes
 app.use("/api/v1", routes_1.default);
 app.get("/", (req, res) => {
-    const a = 19;
-    res.send(a);
+    const result = "Hello !!!";
+    res.send(result);
 });
 app.use(globalErrorHandelar_1.default);
 app.use(notFound_1.default);

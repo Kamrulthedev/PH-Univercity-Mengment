@@ -17,8 +17,8 @@ app.use("/api/v1" , router);
 
 
 app.get("/", (req: Request, res: Response) => {
-  const a = 19;
-  res.send(a);
+const result = "Hello !!!"
+  res.send(result);
 });
 
 app.use(GlobalErrorHandel);
