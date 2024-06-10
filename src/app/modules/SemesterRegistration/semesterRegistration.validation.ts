@@ -1,12 +1,12 @@
 import { z } from "zod";
 
 
-const semesterRegistrationValidationSchema = z.object({
+const createsemesterRegistrationValidationSchema = z.object({
     body:z.object({
 
     })
 });
 
 export const SemesterRegistrationValidation = {
-   semesterRegistrationValidationSchema
+    createsemesterRegistrationValidationSchema
 };
