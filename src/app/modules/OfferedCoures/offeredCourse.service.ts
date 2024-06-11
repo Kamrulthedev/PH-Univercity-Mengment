@@ -1,7 +1,8 @@
+import { TOfferedCoures } from "./offeredCoures.interface";
 import { offeredCoures } from "./offeredCoures.model";
 
-const createOfferedCourse = async () => {
-  const result = await offeredCoures.create();
+const createOfferedCourse = async (payload: TOfferedCoures) => {
+  const result = await offeredCoures.create(payload);
   return result;
 };
 

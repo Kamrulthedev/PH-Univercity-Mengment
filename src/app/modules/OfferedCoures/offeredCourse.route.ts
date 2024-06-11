@@ -6,10 +6,12 @@ import { offeredCouresValidation } from './offeredCoures.validation';
 
 const router = express.Router();
 
-router.post('/',validationRequest(offeredCouresValidation.createOfferedCourseValidationSchema), OfferedCurseControllar.createOfferedCourseDb);
+router.post('/create-offerd-course',validationRequest(offeredCouresValidation.createOfferedCourseValidationSchema), OfferedCurseControllar.createOfferedCourseDb);
 
 router.get('/', OfferedCurseControllar.GetAllOfferedCourseDb);
 
 router.get('/:id',OfferedCurseControllar.GetSIngleOfferedCourseDb);
 
 router.patch('/:id',validationRequest(offeredCouresValidation.updateOfferedCouresValidationSchema), OfferedCurseControllar.UpadateOfferedCourseDb);
+
+export const OfferedCourseRoute = router;
