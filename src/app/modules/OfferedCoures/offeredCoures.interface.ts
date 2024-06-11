@@ -4,14 +4,20 @@ export type Days = "Sat" | "Sun" | "Mon" | "Tue" | "Wed" | "Thu" | "Fri";
 
 export type TOfferedCoures = {
   semesterRegistration: Types.ObjectId;
-  academicSemester: Types.ObjectId;
+  academicSemester?: Types.ObjectId;
   academicFaculty: Types.ObjectId;
   academicdDeperment: Types.ObjectId;
   course: Types.ObjectId;
   faculty: Types.ObjectId;
   maxCapacity: number;
   section: number;
-  days: Days;
+  days: Days[];
+  starTime: string;
+  endTime: string;
+};
+
+export type Schedule = {
+  days: Days[];
   starTime: string;
   endTime: string;
 };
