@@ -12,6 +12,20 @@ const createsemesterRegistrationValidationSchema = z.object({
   }),
 });
 
+const updatesemesterRegistrationValidationSchema = z.object({
+  body: z.object({
+    academicSemester: z.string().optional(),
+    status: z.enum([...(SemesterRegistrationStatus as [string, ...string[]])]).optional(),
+    startDate: z.string().datetime().optional(), // Fixed spelling from starDate to startDate
+    endDate: z.string().datetime().optional(),
+    minCredit: z.number().min(3).default(3).optional(),
+    maxCredit: z.number().max(15).default(15).optional(),
+  }),
+});
+
+
+
 export const SemesterRegistrationValidation = {
   createsemesterRegistrationValidationSchema,
+  updatesemesterRegistrationValidationSchema
 };
