@@ -125,9 +125,53 @@ const GetSIngleOfferedCourse = async (id: string) => {
 };
 
 //update offered course
-const UpadateOfferedCourse = async (id, payload) => {
-  
-  const result = await offeredCoures.findByIdAndUpdate();
+const UpadateOfferedCourse = async (id:string, payload:Pick<TOfferedCoures, "faculty" | "days" | "starTime" | "endTime">) => {
+  const {faculty, days, starTime, endTime} = payload;
+
+
+  const isofferedCouresExists = await offeredCoures.findById(id)
+  if(!isofferedCouresExists){
+    throw new AppError(httpStatus.NOT_FOUND, "Offered Course Not Found !!")
+  };
+
+const isFacultytExists = await Faculty.findById(faculty);
+console.log(isFacultytExists)
+if(!isFacultytExists){
+  throw new AppError(httpStatus.NOT_FOUND, "Faculty Not Faound !!")
+};
+
+const semesterRegistration = isofferedCouresExists.semesterRegistration;
+
+const semesterRegistrationStatus = await SemesterRegistration.findById(semesterRegistration)
+if(semesterRegistrationStatus?.status !== "UPCOMING" ){
+throw new AppError(httpStatus.BAD_REQUEST, "You can Not Update this offered course ENDED!!")
+};
+
+
+  //get the schedules of the faculties
+  const assignSchedules = await offeredCoures
+    .find({
+      semesterRegistration,
+      faculty,
+      days: { $in: days },
+    })
+    .select("days starTime endTime");
+
+  const newSchedules = {
+    days,
+    starTime,
+    endTime,
+  };
+
+    if(hasTimeConflict(assignSchedules, newSchedules)){
+      throw new AppError(httpStatus.CONFLICT,"This faculty is not available at that time ! Choose other time or day")
+    }
+
+
+  const result = await offeredCoures.findByIdAndUpdate(id, payload, {
+    new:true,
+    runValidators:true
+  });
   return result;
 };
 

@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 import config from "./app/config";
 import app from "./app";
-import { server } from "http";
+import { Server } from "http";
 
 
-let server: server 
+let server: Server 
 
 async function main() {
   try {
