@@ -56,7 +56,15 @@ userSchema.post("save", function (doc, next) {
 });
 
 userSchema.statics.isUserExsitsByCustomId = async function (id: string) {
-  return await User.findOne({ id })
+  return await User.findOne({ id });
+};
+
+// Static method to compare passwords
+userSchema.statics.isPasswordMaths = async function (
+  myPlaintextPassword: string,
+  hashtextPassword: string
+): Promise<boolean> {
+  return await bcrypt.compare(myPlaintextPassword, hashtextPassword);
 };
 
 //create model
