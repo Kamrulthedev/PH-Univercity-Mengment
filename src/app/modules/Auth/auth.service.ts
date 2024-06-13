@@ -5,7 +5,7 @@ import { TLoginUser } from "./auth.interface";
 import bcrypt from "bcrypt";
 
 const loginUser = async (payload: TLoginUser) => {
-  const isExistsUser = await User.findOne({ id: payload?.id });
+  const isExistsUser = ;
 
   if (!isExistsUser) {
     throw new AppError(httpStatus.NOT_FOUND, "This user is Not Found !!");

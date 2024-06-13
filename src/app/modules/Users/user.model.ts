@@ -1,10 +1,10 @@
 import { Schema, model } from "mongoose";
-import { TUser } from "./user.interface";
+import { TUser, UserModel } from "./user.interface";
 import config from "../../config";
 import bcrypt from "bcrypt";
 
 // Create a Mongoose Schema
-const userSchema = new Schema<TUser>(
+const userSchema = new Schema<TUser, UserModel>(
   {
     id: {
       type: String,
@@ -13,7 +13,7 @@ const userSchema = new Schema<TUser>(
     },
     password: {
       type: String,
-      required: true, 
+      required: true,
     },
     needsPasswordChange: {
       type: Boolean,
@@ -21,13 +21,13 @@ const userSchema = new Schema<TUser>(
     },
     role: {
       type: String,
-      enum: ['admin', 'student', 'faculty'],
-      required: true, 
+      enum: ["admin", "student", "faculty"],
+      required: true,
     },
     status: {
       type: String,
-      enum: ['in-progress', 'blocked'],
-      default: 'in-progress',
+      enum: ["in-progress", "blocked"],
+      default: "in-progress",
     },
     isDeleted: {
       type: Boolean,
@@ -35,10 +35,9 @@ const userSchema = new Schema<TUser>(
     },
   },
   {
-    timestamps: true, 
+    timestamps: true,
   }
 );
-
 
 //pre save middlewere
 userSchema.pre("save", async function (next) {
@@ -51,10 +50,14 @@ userSchema.pre("save", async function (next) {
 });
 
 //post save middlerware hook
-userSchema.post('save', function(doc, next){
-  doc.password = '';
+userSchema.post("save", function (doc, next) {
+  doc.password = "";
   next();
 });
 
+userSchema.statics.isUserExsitsByCustomId = async function (id: string) {
+  return await User.findOne({ id })
+};
+
 //create model
-export const User = model<TUser>("User", userSchema);
+export const User = model<TUser, UserModel>("User", userSchema);
