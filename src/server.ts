@@ -3,13 +3,12 @@ import config from "./app/config";
 import app from "./app";
 import { Server } from "http";
 
-
-let server: Server 
+let server: Server;
 
 async function main() {
   try {
     await mongoose.connect(config.database_url as string);
-   server =   app.listen(config.prot, () => {
+    server = app.listen(config.prot, () => {
       console.log(`Example app listening on port ${config.prot}`);
     });
   } catch (error) {
@@ -18,16 +17,16 @@ async function main() {
 }
 
 main();
-process.on('unhandledRejection', () =>{
-  if(server){
-    server.close(()=>{
-      process.exit(1)
-    })
+process.on("unhandledRejection", () => {
+  if (server) {
+    server.close(() => {
+      process.exit(1);
+    });
   }
   process.exit(1);
 });
 
-process.on('uncaughtException', ()=>{
-  console.log(`uncaughtException is detrced, shutting down`)
-  process.exit(1)
-})
+process.on("uncaughtException", () => {
+  console.log(`uncaughtException is detrced, shutting down`);
+  process.exit(1);
+});

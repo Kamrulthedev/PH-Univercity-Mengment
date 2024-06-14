@@ -14,12 +14,15 @@ const createSemesterRegistration = async (payoad: TSemesterRegistration) => {
   //check if there any registered semester that is alredy UPCOMING | ONGOING;
   const isThereAnyUpcomingOrOngoingSemester =
     await SemesterRegistration.findOne({
-      $or: [{ status: SemesterRegistrationValidatStatus.UPCOMING }, { status: SemesterRegistrationValidatStatus.ONGOING}],
+      $or: [
+        { status: SemesterRegistrationValidatStatus.UPCOMING },
+        { status: SemesterRegistrationValidatStatus.ONGOING },
+      ],
     });
   if (isThereAnyUpcomingOrOngoingSemester) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      `There is aready an ${isThereAnyUpcomingOrOngoingSemester.status} Registration Semester`
+      `There is aready an ${isThereAnyUpcomingOrOngoingSemester.status} Registration Semester`,
     );
   }
 
@@ -48,7 +51,7 @@ const createSemesterRegistration = async (payoad: TSemesterRegistration) => {
 const getAllSemesterRegistration = async (query: Record<string, unknown>) => {
   const semesterRegistrationQuery = new QueryBuilder(
     SemesterRegistration.find().populate("academicSemester"),
-    query
+    query,
   )
     .filter()
     .sort()
@@ -66,7 +69,7 @@ const getSingleSemesterRegistation = async (id: string) => {
 
 const updateSemesterRegistaion = async (
   id: string,
-  payload: Partial<TSemesterRegistration>
+  payload: Partial<TSemesterRegistration>,
 ) => {
   //check if the requested registered semester is exists
   const isSemesterRegistrationExists = await SemesterRegistration.findById(id);
@@ -82,24 +85,30 @@ const updateSemesterRegistaion = async (
   if (curentSemester === SemesterRegistrationValidatStatus.ENDED) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      `This Semester already ${curentSemester}`
+      `This Semester already ${curentSemester}`,
     );
   }
 
   //UPCOMING -->ONGOING-->ENDED
   //--1
-  if (curentSemester === SemesterRegistrationValidatStatus.UPCOMING && requrestSemester === SemesterRegistrationValidatStatus.ENDED) {
+  if (
+    curentSemester === SemesterRegistrationValidatStatus.UPCOMING &&
+    requrestSemester === SemesterRegistrationValidatStatus.ENDED
+  ) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      `You can not directly change status from ${curentSemester} to ${requrestSemester}`
+      `You can not directly change status from ${curentSemester} to ${requrestSemester}`,
     );
   }
 
   //--2
-  if (curentSemester === SemesterRegistrationValidatStatus.ONGOING && requrestSemester == SemesterRegistrationValidatStatus.UPCOMING) {
+  if (
+    curentSemester === SemesterRegistrationValidatStatus.ONGOING &&
+    requrestSemester == SemesterRegistrationValidatStatus.UPCOMING
+  ) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      `You can not directly change status from ${curentSemester} to ${requrestSemester}`
+      `You can not directly change status from ${curentSemester} to ${requrestSemester}`,
     );
   }
 

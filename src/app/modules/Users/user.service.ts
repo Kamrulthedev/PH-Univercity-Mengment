@@ -5,7 +5,11 @@ import { TStudent } from "../student/student.interface";
 import { Student } from "../student/student.model";
 import { TUser } from "./user.interface";
 import { User } from "./user.model";
-import { generatAdminId, generatFacultyId, generatStudentId } from "./user.utils";
+import {
+  generatAdminId,
+  generatFacultyId,
+  generatStudentId,
+} from "./user.utils";
 import AppError from "../../Error/AppError";
 import httpStatus from "http-status";
 import { TFaculty } from "../Faculty/faculty.interface";
@@ -22,7 +26,7 @@ const createStudent = async (password: string, studentData: TStudent) => {
 
   // Find academic semester info
   const admissionSemester = await AcademicSemester.findById(
-    studentData.admissionSemester
+    studentData.admissionSemester,
   );
 
   // Check if admission semester exists
@@ -74,7 +78,7 @@ const createFaculty = async (password: string, payload: TFaculty) => {
   };
 
   const academicDepartment = await AcademicDeperment.findById(
-    payload.academicDepartment
+    payload.academicDepartment,
   );
   if (!academicDepartment) {
     throw new AppError(httpStatus.BAD_REQUEST, "Academic Department not found");
@@ -113,32 +117,32 @@ const createFaculty = async (password: string, payload: TFaculty) => {
 
 //create admin
 const createAdmin = async (password: string, payload: TAdmin) => {
-  const userData : Partial<TUser>= {};
+  const userData: Partial<TUser> = {};
 
   userData.password = password || (config.default_password as string);
-  userData.role = 'admin';
+  userData.role = "admin";
 
   const session = await mongoose.startSession();
 
-  try{
+  try {
     session.startTransaction();
     userData.id = await generatAdminId();
-const newUser =await User.create([userData], {session});
+    const newUser = await User.create([userData], { session });
 
-if(!newUser.length){
-  throw new AppError(httpStatus.BAD_REQUEST, "Failed to create admin");
-}
-payload.id = newUser[0].id;
-payload.user = newUser[0]._id;
+    if (!newUser.length) {
+      throw new AppError(httpStatus.BAD_REQUEST, "Failed to create admin");
+    }
+    payload.id = newUser[0].id;
+    payload.user = newUser[0]._id;
 
-const newAdmin = await Admin.create([payload], {session});
-if(!newAdmin.length){
-  throw new AppError(httpStatus.BAD_REQUEST, "Failed to create admin");
-}
-await session.commitTransaction();
-await session.endSession();
-return newAdmin;
-  }catch(err:any){
+    const newAdmin = await Admin.create([payload], { session });
+    if (!newAdmin.length) {
+      throw new AppError(httpStatus.BAD_REQUEST, "Failed to create admin");
+    }
+    await session.commitTransaction();
+    await session.endSession();
+    return newAdmin;
+  } catch (err: any) {
     await session.abortTransaction();
     await session.endSession();
     throw new Error(err);
@@ -148,5 +152,5 @@ return newAdmin;
 export const UserServices = {
   createStudent,
   createFaculty,
-  createAdmin
+  createAdmin,
 };

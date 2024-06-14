@@ -35,7 +35,7 @@ const academicSemesterSchema = new Schema<TAcademicSemester>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 //validation with name and year ....
@@ -52,5 +52,5 @@ academicSemesterSchema.pre("save", async function (next) {
 
 export const AcademicSemester = model<TAcademicSemester>(
   "AcademicSemester",
-  academicSemesterSchema
+  academicSemesterSchema,
 );

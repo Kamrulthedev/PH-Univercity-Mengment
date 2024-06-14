@@ -7,18 +7,19 @@ const createAcademicDerperment = async (payload: TAcademicDeperment) => {
 };
 
 const GetallAcademicDeperment = async () => {
-  const result = await AcademicDeperment.find().populate('academicFaculty');
+  const result = await AcademicDeperment.find().populate("academicFaculty");
   return result;
 };
 
 const getSingleAcademicDeperment = async (id: string) => {
-  const result = await AcademicDeperment.findById(id).populate('academicFaculty');
+  const result =
+    await AcademicDeperment.findById(id).populate("academicFaculty");
   return result;
 };
 
 const updateAcademicDeperment = async (
   id: string,
-  payload: Partial<TAcademicDeperment>
+  payload: Partial<TAcademicDeperment>,
 ) => {
   const result = await AcademicDeperment.findByIdAndUpdate(id, payload, {
     new: true,

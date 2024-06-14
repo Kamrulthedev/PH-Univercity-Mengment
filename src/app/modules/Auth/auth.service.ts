@@ -24,7 +24,7 @@ const loginUser = async (payload: TLoginUser) => {
   // Verify password
   const isPasswordValid = await User.isPasswordMaths(
     payload.password,
-    isExistsUser.password
+    isExistsUser.password,
   );
   if (!isPasswordValid) {
     throw new AppError(httpStatus.UNAUTHORIZED, "Invalid password");
@@ -40,9 +40,9 @@ const loginUser = async (payload: TLoginUser) => {
     expiresIn: "10d",
   });
 
-const needsPasswordChange = isExistsUser?.needsPasswordChange
+  const needsPasswordChange = isExistsUser?.needsPasswordChange;
 
-  return { accessToken , needsPasswordChange};
+  return { accessToken, needsPasswordChange };
 };
 
 export const AuthService = {

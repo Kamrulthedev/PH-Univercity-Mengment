@@ -14,7 +14,7 @@ const createCoures = async (payload: TCoures) => {
 const getAllCoures = async (query: Record<string, unknown>) => {
   const GetQuery = new QueryBuilder(
     Coures.find().populate("perRequisiteCourses.course"),
-    query
+    query,
   )
     .search(CouresSearchablaFileds)
     .filter()
@@ -27,7 +27,7 @@ const getAllCoures = async (query: Record<string, unknown>) => {
 
 const getSingleCoures = async (id: string) => {
   const result = await Coures.findById(id).populate(
-    "perRequisiteCourses.course"
+    "perRequisiteCourses.course",
   );
   return result;
 };
@@ -45,7 +45,7 @@ const updateCorse = async (id: string, payload: Partial<TCoures>) => {
       {
         new: true,
         runValidators: true,
-      }
+      },
     );
     if (!BasicUpdate) {
       throw new AppError(httpStatus.BAD_REQUEST, "Faild to Upadate Course !");
@@ -64,13 +64,13 @@ const updateCorse = async (id: string, payload: Partial<TCoures>) => {
       });
       //filter out the new Curse Fields
       const newPerReuisites = perRequisiteCourses?.filter(
-        (el) => el.course && !el.isDeleted
+        (el) => el.course && !el.isDeleted,
       );
       const newPerPeuisitesCurse = await Coures.findByIdAndUpdate(id, {
         $addToSet: { perRequisiteCourses: { $each: newPerReuisites } },
       });
       const result = await Coures.findById(id).populate(
-        "perRequisiteCourses.course"
+        "perRequisiteCourses.course",
       );
       return result;
     }
@@ -88,7 +88,7 @@ const deleteCoures = async (id: string) => {
   const result = await Coures.findByIdAndUpdate(
     id,
     { isDeleted: true },
-    { new: true }
+    { new: true },
   );
   return result;
 };
@@ -96,7 +96,7 @@ const deleteCoures = async (id: string) => {
 //assign Facultise
 const assignFacultiseWithCourse = async (
   id: string,
-  payload: Partial<TCouresFaculty>
+  payload: Partial<TCouresFaculty>,
 ) => {
   const result = await CouresFaculty.findByIdAndUpdate(
     id,
@@ -107,7 +107,7 @@ const assignFacultiseWithCourse = async (
     {
       upsert: true,
       new: true,
-    }
+    },
   );
   return result;
 };
@@ -115,17 +115,18 @@ const assignFacultiseWithCourse = async (
 //remove Facultise
 const removeFacultyWithCourse = async (
   id: string,
-  payload: Partial<TCouresFaculty>
+  payload: Partial<TCouresFaculty>,
 ) => {
-  const result = await CouresFaculty.findByIdAndUpdate(id, 
+  const result = await CouresFaculty.findByIdAndUpdate(
+    id,
     {
-$pull:{faculties : {$in: payload}}
+      $pull: { faculties: { $in: payload } },
     },
     {
       upsert: true,
       new: true,
-    }
-  )
+    },
+  );
   return result;
 };
 

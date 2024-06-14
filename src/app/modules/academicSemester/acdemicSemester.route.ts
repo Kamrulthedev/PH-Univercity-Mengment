@@ -8,17 +8,21 @@ const router = express.Router();
 router.post(
   "/create-academic-semester",
   validationRequest(
-    AcademicSemesterValidation.createAcademicSemestervalidationSchema
+    AcademicSemesterValidation.createAcademicSemestervalidationSchema,
   ),
-  AcademicSemestersControllars.createAcademincSemesterDb
+  AcademicSemestersControllars.createAcademincSemesterDb,
 );
 //get all Academic Semester
 router.get("/", AcademicSemestersControllars.GetAllAcademicSemesterDb);
 //get all Academic Semester
 router.get("/:id", AcademicSemestersControllars.getASingleAcademicSemesterDb);
 //update Academic Semester
-router.patch("/:id",validationRequest(AcademicSemesterValidation.UpdateAcademicSemesterValidationschema),
-  AcademicSemestersControllars.UpdateAcademicSemesterDb
+router.patch(
+  "/:id",
+  validationRequest(
+    AcademicSemesterValidation.UpdateAcademicSemesterValidationschema,
+  ),
+  AcademicSemestersControllars.UpdateAcademicSemesterDb,
 );
 
 export const AcademicSemesterRouts = router;

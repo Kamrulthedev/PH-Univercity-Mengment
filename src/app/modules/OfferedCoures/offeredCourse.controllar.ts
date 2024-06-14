@@ -38,7 +38,10 @@ const GetSIngleOfferedCourseDb = catchAsync(async (req, res, next) => {
 const UpadateOfferedCourseDb = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const updateDate = req.body;
-  const result = await OfferedCouresService.UpadateOfferedCourse(id, updateDate);
+  const result = await OfferedCouresService.UpadateOfferedCourse(
+    id,
+    updateDate,
+  );
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

@@ -36,7 +36,7 @@ const userSchema = new Schema<TUser, UserModel>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 //pre save middlewere
@@ -44,7 +44,7 @@ userSchema.pre("save", async function (next) {
   const user = this;
   user.password = await bcrypt.hash(
     user.password,
-    Number(config.data_salt_rounds)
+    Number(config.data_salt_rounds),
   );
   next();
 });
@@ -62,7 +62,7 @@ userSchema.statics.isUserExsitsByCustomId = async function (id: string) {
 // Static method to compare passwords
 userSchema.statics.isPasswordMaths = async function (
   myPlaintextPassword: string,
-  hashtextPassword: string
+  hashtextPassword: string,
 ): Promise<boolean> {
   return await bcrypt.compare(myPlaintextPassword, hashtextPassword);
 };

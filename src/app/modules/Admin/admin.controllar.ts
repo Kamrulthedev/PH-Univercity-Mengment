@@ -43,16 +43,16 @@ const deleteAdminDb = catchAsync(async (req, res, next) => {
   const result = await AdminService.deleteAdmin(id);
 
   sendResponse(res, {
-    statusCode:httpStatus.OK,
-    success:true,
-    message:"Admin is deleted successfully",
-    data:result
-  })
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Admin is deleted successfully",
+    data: result,
+  });
 });
 
 export const AdminControllar = {
   getSingelAdmin,
   getAllAdmin,
   updateAdminDb,
-  deleteAdminDb
+  deleteAdminDb,
 };

@@ -42,10 +42,12 @@ export const offeredCourseSchema = new mongoose.Schema<TOfferedCoures>(
       type: Number,
       required: true,
     },
-    days: [{
-      type: String,
-      enum: Days,
-    }],
+    days: [
+      {
+        type: String,
+        enum: Days,
+      },
+    ],
     starTime: {
       type: String,
       required: true,
@@ -57,10 +59,10 @@ export const offeredCourseSchema = new mongoose.Schema<TOfferedCoures>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export const offeredCoures = model<TOfferedCoures>(
   "offeredCoures",
-  offeredCourseSchema
+  offeredCourseSchema,
 );

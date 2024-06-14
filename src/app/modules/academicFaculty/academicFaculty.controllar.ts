@@ -40,7 +40,7 @@ const updateWithAcademicFacultyDb = catchAsync(async (req, res, next) => {
   const updateData = req.body;
   const result = await AcademicFacultyService.updateWithAcademicFaculty(
     id,
-    updateData
+    updateData,
   );
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -54,5 +54,5 @@ export const AcademicFacultyCotrollar = {
   createAcademicFultyDb,
   getAllAcademicFacultyDb,
   getASingleAcademicFacultyDb,
-  updateWithAcademicFacultyDb
+  updateWithAcademicFacultyDb,
 };

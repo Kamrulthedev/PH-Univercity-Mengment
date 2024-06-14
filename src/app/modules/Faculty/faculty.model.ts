@@ -21,7 +21,6 @@ const userNameSchema = new Schema<TUserName>({
   },
 });
 
-
 //create faculty schema
 const facultySchema = new Schema<TFaculty, FacultyModel>(
   {
@@ -99,7 +98,7 @@ const facultySchema = new Schema<TFaculty, FacultyModel>(
     toJSON: {
       virtuals: true,
     },
-  }
+  },
 );
 
 // checking if user already exists

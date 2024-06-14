@@ -1,7 +1,7 @@
 import mongoose, { Types } from "mongoose";
 import { Model } from "mongoose";
 
-export type  Guardians = {
+export type Guardians = {
   fatherName: string;
   fatherContactNo: string;
   fatherOccupation: string;
@@ -10,7 +10,7 @@ export type  Guardians = {
   motherContactNo: string;
   motherOccupation: string;
   motherAddress: string;
-}
+};
 
 export type UserName = {
   firstName: string;
@@ -18,12 +18,12 @@ export type UserName = {
   lastName: string;
 };
 
-export type LocalGuardian  = {
+export type LocalGuardian = {
   name: string;
   occupation: string;
   contactNo: string;
   address: string;
-}
+};
 
 export type TStudent = {
   id: string;
@@ -41,18 +41,15 @@ export type TStudent = {
   guardians: Guardians;
   localGuardian: LocalGuardian;
   profileImg?: string;
-  admissionSemester:Types.ObjectId;
+  admissionSemester: Types.ObjectId;
   isDeleted?: boolean;
-  academicDepement:mongoose.Types.ObjectId;
+  academicDepement: mongoose.Types.ObjectId;
 };
-
-
 
 //for createing a statics
 export interface StudentModel extends Model<TStudent> {
-    isUserExists(id:string):Promise<TStudent | null>
-};
-
+  isUserExists(id: string): Promise<TStudent | null>;
+}
 
 // export type studentMethods = {
 //   isUserExists(id: string): Promise<TStudent | null>;

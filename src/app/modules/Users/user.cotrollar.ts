@@ -29,18 +29,18 @@ const createfacultyDb = catchAsync(async (req, res, next) => {
 //create admin form Db
 const createAdminDb = catchAsync(async (req, res, next) => {
   const { password, admin: amdinData } = req.body;
-  const result = await UserServices.createAdmin(password, amdinData)
+  const result = await UserServices.createAdmin(password, amdinData);
 
   sendResponse(res, {
-    statusCode:httpStatus.OK, 
-    success:true, 
-    message:"Admin is created successfully",
-    data:result
-  })
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Admin is created successfully",
+    data: result,
+  });
 });
 
 export const UserControllar = {
   createStudentDb,
   createfacultyDb,
-  createAdminDb
+  createAdminDb,
 };

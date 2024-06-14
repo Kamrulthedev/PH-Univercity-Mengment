@@ -28,29 +28,29 @@ const GlobalErrorHandel: ErrorRequestHandler = (err, req, res, next) => {
     statusCode = simplifiedError?.statusCode;
     message = simplifiedError?.message;
     errorSources = simplifiedError?.errorSources;
-  }else if(err?.name === "CastError"){
+  } else if (err?.name === "CastError") {
     const simplifiedError = handlerCastError(err);
-    statusCode = simplifiedError?.statusCode,
-    message = simplifiedError?.message;
+    (statusCode = simplifiedError?.statusCode),
+      (message = simplifiedError?.message);
     errorSources = simplifiedError?.errorSources;
-  }else if(err instanceof AppError){
+  } else if (err instanceof AppError) {
     statusCode = err.statusCode;
     message = err.message;
     errorSources = [
       {
-        path:'',
-        message:err?.message
-      }
-    ]
-  }else if(err instanceof Error){
+        path: "",
+        message: err?.message,
+      },
+    ];
+  } else if (err instanceof Error) {
     message = err.message;
     errorSources = [
       {
-        path:'',
-        message: err.message
-      }
-    ]
-  };
+        path: "",
+        message: err.message,
+      },
+    ];
+  }
 
   return res.status(statusCode).json({
     sucess: false,

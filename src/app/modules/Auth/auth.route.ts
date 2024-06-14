@@ -5,6 +5,10 @@ import { AuthControllars } from "./auth.controllar";
 
 const router = express.Router();
 
-router.post("/login", validationRequest(AuthValidation.loginValidatoinSchema), AuthControllars.loginUserDb);
+router.post(
+  "/login",
+  validationRequest(AuthValidation.loginValidatoinSchema),
+  AuthControllars.loginUserDb,
+);
 
 export const AUthRouter = router;

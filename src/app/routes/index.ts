@@ -35,29 +35,29 @@ const moduleRoutes = [
     route: AcademicDepermantRouter,
   },
   {
-    path:'/faculties',
-    route:FacultiesRoter
+    path: "/faculties",
+    route: FacultiesRoter,
   },
   {
-    path:'/admins',
-    route: AdminRouter
+    path: "/admins",
+    route: AdminRouter,
   },
   {
-    path:'/courses',
-    route: CouresRauter
+    path: "/courses",
+    route: CouresRauter,
   },
   {
-    path:'/semester-registration',
-    route:SemesterRegistrationRouter
+    path: "/semester-registration",
+    route: SemesterRegistrationRouter,
   },
   {
-    path:'/offered-courses',
-    route:OfferedCourseRoute
+    path: "/offered-courses",
+    route: OfferedCourseRoute,
   },
   {
-    path:'/auth',
-    route:AUthRouter
-  }
+    path: "/auth",
+    route: AUthRouter,
+  },
 ];
 
 moduleRoutes.forEach((route) => router.use(route.path, route.route));

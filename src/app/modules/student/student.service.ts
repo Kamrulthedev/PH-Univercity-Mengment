@@ -30,7 +30,7 @@ const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
 
 //get a single students
 const GetASingleStudent = async (id: string) => {
-  const result = await Student.findById( id )
+  const result = await Student.findById(id)
     .populate("admissionSemester")
     .populate({
       path: "academicDepement",
@@ -67,7 +67,7 @@ const updateStudent = async (id: string, paylaod: Partial<TStudent>) => {
     }
   }
 
-  const result = await Student.findByIdAndUpdate( id , modifidIUpdateData, {
+  const result = await Student.findByIdAndUpdate(id, modifidIUpdateData, {
     new: true,
     runValidators: true,
   });
@@ -80,14 +80,14 @@ const deleteStudentformDB = async (id: string) => {
   try {
     session.startTransaction();
     const deleteStudent = await Student.findByIdAndUpdate(
-       id ,
+      id,
       {
         idDeleted: true,
       },
       {
         new: true,
         session,
-      }
+      },
     );
     if (!deleteStudent) {
       throw new AppError(404, "Falid to delete student");
@@ -103,7 +103,7 @@ const deleteStudentformDB = async (id: string) => {
       {
         new: true,
         session,
-      }
+      },
     );
     if (!deleteUser) {
       throw new AppError(404, "Falid to delete student");

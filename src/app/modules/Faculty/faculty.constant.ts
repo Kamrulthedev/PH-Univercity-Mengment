@@ -13,12 +13,11 @@ export const BloodGroup: TBloodGroup[] = [
   "O-",
 ];
 export const FacultySearchableFields = [
-    'email',
-    'id',
-    'contactNo',
-    'emergencyContactNo',
-    'name.firstName',
-    'name.lastName',
-    'name.middleName',
-  ];
-  
+  "email",
+  "id",
+  "contactNo",
+  "emergencyContactNo",
+  "name.firstName",
+  "name.lastName",
+  "name.middleName",
+];

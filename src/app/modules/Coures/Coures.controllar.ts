@@ -64,7 +64,7 @@ const assignFacultiseWithCourseDb = catchAsync(async (req, res, next) => {
   const { faculties } = req.body;
   const result = await CouresService.assignFacultiseWithCourse(
     courseId,
-    faculties
+    faculties,
   );
 
   sendResponse(res, {
@@ -81,7 +81,7 @@ const removeFacultyWithCourseDb = catchAsync(async (req, res, next) => {
   const { faculties } = req.body;
   const result = await CouresService.removeFacultyWithCourse(
     courseId,
-    faculties
+    faculties,
   );
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -90,8 +90,6 @@ const removeFacultyWithCourseDb = catchAsync(async (req, res, next) => {
     data: result,
   });
 });
-
-
 
 export const CouresControllar = {
   createCouresDb,

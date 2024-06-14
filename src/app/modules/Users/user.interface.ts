@@ -14,5 +14,8 @@ export interface UserModel extends Model<TUser> {
   // myStaticMethod(): number;
   isUserExsitsByCustomId(id: string): Promise<TUser>;
 
-  isPasswordMaths(myPlaintextPassword: string, hashtextPassword: string): Promise<boolean>;
+  isPasswordMaths(
+    myPlaintextPassword: string,
+    hashtextPassword: string,
+  ): Promise<boolean>;
 }

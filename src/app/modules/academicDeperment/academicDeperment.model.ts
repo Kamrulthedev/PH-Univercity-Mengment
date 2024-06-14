@@ -13,7 +13,7 @@ const academicDepermentSchema = new Schema<TAcademicDeperment>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 //create a pre hook middlerwaer
@@ -36,14 +36,14 @@ academicDepermentSchema.pre("findOneAndUpdate", async function (next) {
   const isDepermentExist = await AcademicDeperment.findOne(query);
   if (!isDepermentExist) {
     return next(
-      new AppError(httpStatus.NOT_FOUND, "This department does not exist !!")
+      new AppError(httpStatus.NOT_FOUND, "This department does not exist !!"),
     );
   }
   next();
 });
 
-//export 
+//export
 export const AcademicDeperment = model<TAcademicDeperment>(
   "AcademicDeperment",
-  academicDepermentSchema
+  academicDepermentSchema,
 );

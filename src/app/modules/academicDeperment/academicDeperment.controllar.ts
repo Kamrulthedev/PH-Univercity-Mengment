@@ -38,18 +38,21 @@ const getSingleAcademicDeperment = catchAsync(async (req, res, next) => {
 const updateAcademicDeperment = catchAsync(async (req, res, next) => {
   const id = req.params.id;
   const updateData = req.body;
-  const result = await AcademicDepermentService.updateAcademicDeperment(id, updateData);
+  const result = await AcademicDepermentService.updateAcademicDeperment(
+    id,
+    updateData,
+  );
   sendResponse(res, {
-    statusCode:httpStatus.OK,
-    success:true,
-    message:"Academic Deperment is Updated successfully",
-    data:result
-  })
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Academic Deperment is Updated successfully",
+    data: result,
+  });
 });
 
 export const AcademicDepermantControllar = {
   createAcademicDerpermentDb,
   getAllACademicDeperment,
   getSingleAcademicDeperment,
-  updateAcademicDeperment
+  updateAcademicDeperment,
 };

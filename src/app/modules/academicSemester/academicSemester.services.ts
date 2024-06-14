@@ -26,7 +26,7 @@ const GetsingleAacadamic = async (id: string) => {
 //update Academic semester
 const UpdateAcademicSemester = async (
   id: string,
-  semesterData: Partial<TAcademicSemester>
+  semesterData: Partial<TAcademicSemester>,
 ) => {
   if (
     semesterData.name &&

@@ -86,7 +86,7 @@ const adminSchema = new Schema<TAdmin>(
     toJSON: {
       virtuals: true,
     },
-  }
+  },
 );
 
 //checking if user is already exist!

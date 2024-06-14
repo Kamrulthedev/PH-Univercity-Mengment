@@ -11,7 +11,7 @@ import { User } from "../users/user.model";
 const getAllFacutly = async (query: Record<string, unknown>) => {
   const facultQuery = new QueryBuilder(
     Faculty.find().populate("academicDepartment"),
-    query
+    query,
   )
     .search(FacultySearchableFields)
     .filter()
@@ -23,7 +23,7 @@ const getAllFacutly = async (query: Record<string, unknown>) => {
 };
 //get single faculty
 const getSingleFaculty = async (id: string) => {
-  const result = await Faculty.findById( id ).populate("academicDepartment");
+  const result = await Faculty.findById(id).populate("academicDepartment");
   return result;
 };
 
@@ -54,20 +54,20 @@ const deleteFaculty = async (id: string) => {
     const deletedFaculty = await Faculty.findByIdAndUpdate(
       id,
       { isDeleted: true },
-      { new: true, session }
+      { new: true, session },
     );
     if (!deletedFaculty) {
       throw new AppError(httpStatus.BAD_REQUEST, "Failed to delete Faculty");
     }
     //get user _id
     const userId = deletedFaculty.user;
-    
+
     const deletedUser = await User.findByIdAndUpdate(
       userId,
       { isDeleted: true },
-      { new: true, session }
+      { new: true, session },
     );
-  
+
     if (!deletedUser) {
       throw new AppError(httpStatus.BAD_REQUEST, "Failed to delete user");
     }
@@ -77,7 +77,9 @@ const deleteFaculty = async (id: string) => {
   } catch (err: any) {
     await session.abortTransaction();
     await session.endSession();
-    throw new Error(err.message || 'An error occurred while deleting the faculty');
+    throw new Error(
+      err.message || "An error occurred while deleting the faculty",
+    );
   }
 };
 
@@ -85,5 +87,5 @@ export const FacultyService = {
   getAllFacutly,
   getSingleFaculty,
   updataFaculty,
-  deleteFaculty
+  deleteFaculty,
 };

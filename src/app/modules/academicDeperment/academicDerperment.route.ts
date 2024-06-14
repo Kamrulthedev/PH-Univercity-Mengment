@@ -7,10 +7,10 @@ const router = express.Router();
 
 router.post(
   "/create-academic-deperment",
-//   validationRequest(
-//     AcademicDerpermentValidation.createAcademicDapermentValidation
-//   ),
-  AcademicDepermantControllar.createAcademicDerpermentDb
+  //   validationRequest(
+  //     AcademicDerpermentValidation.createAcademicDapermentValidation
+  //   ),
+  AcademicDepermantControllar.createAcademicDerpermentDb,
 );
 
 //get all academic deperment

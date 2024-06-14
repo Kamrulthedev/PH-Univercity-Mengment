@@ -25,10 +25,10 @@ export const semesterRegistrationSchema = new Schema<TSemesterRegistration>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export const SemesterRegistration = model<TSemesterRegistration>(
   "SemesterRegistration",
-  semesterRegistrationSchema
+  semesterRegistrationSchema,
 );

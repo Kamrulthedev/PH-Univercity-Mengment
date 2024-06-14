@@ -45,16 +45,16 @@ const deletedFacultyDb = catchAsync(async (req, res, next) => {
   const { facultyId } = req.params;
   const result = await FacultyService.deleteFaculty(facultyId);
   sendResponse(res, {
-    statusCode:httpStatus.OK,
-    success:true,
-    message:"Faculty is deleted successfully",
-    data:result
-  })
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Faculty is deleted successfully",
+    data: result,
+  });
 });
 
 export const FacultyControllar = {
   getSingleFacultyDb,
   getAllFacutlyDb,
   updateFacultyDb,
-  deletedFacultyDb
+  deletedFacultyDb,
 };

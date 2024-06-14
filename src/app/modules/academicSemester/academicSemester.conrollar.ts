@@ -3,10 +3,9 @@ import httpStatus from "http-status";
 import catchAsync from "../../utils/catchAsync";
 import { AcademicSemesterServices } from "./academicSemester.services";
 
-
 const createAcademincSemesterDb = catchAsync(async (req, res, next) => {
   const result = await AcademicSemesterServices.createAcademincSemester(
-    req.body
+    req.body,
   );
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -40,20 +39,24 @@ const getASingleAcademicSemesterDb = catchAsync(async (req, res, next) => {
 });
 
 //update ACademic semester data
-const UpdateAcademicSemesterDb = catchAsync(async(req, res, next)=>{
+const UpdateAcademicSemesterDb = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-    const updateData = req.body;
-  const result = await AcademicSemesterServices.UpdateAcademicSemester(id, updateData)
+  const updateData = req.body;
+  const result = await AcademicSemesterServices.UpdateAcademicSemester(
+    id,
+    updateData,
+  );
   sendResponse(res, {
-    statusCode:httpStatus.OK,
-    success:true, message:"Academic Semester Data Updated SUccessfully",
-    data:result
-  })
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Academic Semester Data Updated SUccessfully",
+    data: result,
+  });
 });
 
 export const AcademicSemestersControllars = {
   createAcademincSemesterDb,
   GetAllAcademicSemesterDb,
   getASingleAcademicSemesterDb,
-  UpdateAcademicSemesterDb
+  UpdateAcademicSemesterDb,
 };

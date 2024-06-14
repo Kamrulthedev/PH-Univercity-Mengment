@@ -6,7 +6,7 @@ import { SemesterRegistrationService } from "./semesterRegistration.service";
 //create Semester Regitration
 const createSemesterRegistrationDb = catchAsync(async (req, res, next) => {
   const result = await SemesterRegistrationService.createSemesterRegistration(
-    req.body
+    req.body,
   );
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -19,7 +19,7 @@ const createSemesterRegistrationDb = catchAsync(async (req, res, next) => {
 //get all Semester Registration
 const getAllSemesterRegistrationDb = catchAsync(async (req, res, next) => {
   const result = await SemesterRegistrationService.getAllSemesterRegistration(
-    req.body
+    req.body,
   );
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -46,7 +46,10 @@ const getSingleSemesterRegistationDb = catchAsync(async (req, res, next) => {
 const updateSemesterRegistaionDb = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const updateData = req.body;
-  const result = await SemesterRegistrationService.updateSemesterRegistaion(id, updateData);
+  const result = await SemesterRegistrationService.updateSemesterRegistaion(
+    id,
+    updateData,
+  );
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

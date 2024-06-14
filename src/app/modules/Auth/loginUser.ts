@@ -27,7 +27,7 @@ const loginUser = async (payload: TLoginUser) => {
   // Verify password
   const isPasswordValid = await User.isPasswordMaths(
     payload.password,
-    isExistsUser.password
+    isExistsUser.password,
   );
   if (!isPasswordValid) {
     throw new AppError(httpStatus.UNAUTHORIZED, "Invalid password");

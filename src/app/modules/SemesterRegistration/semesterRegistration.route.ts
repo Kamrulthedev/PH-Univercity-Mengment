@@ -8,24 +8,24 @@ const router = express.Router();
 router.post(
   "/create-semester",
   validationRequest(
-    SemesterRegistrationValidation.createsemesterRegistrationValidationSchema
+    SemesterRegistrationValidation.createsemesterRegistrationValidationSchema,
   ),
-  SemesterRegistrationControllar.createSemesterRegistrationDb
+  SemesterRegistrationControllar.createSemesterRegistrationDb,
 );
 
 router.get("/", SemesterRegistrationControllar.getAllSemesterRegistrationDb);
 
 router.get(
   "/:id",
-  SemesterRegistrationControllar.getSingleSemesterRegistationDb
+  SemesterRegistrationControllar.getSingleSemesterRegistationDb,
 );
 
 router.patch(
   "/:id",
   validationRequest(
-    SemesterRegistrationValidation.updatesemesterRegistrationValidationSchema
+    SemesterRegistrationValidation.updatesemesterRegistrationValidationSchema,
   ),
-  SemesterRegistrationControllar.updateSemesterRegistaionDb
+  SemesterRegistrationControllar.updateSemesterRegistaionDb,
 );
 
 export const SemesterRegistrationRouter = router;

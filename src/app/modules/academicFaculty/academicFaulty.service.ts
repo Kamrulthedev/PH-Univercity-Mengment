@@ -18,7 +18,7 @@ const getAcademicFacultyById = async (id: string) => {
 
 const updateWithAcademicFaculty = async (
   id: string,
-  payload: Partial<TAcademicFaculty>
+  payload: Partial<TAcademicFaculty>,
 ) => {
   const result = await AcademicFaculty.findByIdAndUpdate(id, payload, {
     new: true,
@@ -31,5 +31,5 @@ export const AcademicFacultyService = {
   createAcademicFulty,
   getAllAcademicFaculty,
   getAcademicFacultyById,
-  updateWithAcademicFaculty
+  updateWithAcademicFaculty,
 };

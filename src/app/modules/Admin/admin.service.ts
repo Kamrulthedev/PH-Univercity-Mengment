@@ -37,42 +37,47 @@ const updateAdmin = async (id: string, payload: Partial<TAdmin>) => {
     }
   }
   const result = await Admin.findByIdAndUpdate(id, modifiedUpdateData, {
-    new:true, runValidators:true
-  })
+    new: true,
+    runValidators: true,
+  });
   return result;
 };
 
 //delete admin
-const deleteAdmin = async(id:string) =>{
-     const session = await mongoose.startSession();
-     try{
-      session.startTransaction();
-      const deletedAdmin = await Admin.findByIdAndUpdate(id, {isDeleted:true}, {new:true, session})
-      if(!deletedAdmin){
-        throw new AppError(httpStatus.BAD_REQUEST, "Failed to delete admin")
-      }
-      const userId = deletedAdmin?.user;
-      const deleteUser = await User.findByIdAndUpdate(
-        userId,
-        {isDeleted:true},
-        {new:true, session}
-      );
-      if(!deleteUser){
-        throw new AppError(httpStatus.BAD_REQUEST, "Failed to delete User")
-      }
-      await session.commitTransaction();
-      await session.endSession();
-      return deletedAdmin;
-     }catch(err:any){
-      await session.abortTransaction();
-      await session.endSession();
-      throw new Error(err)
-     }
+const deleteAdmin = async (id: string) => {
+  const session = await mongoose.startSession();
+  try {
+    session.startTransaction();
+    const deletedAdmin = await Admin.findByIdAndUpdate(
+      id,
+      { isDeleted: true },
+      { new: true, session },
+    );
+    if (!deletedAdmin) {
+      throw new AppError(httpStatus.BAD_REQUEST, "Failed to delete admin");
+    }
+    const userId = deletedAdmin?.user;
+    const deleteUser = await User.findByIdAndUpdate(
+      userId,
+      { isDeleted: true },
+      { new: true, session },
+    );
+    if (!deleteUser) {
+      throw new AppError(httpStatus.BAD_REQUEST, "Failed to delete User");
+    }
+    await session.commitTransaction();
+    await session.endSession();
+    return deletedAdmin;
+  } catch (err: any) {
+    await session.abortTransaction();
+    await session.endSession();
+    throw new Error(err);
+  }
 };
 
 export const AdminService = {
   getAllAdmin,
   getSingelAdmin,
   updateAdmin,
-  deleteAdmin
+  deleteAdmin,
 };

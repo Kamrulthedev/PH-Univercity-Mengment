@@ -73,7 +73,7 @@ const guardianSchema = new Schema<Guardians>({
 // Student validation Schema
 const studentSchema = new Schema<TStudent>(
   {
-    id: { type: String , unique:true},
+    id: { type: String, unique: true },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: [true, "User id is required"],
@@ -123,9 +123,7 @@ const studentSchema = new Schema<TStudent>(
       required: [true, "Local guardian information is required"],
     },
     profileImg: { type: String },
-    admissionSemester: { type: Schema.Types.ObjectId,
-      ref:'AcademicSemester'
-     },
+    admissionSemester: { type: Schema.Types.ObjectId, ref: "AcademicSemester" },
     isDeleted: {
       type: Boolean,
       default: false,
@@ -139,7 +137,7 @@ const studentSchema = new Schema<TStudent>(
     toJSON: {
       virtuals: true,
     },
-  }
+  },
 );
 
 //virtual crate
