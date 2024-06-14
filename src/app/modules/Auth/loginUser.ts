@@ -12,12 +12,15 @@ const loginUser = async (payload: TLoginUser) => {
     throw new AppError(httpStatus.NOT_FOUND, "This user is Not Found !!");
   }
 
-  // Check user status
-  if (isExistsUser.isDeleted) {
+  //chack user status
+  const deleteUser = isExistsUser?.isDeleted;
+  if (deleteUser) {
     throw new AppError(httpStatus.FORBIDDEN, "This user is deleted !!");
   }
 
-  if (isExistsUser.status === "blocked") {
+  //chack user status
+  const UserSataus = isExistsUser?.status;
+  if (UserSataus === "blocked") {
     throw new AppError(httpStatus.FORBIDDEN, "This user is blocked !!");
   }
 
@@ -30,7 +33,7 @@ const loginUser = async (payload: TLoginUser) => {
     throw new AppError(httpStatus.UNAUTHORIZED, "Invalid password");
   }
 
-  // Create token and send to the user
+  //create token and sent to the user
   const jwrPayload = {
     userId: isExistsUser,
     role: isExistsUser.role,
@@ -40,11 +43,5 @@ const loginUser = async (payload: TLoginUser) => {
     expiresIn: "10d",
   });
 
-const needsPasswordChange = isExistsUser?.needsPasswordChange
-
-  return { accessToken , needsPasswordChange};
-};
-
-export const AuthService = {
-  loginUser,
+  return {};
 };
