@@ -7,7 +7,6 @@ import config from "../../config";
 
 const loginUser = async (payload: TLoginUser) => {
   const isExistsUser = await User.isUserExsitsByCustomId(payload.id);
-
   if (!isExistsUser) {
     throw new AppError(httpStatus.NOT_FOUND, "This user is Not Found !!");
   }
@@ -45,6 +44,12 @@ const loginUser = async (payload: TLoginUser) => {
   return { accessToken, needsPasswordChange };
 };
 
+
+const changePassword = () =>{
+  
+}
+
 export const AuthService = {
   loginUser,
+  changePassword
 };

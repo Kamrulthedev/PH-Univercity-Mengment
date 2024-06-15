@@ -11,10 +11,10 @@ router.post(
   AuthControllars.loginUserDb,
 );
 
-router.put(
-  "/login",
-  validationRequest(AuthValidation.loginValidatoinSchema),
-  AuthControllars.loginUserDb,
+router.post(
+  "/change-password",
+  validationRequest(AuthValidation.changePasswordValidatoinSchema),
+  AuthControllars.changePasswordDb,
 );
 
 export const AUthRouter = router;

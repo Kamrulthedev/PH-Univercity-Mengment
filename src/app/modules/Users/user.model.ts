@@ -14,7 +14,6 @@ const userSchema = new Schema<TUser, UserModel>(
     password: {
       type: String,
       required: true,
-      select:0
     },
     needsPasswordChange: {
       type: Boolean,
@@ -57,7 +56,7 @@ userSchema.post("save", function (doc, next) {
 });
 
 userSchema.statics.isUserExsitsByCustomId = async function (id: string) {
-  return await User.findOne({ id });
+  return await User.findOne({ id }).select('+password');
 };
 
 // Static method to compare passwords
