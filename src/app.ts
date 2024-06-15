@@ -4,10 +4,13 @@ import GlobalErrorHandel from "./app/milddlerwer/globalErrorHandelar";
 import notFound from "./app/milddlerwer/notFound";
 import router from "./app/routes";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+
 const app: Application = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cookieParser());
+app.use(cors({origin:['http://localhost:5173']}));
 
 // Middleware to parse JSON bodies
 app.use(bodyParser.json());

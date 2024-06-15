@@ -18,6 +18,7 @@ const getSingleFacultyDb = catchAsync(async (req, res, next) => {
 
 //get all faculty
 const getAllFacutlyDb = catchAsync(async (req, res) => {
+  console.log(req.cookies)
   const result = await FacultyService.getAllFacutly(req.query);
   sendResponse(res, {
     statusCode: httpStatus.OK,
