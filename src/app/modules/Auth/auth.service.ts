@@ -43,7 +43,7 @@ const loginUser = async (payload: TLoginUser) => {
 
 
   const needsPasswordChange = isExistsUser?.needsPasswordChange;
-  return { accessToken, needsPasswordChange };
+  return { accessToken, refreshToken, needsPasswordChange };
 };
 
 const changePassword = async (
