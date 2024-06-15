@@ -7,6 +7,7 @@ const loginValidatoinSchema = z.object({
   }),
 });
 
+
 const changePasswordValidatoinSchema = z.object({
   body: z.object({
     oldPassword: z.string({

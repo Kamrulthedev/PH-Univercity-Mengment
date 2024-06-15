@@ -19,8 +19,8 @@ const userSchema = new Schema<TUser, UserModel>(
       type: Boolean,
       default: true,
     },
-    passwordChangeAt:{
-      type:Date
+    passwordChangeAt: {
+      type: Date,
     },
     role: {
       type: String,
@@ -39,7 +39,7 @@ const userSchema = new Schema<TUser, UserModel>(
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 //pre save middlewere
@@ -47,7 +47,7 @@ userSchema.pre("save", async function (next) {
   const user = this;
   user.password = await bcrypt.hash(
     user.password,
-    Number(config.data_salt_rounds),
+    Number(config.data_salt_rounds)
   );
   next();
 });
@@ -59,15 +59,23 @@ userSchema.post("save", function (doc, next) {
 });
 
 userSchema.statics.isUserExsitsByCustomId = async function (id: string) {
-  return await User.findOne({ id }).select('+password');
+  return await User.findOne({ id }).select("+password");
 };
 
 // Static method to compare passwords
 userSchema.statics.isPasswordMaths = async function (
   myPlaintextPassword: string,
-  hashtextPassword: string,
+  hashtextPassword: string
 ): Promise<boolean> {
   return await bcrypt.compare(myPlaintextPassword, hashtextPassword);
+};
+
+userSchema.statics.isJWTIssuseBeforePasswoedChange = function (
+  passwordChangeTimestamp: Date,
+  jwtIssuesdTimeStamp: number
+) {
+  const passwordChangeTime = new Date(passwordChangeTimestamp).getTime() / 1000;
+  return passwordChangeTime > jwtIssuesdTimeStamp;
 };
 
 //create model
