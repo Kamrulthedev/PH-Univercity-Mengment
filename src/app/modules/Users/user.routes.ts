@@ -4,16 +4,19 @@ import { studentvalidations } from "../student/student.validation";
 import validationRequest from "../../milddlerwer/validate.Request";
 import { FacultyValidationSchema } from "../Faculty/faculty.validation";
 import { AdminValidationSchema } from "../Admin/admin.validation";
+import AuthValidated from "../../milddlerwer/auth.validated";
+import { USER_ROLE } from "./user.conestant";
 
 const router = express.Router();
 
 router.post(
   "/create-student",
+  AuthValidated(USER_ROLE.admin),
   validationRequest(studentvalidations.createStudentValidationSchema),
   UserControllar.createStudentDb,
 );
 
-router.post(
+router.post( 
   "/create-faculty",
   validationRequest(FacultyValidationSchema.createFacultyValidationSchema),
   UserControllar.createfacultyDb,

@@ -32,7 +32,7 @@ const loginUser = async (payload: TLoginUser) => {
 
   // Create token and send to the user
   const jwrPayload = {
-    userId: isExistsUser,
+    userId: isExistsUser.id,
     role: isExistsUser.role,
   };
 
