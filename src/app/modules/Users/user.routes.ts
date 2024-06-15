@@ -18,12 +18,14 @@ router.post(
 
 router.post( 
   "/create-faculty",
+  AuthValidated(USER_ROLE.admin),
   validationRequest(FacultyValidationSchema.createFacultyValidationSchema),
   UserControllar.createfacultyDb,
 );
 
 router.post(
   "/create-admin",
+  // AuthValidated(USER_ROLE.admin),
   validationRequest(AdminValidationSchema.createAdminValidationSchema),
   UserControllar.createAdminDb,
 );
