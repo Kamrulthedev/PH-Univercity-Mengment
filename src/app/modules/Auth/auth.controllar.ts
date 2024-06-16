@@ -33,10 +33,25 @@ const changePasswordDb = catchAsync(async (req, res, next) => {
     success: true,
     message: "User is Updated in successfully !",
     data: result,
+  }); 
+});
+
+//refreshToken
+const refreshTokenDb = catchAsync(async (req, res) => {
+  const { refreshToken } = req.cookies;
+  const result = await AuthService.refreshToken(refreshToken);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Access token is retrieved succesfully!',
+    data: result,
   });
 });
+
 
 export const AuthControllars = {
   loginUserDb,
   changePasswordDb,
+  refreshTokenDb
 };
