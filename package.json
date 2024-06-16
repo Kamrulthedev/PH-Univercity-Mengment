@@ -9,7 +9,10 @@
     "start:dev": "ts-node-dev --respawn --transpile-only server.ts",
     "prettier": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\"",
     "prettier:fix": "npx prettier --write src",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "node dist/app.js",
+    "vercel-build": "npm run build"
   },
   "keywords": [],
   "author": "",
