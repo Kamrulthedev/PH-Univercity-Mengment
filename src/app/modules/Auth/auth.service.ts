@@ -47,11 +47,7 @@ const loginUser = async (payload: TLoginUser) => {
 };
 
 
-
-
-
-
-
+//change password
 const changePassword = async (
   userData: JwtPayload,
   payload: { oldPassword: string; newPassword: string }
@@ -152,11 +148,15 @@ const refreshToken = async (token: string) => {
   };
 };
 
-
+//forget password
+const forgetPassword = async (id:string) =>{
+const resetUiLink = ''
+};
 
 
 export const AuthService = {
   loginUser,
   changePassword,
-  refreshToken
+  refreshToken,
+  forgetPassword
 };
