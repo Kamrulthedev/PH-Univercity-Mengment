@@ -14,7 +14,7 @@ const getSingelAdmin = catchAsync(async (req, res) => {
   });
 });
 
-const getAllAdmin = catchAsync(async (req, res, next) => {
+const getAllAdmin = catchAsync(async (req, res) => {
   const result = await AdminService.getAllAdmin(req.body);
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -25,7 +25,7 @@ const getAllAdmin = catchAsync(async (req, res, next) => {
 });
 
 //update Admin data
-const updateAdminDb = catchAsync(async (req, res, next) => {
+const updateAdminDb = catchAsync(async (req, res) => {
   const { id } = req.params;
   const payload = req.body;
   const result = await AdminService.updateAdmin(id, payload);
@@ -38,7 +38,7 @@ const updateAdminDb = catchAsync(async (req, res, next) => {
   });
 });
 
-const deleteAdminDb = catchAsync(async (req, res, next) => {
+const deleteAdminDb = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await AdminService.deleteAdmin(id);
 

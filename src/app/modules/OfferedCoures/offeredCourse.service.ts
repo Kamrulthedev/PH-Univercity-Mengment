@@ -139,7 +139,6 @@ const UpadateOfferedCourse = async (
   }
 
   const isFacultytExists = await Faculty.findById(faculty);
-  console.log(isFacultytExists);
   if (!isFacultytExists) {
     throw new AppError(httpStatus.NOT_FOUND, "Faculty Not Faound !!");
   }

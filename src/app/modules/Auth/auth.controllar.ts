@@ -4,7 +4,7 @@ import sendResponse from "../../utils/sendResponse";
 import { AuthService } from "./auth.service";
 import config from "../../config";
 
-const loginUserDb = catchAsync(async (req, res, next) => {
+const loginUserDb = catchAsync(async (req, res) => {
   const result = await AuthService.loginUser(req.body);
 
   const { refreshToken, accessToken, needsPasswordChange } = result;
@@ -24,7 +24,7 @@ const loginUserDb = catchAsync(async (req, res, next) => {
   });
 });
 
-const changePasswordDb = catchAsync(async (req, res, next) => {
+const changePasswordDb = catchAsync(async (req, res) => {
   const user = req.user;
   const { ...userData } = req.body;
   const result = await AuthService.changePassword(user, userData);

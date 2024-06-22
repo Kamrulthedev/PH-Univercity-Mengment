@@ -3,7 +3,7 @@ import sendResponse from "../../utils/sendResponse";
 import httpStatus from "http-status";
 import catchAsync from "../../utils/catchAsync";
 
-const createStudentDb = catchAsync(async (req, res, next) => {
+const createStudentDb = catchAsync(async (req, res) => {
   const { password, student: studentData } = req.body;
   const result = await UserServices.createStudent(password, studentData);
   sendResponse(res, {
@@ -15,7 +15,7 @@ const createStudentDb = catchAsync(async (req, res, next) => {
 });
 
 //create faculty form Db
-const createfacultyDb = catchAsync(async (req, res, next) => {
+const createfacultyDb = catchAsync(async (req, res) => {
   const { password, faculty: facultyData } = req.body;
   const result = await UserServices.createFaculty(password, facultyData);
   sendResponse(res, {
@@ -27,7 +27,7 @@ const createfacultyDb = catchAsync(async (req, res, next) => {
 });
 
 //create admin form Db
-const createAdminDb = catchAsync(async (req, res, next) => {
+const createAdminDb = catchAsync(async (req, res) => {
   const { password, admin: amdinData } = req.body;
   const result = await UserServices.createAdmin(password, amdinData);
 
