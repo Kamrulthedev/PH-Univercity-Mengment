@@ -36,16 +36,21 @@ const loginUser = async (payload: TLoginUser) => {
     userId: isExistsUser.id,
     role: isExistsUser.role,
   };
-  const accessToken = createToken(jwrPayload, config.jwt_access_secret as string, config.jwt_assess_exrpired as string)
+  const accessToken = createToken(
+    jwrPayload,
+    config.jwt_access_secret as string,
+    config.jwt_assess_exrpired as string
+  );
 
-
-  const refreshToken = createToken(jwrPayload, config.jwt_refreshtoken as string, config.jwt_refresh_exrpired as string)
-
+  const refreshToken = createToken(
+    jwrPayload,
+    config.jwt_refreshtoken as string,
+    config.jwt_refresh_exrpired as string
+  );
 
   const needsPasswordChange = isExistsUser?.needsPasswordChange;
   return { accessToken, refreshToken, needsPasswordChange };
 };
-
 
 //change password
 const changePassword = async (
@@ -83,25 +88,21 @@ const changePassword = async (
     Number(config.data_salt_rounds)
   );
 
+  await User.findByIdAndUpdate(isExistsUser, {
+    password: newHashedPassword,
+    needsPasswordChange: false,
+    passwordChangeAt: new Date(),
+  });
 
-  await User.findByIdAndUpdate(
-    isExistsUser, 
-    {
-      password: newHashedPassword,
-      needsPasswordChange:false,
-      passwordChangeAt:new Date
-    }
-  );
-  
   return null;
 };
-
 
 //refreshToken
 const refreshToken = async (token: string) => {
   // checking if the given token is valid
-  const decoded = jwt.verify(token,
-    config.jwt_refreshtoken as string,
+  const decoded = jwt.verify(
+    token,
+    config.jwt_refreshtoken as string
   ) as JwtPayload;
 
   const { userId, iat } = decoded;
@@ -110,27 +111,27 @@ const refreshToken = async (token: string) => {
   const user = await User.isUserExsitsByCustomId(userId);
 
   if (!user) {
-    throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
+    throw new AppError(httpStatus.NOT_FOUND, "This user is not found !");
   }
   // checking if the user is already deleted
   const isDeleted = user?.isDeleted;
 
   if (isDeleted) {
-    throw new AppError(httpStatus.FORBIDDEN, 'This user is deleted !');
+    throw new AppError(httpStatus.FORBIDDEN, "This user is deleted !");
   }
 
   // checking if the user is blocked
   const userStatus = user?.status;
 
-  if (userStatus === 'blocked') {
-    throw new AppError(httpStatus.FORBIDDEN, 'This user is blocked ! !');
+  if (userStatus === "blocked") {
+    throw new AppError(httpStatus.FORBIDDEN, "This user is blocked ! !");
   }
 
   if (
     user.passwordChangeAt &&
     User.isJWTIssuseBeforePasswoedChange(user.passwordChangeAt, iat as number)
   ) {
-    throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized !');
+    throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized !");
   }
   const jwtPayload = {
     userId: user.id,
@@ -140,7 +141,7 @@ const refreshToken = async (token: string) => {
   const accessToken = createToken(
     jwtPayload,
     config.jwt_access_secret as string,
-    config.jwt_assess_exrpired as string,
+    config.jwt_assess_exrpired as string
   );
 
   return {
@@ -149,14 +150,47 @@ const refreshToken = async (token: string) => {
 };
 
 //forget password
-const forgetPassword = async (id:string) =>{
-const resetUiLink = ''
-};
+const forgetPassword = async (id: string) => {
+  // checking if the user is exist
+  const user = await User.isUserExsitsByCustomId(id);
 
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, "This user is not found !");
+  }
+  // checking if the user is already deleted
+  const isDeleted = user?.isDeleted;
+
+  if (isDeleted) {
+    throw new AppError(httpStatus.FORBIDDEN, "This user is deleted !");
+  }
+
+  // checking if the user is blocked
+  const userStatus = user?.status;
+
+  if (userStatus === "blocked") {
+    throw new AppError(httpStatus.FORBIDDEN, "This user is blocked ! !");
+  }
+
+  const jwtPayload = {
+    userId: user.id,
+    role: user.role,
+  };
+
+  const ResetToken = createToken(
+    jwtPayload,
+    config.jwt_access_secret as string,
+   '10m'
+  );
+
+  const resetUiLink = `http://localhost:5000?id=${user.id}&token${ResetToken}`;
+
+
+
+};
 
 export const AuthService = {
   loginUser,
   changePassword,
   refreshToken,
-  forgetPassword
+  forgetPassword,
 };

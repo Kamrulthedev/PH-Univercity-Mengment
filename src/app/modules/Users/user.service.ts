@@ -22,11 +22,13 @@ const createStudent = async (password: string, studentData: TStudent) => {
   // Create a user object
   const userData: Partial<TUser> = {};
   userData.password = password || (config.default_password as string);
+
   userData.role = "student";
+  userData.email = studentData.email;
 
   // Find academic semester info
   const admissionSemester = await AcademicSemester.findById(
-    studentData.admissionSemester,
+    studentData.admissionSemester
   );
 
   // Check if admission semester exists
@@ -72,13 +74,14 @@ const createStudent = async (password: string, studentData: TStudent) => {
 
 //crete Faculty
 const createFaculty = async (password: string, payload: TFaculty) => {
-  const userData: Partial<TUser> = {
-    password: password || (config.default_password as string),
-    role: "faculty",
-  };
+  const userData: Partial<TUser> = {};
+  userData.password = password || (config.default_password as string);
+  userData.role = "faculty";
+  //set faculty email
+  userData.email = payload.email
 
   const academicDepartment = await AcademicDeperment.findById(
-    payload.academicDepartment,
+    payload.academicDepartment
   );
   if (!academicDepartment) {
     throw new AppError(httpStatus.BAD_REQUEST, "Academic Department not found");
@@ -121,6 +124,7 @@ const createAdmin = async (password: string, payload: TAdmin) => {
 
   userData.password = password || (config.default_password as string);
   userData.role = "admin";
+  userData.email = payload.email;
 
   const session = await mongoose.startSession();
 
