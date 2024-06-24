@@ -154,20 +154,18 @@ const refreshToken = async (token: string) => {
 const forgetPassword = async (id: string) => {
   // checking if the user is exist
   const user = await User.isUserExsitsByCustomId(id);
-
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, "This user is not found !");
   }
+
   // checking if the user is already deleted
   const isDeleted = user?.isDeleted;
-
   if (isDeleted) {
     throw new AppError(httpStatus.FORBIDDEN, "This user is deleted !");
   }
 
   // checking if the user is blocked
   const userStatus = user?.status;
-
   if (userStatus === "blocked") {
     throw new AppError(httpStatus.FORBIDDEN, "This user is blocked ! !");
   }
@@ -183,11 +181,11 @@ const forgetPassword = async (id: string) => {
     "10m"
   );
 
-  const resetUiLink = `http://localhost:5000?id=${user.id}&token${ResetToken}`;
 
-  sendEmail();
+  const resetUiLink = `${config.reser_password_ui_link}?id=${user.id}&token${ResetToken}`;
+  sendEmail(user.email, resetUiLink);
 
-  
+
 };
 
 export const AuthService = {
