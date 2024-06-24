@@ -180,11 +180,12 @@ const forgetPassword = async (id: string) => {
     config.jwt_access_secret as string,
     "10m"
   );
-
-
   const resetUiLink = `${config.reser_password_ui_link}?id=${user.id}&token${ResetToken}`;
   sendEmail(user.email, resetUiLink);
+};
 
+
+const resetPassword = async(token, payload) =>{
 
 };
 
@@ -193,4 +194,5 @@ export const AuthService = {
   changePassword,
   refreshToken,
   forgetPassword,
+  resetPassword
 };

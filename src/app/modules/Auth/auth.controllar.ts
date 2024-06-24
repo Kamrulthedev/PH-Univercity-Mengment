@@ -10,7 +10,7 @@ const loginUserDb = catchAsync(async (req, res) => {
   const { refreshToken, accessToken, needsPasswordChange } = result;
   res.cookie("refreshToken", refreshToken, {
     secure: config.NODE_ENV === "production",
-    httpOnly: true
+    httpOnly: true,
   });
 
   sendResponse(res, {
@@ -19,7 +19,7 @@ const loginUserDb = catchAsync(async (req, res) => {
     message: "User is logged in successfully",
     data: {
       accessToken,
-      needsPasswordChange
+      needsPasswordChange,
     },
   });
 });
@@ -33,7 +33,7 @@ const changePasswordDb = catchAsync(async (req, res) => {
     success: true,
     message: "User is Updated in successfully !",
     data: result,
-  }); 
+  });
 });
 
 //refreshToken
@@ -44,27 +44,40 @@ const refreshTokenDb = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Access token is retrieved succesfully!',
+    message: "Access token is retrieved succesfully!",
     data: result,
   });
 });
 
 //forget password
 const forgetPasswordDb = catchAsync(async (req, res) => {
-  const userID = req.body.id
+  const userID = req.body.id;
   const result = await AuthService.forgetPassword(userID);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Reset link is genareted succesfully!',
+    message: "Reset link is genareted succesfully!",
     data: result,
   });
 });
 
 
+//forget password
+const resetPasswordDb = catchAsync(async (req, res) => {
+  const token = req.headers.authorization;
+  const result = await AuthService.resetPassword(req.body, token);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Password Reset succesfully.",
+    data: result,
+  });
+});
+
 export const AuthControllars = {
   loginUserDb,
   changePasswordDb,
   refreshTokenDb,
-  forgetPasswordDb
+  forgetPasswordDb,
+  resetPasswordDb,
 };
