@@ -1,13 +1,31 @@
-import nodemailer from 'nodemailer';
+import nodemailer from "nodemailer";
+import config from "../config";
+import dotenv from "dotenv";
 
-export const sendEmail = () => {
-  const transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 587,
-    secure: false, // Use `true` for port 465, `false` for all other ports
-    auth: {
-      user: "maddison53@ethereal.email",
-      pass: "jn7jnAPss4f63QBp6D",
-    },
-  });
-};
+dotenv.config();
+
+export const sendEmail = async () => {
+  try {
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: config.NODE_ENV === 'production', // Use `true` for port 465, `false` for all other ports
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    const info = await transporter.sendMail({
+      from: process.env.EMAIL_USER, // sender address
+      to: "kamrulthedevr@gmail.com", // list of receivers
+      subject: "Password Change ✔", // Subject line
+      text: "Ki Kobor Password Vole gaso ..?", // plain text body
+      html: "<b>Hello world?</b>", // html body
+    });
+
+    console.log("Message sent: %s", info.messageId);
+  } catch (error) {
+    console.error("Error sending email: %s", error);
+  }
+}
