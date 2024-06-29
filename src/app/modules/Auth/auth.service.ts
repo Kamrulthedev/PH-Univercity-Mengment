@@ -220,7 +220,7 @@ const resetPassword = async (
     Number(config.data_salt_rounds)
   );
 
-  await User.findByIdAndUpdate(
+  await User.updateOne(
     {
       id: decoded.userId,
       role: decoded.role,
