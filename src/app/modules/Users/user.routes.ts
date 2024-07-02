@@ -13,21 +13,27 @@ router.post(
   "/create-student",
   AuthValidated(USER_ROLE.admin),
   validationRequest(studentvalidations.createStudentValidationSchema),
-  UserControllar.createStudentDb,
+  UserControllar.createStudentDb
 );
 
-router.post( 
+router.post(
   "/create-faculty",
   AuthValidated(USER_ROLE.admin),
   validationRequest(FacultyValidationSchema.createFacultyValidationSchema),
-  UserControllar.createfacultyDb,
+  UserControllar.createfacultyDb
 );
 
 router.post(
   "/create-admin",
   // AuthValidated(USER_ROLE.admin),
   validationRequest(AdminValidationSchema.createAdminValidationSchema),
-  UserControllar.createAdminDb,
+  UserControllar.createAdminDb
+);
+
+router.get(
+  "/my",
+  AuthValidated(USER_ROLE.student, USER_ROLE.faculty, USER_ROLE.admin),
+  UserControllar.getMeDb
 );
 
 export const UserRouotes = router;

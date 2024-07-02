@@ -153,8 +153,15 @@ const createAdmin = async (password: string, payload: TAdmin) => {
   }
 };
 
+
+const getMe = async (token: string) =>{
+decoede = crefy
+} 
+
+
 export const UserServices = {
   createStudent,
   createFaculty,
   createAdmin,
+  getMe
 };
