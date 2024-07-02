@@ -42,7 +42,6 @@ const createAdminDb = catchAsync(async (req, res) => {
 //create admin form Db
 const getMeDb = catchAsync(async (req, res) => {
   const token = req.headers.authorization;
-
   if(!token){
     throw new AppError(httpStatus.UNAUTHORIZED, 'Token Not Found !')
   }
@@ -50,7 +49,7 @@ const getMeDb = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Admin is created successfully",
+    message: "Get me successfully",
     data: result,
   });
 });

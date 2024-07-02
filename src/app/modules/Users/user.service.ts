@@ -17,6 +17,7 @@ import { AcademicDeperment } from "../academicDeperment/academicDeperment.model"
 import { Faculty } from "../Faculty/faculty.model";
 import { TAdmin } from "../Admin/admin.interface";
 import { Admin } from "../Admin/admin.model";
+import { VerifyToken } from "../Auth/auth.utilis";
 
 const createStudent = async (password: string, studentData: TStudent) => {
   // Create a user object
@@ -78,7 +79,7 @@ const createFaculty = async (password: string, payload: TFaculty) => {
   userData.password = password || (config.default_password as string);
   userData.role = "faculty";
   //set faculty email
-  userData.email = payload.email
+  userData.email = payload.email;
 
   const academicDepartment = await AcademicDeperment.findById(
     payload.academicDepartment
@@ -153,15 +154,28 @@ const createAdmin = async (password: string, payload: TAdmin) => {
   }
 };
 
+//create me route
+const getMe = async (token: string) => {
+  const decoded = VerifyToken(token, config.jwt_access_secret as string);
+  const { userId, role } = decoded;
+  let result= null;
+if(role === 'student'){
+  result = await Student.findOne({id: userId})
+};
 
-const getMe = async (token: string) =>{
-decoede = crefy
-} 
+if(role === 'admin'){
+  result = await Admin.findOne({id: userId})
+};
 
+if(role === 'faculty'){
+  result = await Faculty.findOne({id: userId})
+}
+  return result;
+};
 
 export const UserServices = {
   createStudent,
   createFaculty,
   createAdmin,
-  getMe
+  getMe,
 };

@@ -31,7 +31,7 @@ router.post(
 );
 
 router.get(
-  "/my",
+  "/me",
   AuthValidated(USER_ROLE.student, USER_ROLE.faculty, USER_ROLE.admin),
   UserControllar.getMeDb
 );
