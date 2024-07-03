@@ -41,15 +41,24 @@ const createAdminDb = catchAsync(async (req, res) => {
 
 //create admin form Db
 const getMeDb = catchAsync(async (req, res) => {
-  const token = req.headers.authorization;
-  if(!token){
-    throw new AppError(httpStatus.UNAUTHORIZED, 'Token Not Found !')
-  }
-  const result = await UserServices.getMe(token);
+  const { userId, role } = req.user;
+  const result = await UserServices.getMe(userId, role);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Get me successfully",
+    message: "User is retrived successfully",
+    data: result,
+  });
+});
+
+//change staus
+const getChangeStatus = catchAsync(async (req, res) => {
+  const { userId, role } = req.user;
+  const result = await UserServices.getMe(userId, role);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User is retrived successfully",
     data: result,
   });
 });
@@ -58,5 +67,5 @@ export const UserControllar = {
   createStudentDb,
   createfacultyDb,
   createAdminDb,
-  getMeDb
+  getMeDb,
 };

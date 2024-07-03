@@ -155,23 +155,25 @@ const createAdmin = async (password: string, payload: TAdmin) => {
 };
 
 //create me route
-const getMe = async (token: string) => {
-  const decoded = VerifyToken(token, config.jwt_access_secret as string);
-  const { userId, role } = decoded;
-  let result= null;
-if(role === 'student'){
-  result = await Student.findOne({id: userId})
-};
+const getMe = async (userId: string, role: string) => {
+  // const decoded = VerifyToken(token, config.jwt_access_secret as string);
+  // const { userId, role } = decoded;
 
-if(role === 'admin'){
-  result = await Admin.findOne({id: userId})
-};
+  let result = null;
+  if (role === "student") {
+    result = await Student.findOne({ id: userId }).populate("user");
+  }
 
-if(role === 'faculty'){
-  result = await Faculty.findOne({id: userId})
-}
+  if (role === "admin") {
+    result = await Admin.findOne({ id: userId }).populate("user");
+  }
+
+  if (role === "faculty") {
+    result = await Faculty.findOne({ id: userId }).populate("user");
+  }
   return result;
 };
+
 
 export const UserServices = {
   createStudent,
