@@ -49,6 +49,12 @@ const createStudent = async (
   try {
     session.startTransaction();
 
+    //create imageName and Path
+    const imageName = `${studentData?.id}${studentData?.name?.firstName}`;
+    const path = file?.path;
+    //send Img cludinary
+    const { secure_url } = SendImgToClodinary(imageName, path);
+
     // Create a new user
     const newUser = await User.create([userData], { session });
 
@@ -59,12 +65,7 @@ const createStudent = async (
     // Set the id and user reference in studentData
     studentData.id = newUser[0].id;
     studentData.user = newUser[0]._id;
-
-    //create imageName and Path
-    const imageName = `${studentData?.id}${studentData?.name?.firstName}`;
-    const path = file?.path;
-    //send Img cludinary
-    SendImgToClodinary(imageName, path);
+    studentData.profileImg = secure_url;
 
     // Create a new student
     const newStudent = await Student.create([studentData], { session });
