@@ -39,8 +39,8 @@ router.get(
 
 router.post(
   "/change-status/:id",
-  validationRequest(UserValidation.changeStatusValidationSchema),
   AuthValidated("admin"),
+  validationRequest(UserValidation.changeStatusValidationSchema),
   UserControllar.ChangeStatusDb
 );
 
