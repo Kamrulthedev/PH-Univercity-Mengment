@@ -17,7 +17,8 @@ import { AcademicDeperment } from "../academicDeperment/academicDeperment.model"
 import { Faculty } from "../Faculty/faculty.model";
 import { TAdmin } from "../Admin/admin.interface";
 import { Admin } from "../Admin/admin.model";
-import { VerifyToken } from "../Auth/auth.utilis";
+import { SendImgToClodinary } from "../../utils/sendImgToCludinary";
+
 
 const createStudent = async (password: string, studentData: TStudent) => {
   // Create a user object
@@ -44,6 +45,11 @@ const createStudent = async (password: string, studentData: TStudent) => {
 
   try {
     session.startTransaction();
+
+
+    //send Img cludinary
+    SendImgToClodinary()
+
 
     // Create a new user
     const newUser = await User.create([userData], { session });
