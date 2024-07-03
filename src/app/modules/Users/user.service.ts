@@ -19,8 +19,11 @@ import { TAdmin } from "../Admin/admin.interface";
 import { Admin } from "../Admin/admin.model";
 import { SendImgToClodinary } from "../../utils/sendImgToCludinary";
 
-
-const createStudent = async (password: string, studentData: TStudent) => {
+const createStudent = async (
+  file: any,
+  password: string,
+  studentData: TStudent
+) => {
   // Create a user object
   const userData: Partial<TUser> = {};
   userData.password = password || (config.default_password as string);
@@ -46,11 +49,6 @@ const createStudent = async (password: string, studentData: TStudent) => {
   try {
     session.startTransaction();
 
-
-    //send Img cludinary
-    SendImgToClodinary()
-
-
     // Create a new user
     const newUser = await User.create([userData], { session });
 
@@ -61,6 +59,12 @@ const createStudent = async (password: string, studentData: TStudent) => {
     // Set the id and user reference in studentData
     studentData.id = newUser[0].id;
     studentData.user = newUser[0]._id;
+
+    //create imageName and Path
+    const imageName = `${studentData?.id}${studentData?.name?.firstName}`;
+    const path = file?.path;
+    //send Img cludinary
+    SendImgToClodinary(imageName, path);
 
     // Create a new student
     const newStudent = await Student.create([studentData], { session });

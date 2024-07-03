@@ -4,15 +4,17 @@ import httpStatus from "http-status";
 import catchAsync from "../../utils/catchAsync";
 
 const createStudentDb = catchAsync(async (req, res) => {
-  console.log(req.file, "File.....")
-  console.log(req.body);
-  // const { password, student: studentData } = req.body;
-  // const result = await UserServices.createStudent(password, studentData);
+  const { password, student: studentData } = req.body;
+  const result = await UserServices.createStudent(
+    req.file,
+    password,
+    studentData
+  );
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: "Student Created Successfully",
-    data: null,
+    data: result,
   });
 });
 
@@ -69,5 +71,5 @@ export const UserControllar = {
   createfacultyDb,
   createAdminDb,
   getMeDb,
-  ChangeStatusDb
+  ChangeStatusDb,
 };
