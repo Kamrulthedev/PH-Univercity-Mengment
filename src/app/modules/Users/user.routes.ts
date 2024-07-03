@@ -41,7 +41,7 @@ router.post(
   "/change-status/:id",
   validationRequest(UserValidation.changeStatusValidationSchema),
   AuthValidated("admin"),
-  UserControllar
+  UserControllar.ChangeStatusDb
 );
 
 export const UserRouotes = router;

@@ -175,9 +175,15 @@ const getMe = async (userId: string, role: string) => {
 };
 
 
+//cahange status User
+const ChangeStatus = async(id: string, payload: {status: string}) =>{
+
+};
+
 export const UserServices = {
   createStudent,
   createFaculty,
   createAdmin,
   getMe,
+  ChangeStatus
 };
