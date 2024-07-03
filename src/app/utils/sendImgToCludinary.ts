@@ -10,33 +10,41 @@ cloudinary.config({
 });
 
 export const SendImgToClodinary = (imageName: string, path: string) => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        // Upload an image
-        const uploadResult = await cloudinary.uploader.upload(path, {
-          public_id: imageName,
-        });
-        // Optimize delivery by resizing and applying auto-format and auto-quality
-        const optimizeUrl = cloudinary.url(imageName, {
-          fetch_format: "auto",
-          quality: "auto",
-        });
-  
-        // Transform the image: auto-crop to square aspect_ratio
-        const autoCropUrl = cloudinary.url(imageName, {
-          crop: "auto",
-          gravity: "auto",
-          width: 500,
-          height: 500,
-        });
-  
-        resolve({ uploadResult, optimizeUrl, autoCropUrl });
-      } catch (error) {
-        console.error(error);
-        reject(error);
-      }
-    });
-  };
+  return new Promise(async (resolve, reject) => {
+    try {
+      // Upload an image
+      const uploadResult = await cloudinary.uploader.upload(path, {
+        public_id: imageName,
+      });
+
+      console.log(uploadResult);
+
+      // Ensure secure_url is part of the upload result
+      const { secure_url } = uploadResult;
+
+      // Optimize delivery by resizing and applying auto-format and auto-quality
+      const optimizeUrl = cloudinary.url(imageName, {
+        fetch_format: "auto",
+        quality: "auto",
+      });
+      console.log(optimizeUrl);
+
+      // Transform the image: auto-crop to square aspect_ratio
+      const autoCropUrl = cloudinary.url(imageName, {
+        crop: "auto",
+        gravity: "auto",
+        width: 500,
+        height: 500,
+      });
+      console.log(autoCropUrl);
+
+      resolve({ secure_url, optimizeUrl, autoCropUrl });
+    } catch (error) {
+      console.error(error);
+      reject(error);
+    }
+  });
+};
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {

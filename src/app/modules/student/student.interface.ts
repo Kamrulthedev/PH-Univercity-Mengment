@@ -40,7 +40,7 @@ export type TStudent = {
   permanentAddress: string;
   guardians: Guardians;
   localGuardian: LocalGuardian;
-  profileImg?: string;
+  profileImg: string;
   admissionSemester: Types.ObjectId;
   isDeleted?: boolean;
   academicDepement: mongoose.Types.ObjectId;
