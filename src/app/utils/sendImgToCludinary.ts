@@ -1,13 +1,14 @@
 import { v2 as cloudinary } from 'cloudinary';
+import config from '../config';
 
 
 export const SendImgToClodinary = () =>{
     (async function() {
         // Configuration
         cloudinary.config({ 
-            cloud_name: 'dak98cpxr', 
-            api_key: '862687512999954', 
-            api_secret: '<your_api_secret>' 
+            cloud_name: config.img_cloud_name, 
+            api_key: config.img_api_key, 
+            api_secret: config.img_api_secret 
         });
         
         // Upload an image
