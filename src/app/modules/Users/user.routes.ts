@@ -1,4 +1,4 @@
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { UserControllar } from "./user.cotrollar";
 import { studentvalidations } from "../student/student.validation";
 import validationRequest from "../../milddlerwer/validate.Request";
@@ -7,12 +7,18 @@ import { AdminValidationSchema } from "../Admin/admin.validation";
 import AuthValidated from "../../milddlerwer/auth.validated";
 import { USER_ROLE } from "./user.conestant";
 import { UserValidation } from "./user.validation";
+import { upload } from "../../utils/sendImgToCludinary";
 
 const router = express.Router();
 
 router.post(
   "/create-student",
   AuthValidated(USER_ROLE.admin),
+  upload.single("file"),
+  (req: Request, res: Response, next: NextFunction) => {
+    req.body = JSON.parse(req.body.data);
+    next()
+  },
   validationRequest(studentvalidations.createStudentValidationSchema),
   UserControllar.createStudentDb
 );
