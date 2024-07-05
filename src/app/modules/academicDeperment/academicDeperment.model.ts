@@ -1,4 +1,4 @@
-import { Schema, SchemaType, model } from "mongoose";
+import { Schema, model } from "mongoose";
 import TAcademicDeperment from "./academicDeperment.interface";
 import AppError from "../../Error/AppError";
 import httpStatus from "http-status";

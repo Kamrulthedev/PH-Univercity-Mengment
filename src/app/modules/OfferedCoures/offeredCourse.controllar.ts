@@ -3,7 +3,7 @@ import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { OfferedCouresService } from "./offeredCourse.service";
 
-const createOfferedCourseDb = catchAsync(async (req, res, next) => {
+const createOfferedCourseDb = catchAsync(async (req, res) => {
   const data = req.body;
   const result = await OfferedCouresService.createOfferedCourse(data);
   sendResponse(res, {
@@ -14,7 +14,7 @@ const createOfferedCourseDb = catchAsync(async (req, res, next) => {
   });
 });
 
-const GetAllOfferedCourseDb = catchAsync(async (req, res, next) => {
+const GetAllOfferedCourseDb = catchAsync(async (req, res) => {
   const result = await OfferedCouresService.GetAllOfferedCourse();
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -24,7 +24,7 @@ const GetAllOfferedCourseDb = catchAsync(async (req, res, next) => {
   });
 });
 
-const GetSIngleOfferedCourseDb = catchAsync(async (req, res, next) => {
+const GetSIngleOfferedCourseDb = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await OfferedCouresService.GetSIngleOfferedCourse(id);
   sendResponse(res, {
@@ -35,7 +35,7 @@ const GetSIngleOfferedCourseDb = catchAsync(async (req, res, next) => {
   });
 });
 
-const UpadateOfferedCourseDb = catchAsync(async (req, res, next) => {
+const UpadateOfferedCourseDb = catchAsync(async (req, res) => {
   const { id } = req.params;
   const updateDate = req.body;
   const result = await OfferedCouresService.UpadateOfferedCourse(

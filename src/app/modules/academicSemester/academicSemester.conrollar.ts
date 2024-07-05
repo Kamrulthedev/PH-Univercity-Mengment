@@ -3,7 +3,7 @@ import httpStatus from "http-status";
 import catchAsync from "../../utils/catchAsync";
 import { AcademicSemesterServices } from "./academicSemester.services";
 
-const createAcademincSemesterDb = catchAsync(async (req, res, next) => {
+const createAcademincSemesterDb = catchAsync(async (req, res) => {
   const result = await AcademicSemesterServices.createAcademincSemester(
     req.body,
   );
@@ -16,7 +16,7 @@ const createAcademincSemesterDb = catchAsync(async (req, res, next) => {
 });
 
 //get all academi Semester data
-const GetAllAcademicSemesterDb = catchAsync(async (req, res, next) => {
+const GetAllAcademicSemesterDb = catchAsync(async (req, res) => {
   const result = await AcademicSemesterServices.GetAllAcademicSemester();
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -27,7 +27,7 @@ const GetAllAcademicSemesterDb = catchAsync(async (req, res, next) => {
 });
 
 //get a single academic semester data
-const getASingleAcademicSemesterDb = catchAsync(async (req, res, next) => {
+const getASingleAcademicSemesterDb = catchAsync(async (req, res) => {
   const id = req.params.id;
   const result = await AcademicSemesterServices.GetsingleAacadamic(id);
   sendResponse(res, {
@@ -39,7 +39,7 @@ const getASingleAcademicSemesterDb = catchAsync(async (req, res, next) => {
 });
 
 //update ACademic semester data
-const UpdateAcademicSemesterDb = catchAsync(async (req, res, next) => {
+const UpdateAcademicSemesterDb = catchAsync(async (req, res) => {
   const { id } = req.params;
   const updateData = req.body;
   const result = await AcademicSemesterServices.UpdateAcademicSemester(

@@ -4,7 +4,7 @@ import sendResponse from "../../utils/sendResponse";
 import httpStatus from "http-status";
 
 //gell all students
-const getStudents = catchAsync(async (req, res, next) => {
+const getStudents = catchAsync(async (req, res) => {
   const result = await StudentService.getAllStudentsFromDB(req.query);
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -15,7 +15,7 @@ const getStudents = catchAsync(async (req, res, next) => {
 });
 
 //get a single student
-const getASingleStudent = catchAsync(async (req, res, next) => {
+const getASingleStudent = catchAsync(async (req, res) => {
   const { studentId } = req.params;
   const result = await StudentService.GetASingleStudent(studentId);
   sendResponse(res, {
@@ -27,7 +27,7 @@ const getASingleStudent = catchAsync(async (req, res, next) => {
 });
 
 //update student
-const updateStudentDb = catchAsync(async (req, res, next) => {
+const updateStudentDb = catchAsync(async (req, res) => {
   const { studentId } = req.params;
   const { student } = req.body;
   const result = await StudentService.updateStudent(studentId, student);
@@ -40,7 +40,7 @@ const updateStudentDb = catchAsync(async (req, res, next) => {
 });
 
 //delete a student
-const deleteStudent = catchAsync(async (req, res, next) => {
+const deleteStudent = catchAsync(async (req, res) => {
   const studentId = req.params.studentId;
   const result = await StudentService.deleteStudentformDB(studentId);
   sendResponse(res, {

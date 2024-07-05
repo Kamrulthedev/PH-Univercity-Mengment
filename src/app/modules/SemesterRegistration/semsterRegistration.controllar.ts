@@ -4,7 +4,7 @@ import sendResponse from "../../utils/sendResponse";
 import { SemesterRegistrationService } from "./semesterRegistration.service";
 
 //create Semester Regitration
-const createSemesterRegistrationDb = catchAsync(async (req, res, next) => {
+const createSemesterRegistrationDb = catchAsync(async (req, res) => {
   const result = await SemesterRegistrationService.createSemesterRegistration(
     req.body,
   );
@@ -17,7 +17,7 @@ const createSemesterRegistrationDb = catchAsync(async (req, res, next) => {
 });
 
 //get all Semester Registration
-const getAllSemesterRegistrationDb = catchAsync(async (req, res, next) => {
+const getAllSemesterRegistrationDb = catchAsync(async (req, res) => {
   const result = await SemesterRegistrationService.getAllSemesterRegistration(
     req.body,
   );
@@ -30,7 +30,7 @@ const getAllSemesterRegistrationDb = catchAsync(async (req, res, next) => {
 });
 
 //get single Semester Registration
-const getSingleSemesterRegistationDb = catchAsync(async (req, res, next) => {
+const getSingleSemesterRegistationDb = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result =
     await SemesterRegistrationService.getSingleSemesterRegistation(id);
@@ -43,7 +43,7 @@ const getSingleSemesterRegistationDb = catchAsync(async (req, res, next) => {
 });
 
 //update Semester Registration
-const updateSemesterRegistaionDb = catchAsync(async (req, res, next) => {
+const updateSemesterRegistaionDb = catchAsync(async (req, res) => {
   const { id } = req.params;
   const updateData = req.body;
   const result = await SemesterRegistrationService.updateSemesterRegistaion(

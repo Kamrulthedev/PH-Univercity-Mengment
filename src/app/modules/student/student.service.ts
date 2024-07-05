@@ -115,7 +115,6 @@ const deleteStudentformDB = async (id: string) => {
 
     return deleteStudent;
   } catch (err: any) {
-    console.log(err);
     await session.abortTransaction();
     await session.endSession();
     throw new Error(err);

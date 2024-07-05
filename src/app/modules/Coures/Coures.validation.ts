@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { Types } from "mongoose";
 
 const TPerRequisiteCoursesSchema = z.object({
   course: z.string(),

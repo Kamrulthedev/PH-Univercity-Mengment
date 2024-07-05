@@ -53,7 +53,7 @@ const createStudent = async (
     const imageName = `${studentData?.id}${studentData?.name?.firstName}`;
     const path = file?.path;
     //send Img cludinary
-    const { secure_url } = await SendImgToClodinary(imageName, path);
+    const { secure_url} = await SendImgToClodinary(imageName, path);
   
 
     // Create a new user
