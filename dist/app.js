@@ -13,13 +13,13 @@ const globalErrorHandelar_1 = __importDefault(require("./app/milddlerwer/globalE
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
-app.use((0, cors_1.default)({ origin: ['http://localhost:5173'] }));
+app.use((0, cors_1.default)({ origin: ["http://localhost:5173"], credentials: true }));
 // Middleware to parse JSON bodies
 app.use(body_parser_1.default.json());
 // Application routes
-app.use('/api/v1', routes_1.default);
-app.get('/', (req, res) => {
-    const result = 'Hello My PH University!!!';
+app.use("/api/v1", routes_1.default);
+app.get("/", (req, res) => {
+    const result = "Hello My PH University!!!";
     res.send(result);
 });
 // Global error handler

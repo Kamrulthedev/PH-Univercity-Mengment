@@ -1,26 +1,26 @@
-import cors from 'cors';
-import express, { Application, Request, Response } from 'express';
-import bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
-import router from './app/routes';
-import notFound from './app/milddlerwer/notFound';
-import GlobalErrorHandel from './app/milddlerwer/globalErrorHandelar';
+import cors from "cors";
+import express, { Application, Request, Response } from "express";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import router from "./app/routes";
+import notFound from "./app/milddlerwer/notFound";
+import GlobalErrorHandel from "./app/milddlerwer/globalErrorHandelar";
 
 const app: Application = express();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: ['http://localhost:5173'] }));
+app.use(cors({ origin: ["http://localhost:5173"], credentials: true }));
 
 // Middleware to parse JSON bodies
 app.use(bodyParser.json());
 
 // Application routes
-app.use('/api/v1', router);
+app.use("/api/v1", router);
 
-app.get('/', (req: Request, res: Response) => {
-    const result = 'Hello My PH University!!!';
-    res.send(result);
+app.get("/", (req: Request, res: Response) => {
+  const result = "Hello My PH University!!!";
+  res.send(result);
 });
 
 // Global error handler
