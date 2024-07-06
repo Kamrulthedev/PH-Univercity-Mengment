@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use('/api/v1', router);
 
 app.get('/', (req: Request, res: Response) => {
-    const result = 'Hello !!!';
+    const result = 'Hello My PH University!!!';
     res.send(result);
 });
 

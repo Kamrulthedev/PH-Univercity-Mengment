@@ -19,7 +19,7 @@ app.use(body_parser_1.default.json());
 // Application routes
 app.use('/api/v1', routes_1.default);
 app.get('/', (req, res) => {
-    const result = 'Hello !!!';
+    const result = 'Hello My PH University!!!';
     res.send(result);
 });
 // Global error handler
