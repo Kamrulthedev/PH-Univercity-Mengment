@@ -14,10 +14,16 @@ const AuthValidated = (...requierdRole: TUserRole[]) => {
       throw new AppError(httpStatus.UNAUTHORIZED, "You not Uauthorized !");
     }
 
-    const decoded = jwt.verify(
-      token,
-      config.jwt_access_secret as string
-    ) as JwtPayload;
+    let decoded;
+
+    try {
+      decoded = jwt.verify(
+        token,
+        config.jwt_access_secret as string
+      ) as JwtPayload;
+    } catch (err) {
+      throw new AppError(httpStatus.UNAUTHORIZED, "You Are Not Authorized");
+    }
 
     const { role, userId, iat } = decoded;
     const isExistsUser = await User.isUserExsitsByCustomId(userId);
@@ -39,15 +45,12 @@ const AuthValidated = (...requierdRole: TUserRole[]) => {
         isExistsUser.passwordChangeAt,
         iat as number
       )
-    ){
-      throw new AppError(httpStatus.UNAUTHORIZED, "You are Not Authorized !")
+    ) {
+      throw new AppError(httpStatus.UNAUTHORIZED, "You are Not Authorized !");
     }
-      if (requierdRole && !requierdRole.includes(role)) {
-        throw new AppError(
-          httpStatus.UNAUTHORIZED,
-          "YOu are Not Authorized hi!"
-        );
-      }
+    if (requierdRole && !requierdRole.includes(role)) {
+      throw new AppError(httpStatus.UNAUTHORIZED, "YOu are Not Authorized hi!");
+    }
     //decoded
     req.user = decoded as JwtPayload;
     next();
