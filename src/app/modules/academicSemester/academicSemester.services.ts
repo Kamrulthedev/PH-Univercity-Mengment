@@ -1,4 +1,8 @@
-import { academicSemesterNameCodeMapper } from "./academicSemester.constend";
+import QueryBuilder from "../../builder/QueryFuilddrom";
+import {
+  academicSemesterNameCodeMapper,
+  AcademicSemesterSearchableFields,
+} from "./academicSemester.constend";
 import { TAcademicSemester } from "./academicSemester.interface";
 import { AcademicSemester } from "./academicSemester.model";
 
@@ -11,10 +15,19 @@ const createAcademincSemester = async (payload: TAcademicSemester) => {
   return result;
 };
 
-//get all Academic Semester
-const GetAllAcademicSemester = async () => {
-  const result = await AcademicSemester.find();
-  return result;
+
+const GetAllAcademicSemester = async (query: Record<string, unknown>) => {
+  const academicSemesterQuery = new QueryBuilder(AcademicSemester.find(), query)
+    .search(AcademicSemesterSearchableFields)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+  const result = await academicSemesterQuery.modelQuery;
+  return {
+    result,
+  };
 };
 
 //get a single academic semester data
@@ -26,7 +39,7 @@ const GetsingleAacadamic = async (id: string) => {
 //update Academic semester
 const UpdateAcademicSemester = async (
   id: string,
-  semesterData: Partial<TAcademicSemester>,
+  semesterData: Partial<TAcademicSemester>
 ) => {
   if (
     semesterData.name &&

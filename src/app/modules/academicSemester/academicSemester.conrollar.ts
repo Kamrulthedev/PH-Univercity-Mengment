@@ -17,7 +17,7 @@ const createAcademincSemesterDb = catchAsync(async (req, res) => {
 
 //get all academi Semester data
 const GetAllAcademicSemesterDb = catchAsync(async (req, res) => {
-  const result = await AcademicSemesterServices.GetAllAcademicSemester();
+  const result = await AcademicSemesterServices.GetAllAcademicSemester(req.query);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
