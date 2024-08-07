@@ -15,7 +15,7 @@ const createAcademincSemester = async (payload: TAcademicSemester) => {
   return result;
 };
 
-
+//get all semester
 const GetAllAcademicSemester = async (query: Record<string, unknown>) => {
   const academicSemesterQuery = new QueryBuilder(AcademicSemester.find(), query)
     .search(AcademicSemesterSearchableFields)
@@ -24,8 +24,17 @@ const GetAllAcademicSemester = async (query: Record<string, unknown>) => {
     .paginate()
     .fields();
 
-  const result = await academicSemesterQuery.modelQuery;
+  const resultQuery  = await academicSemesterQuery.modelQuery;
+  const countQuery = academicSemesterQuery.modelQuery.clone();
+
+  const [result, total] = await Promise.all([
+    resultQuery,
+    countQuery.countDocuments().exec(),
+  ]);
+
+  const meta = { total };
   return {
+    meta,
     result,
   };
 };
